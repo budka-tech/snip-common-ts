@@ -4,12 +4,12 @@
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { Server } from "./server";
-import type { HeartbeatMessage } from "./server";
+import type { Any } from "../google/protobuf/any";
+import type { UnsubscribeRequest } from "./server";
 import type { SubscribeResponse } from "./server";
-import type { SubscribeRequest } from "./server";
 import { stackIntercept } from "@protobuf-ts/runtime-rpc";
 import type { CallResponse } from "./server";
-import type { CallRequest } from "./server";
+import type { Request } from "./server";
 import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
 import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
 /**
@@ -17,17 +17,17 @@ import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
  */
 export interface IServerClient {
     /**
-     * @generated from protobuf rpc: Call(server.CallRequest) returns (server.CallResponse);
+     * @generated from protobuf rpc: Call(server.Request) returns (server.CallResponse);
      */
-    call(input: CallRequest, options?: RpcOptions): UnaryCall<CallRequest, CallResponse>;
+    call(input: Request, options?: RpcOptions): UnaryCall<Request, CallResponse>;
     /**
-     * @generated from protobuf rpc: Subscribe(server.SubscribeRequest) returns (server.SubscribeResponse);
+     * @generated from protobuf rpc: Subscribe(server.Request) returns (server.SubscribeResponse);
      */
-    subscribe(input: SubscribeRequest, options?: RpcOptions): UnaryCall<SubscribeRequest, SubscribeResponse>;
+    subscribe(input: Request, options?: RpcOptions): UnaryCall<Request, SubscribeResponse>;
     /**
-     * @generated from protobuf rpc: Heartbeat(server.HeartbeatMessage) returns (server.HeartbeatMessage);
+     * @generated from protobuf rpc: UnSubscribe(server.UnsubscribeRequest) returns (google.protobuf.Any);
      */
-    heartbeat(input: HeartbeatMessage, options?: RpcOptions): UnaryCall<HeartbeatMessage, HeartbeatMessage>;
+    unSubscribe(input: UnsubscribeRequest, options?: RpcOptions): UnaryCall<UnsubscribeRequest, Any>;
 }
 /**
  * @generated from protobuf service server.Server
@@ -39,24 +39,24 @@ export class ServerClient implements IServerClient, ServiceInfo {
     constructor(private readonly _transport: RpcTransport) {
     }
     /**
-     * @generated from protobuf rpc: Call(server.CallRequest) returns (server.CallResponse);
+     * @generated from protobuf rpc: Call(server.Request) returns (server.CallResponse);
      */
-    call(input: CallRequest, options?: RpcOptions): UnaryCall<CallRequest, CallResponse> {
+    call(input: Request, options?: RpcOptions): UnaryCall<Request, CallResponse> {
         const method = this.methods[0], opt = this._transport.mergeOptions(options);
-        return stackIntercept<CallRequest, CallResponse>("unary", this._transport, method, opt, input);
+        return stackIntercept<Request, CallResponse>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: Subscribe(server.SubscribeRequest) returns (server.SubscribeResponse);
+     * @generated from protobuf rpc: Subscribe(server.Request) returns (server.SubscribeResponse);
      */
-    subscribe(input: SubscribeRequest, options?: RpcOptions): UnaryCall<SubscribeRequest, SubscribeResponse> {
+    subscribe(input: Request, options?: RpcOptions): UnaryCall<Request, SubscribeResponse> {
         const method = this.methods[1], opt = this._transport.mergeOptions(options);
-        return stackIntercept<SubscribeRequest, SubscribeResponse>("unary", this._transport, method, opt, input);
+        return stackIntercept<Request, SubscribeResponse>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: Heartbeat(server.HeartbeatMessage) returns (server.HeartbeatMessage);
+     * @generated from protobuf rpc: UnSubscribe(server.UnsubscribeRequest) returns (google.protobuf.Any);
      */
-    heartbeat(input: HeartbeatMessage, options?: RpcOptions): UnaryCall<HeartbeatMessage, HeartbeatMessage> {
+    unSubscribe(input: UnsubscribeRequest, options?: RpcOptions): UnaryCall<UnsubscribeRequest, Any> {
         const method = this.methods[2], opt = this._transport.mergeOptions(options);
-        return stackIntercept<HeartbeatMessage, HeartbeatMessage>("unary", this._transport, method, opt, input);
+        return stackIntercept<UnsubscribeRequest, Any>("unary", this._transport, method, opt, input);
     }
 }

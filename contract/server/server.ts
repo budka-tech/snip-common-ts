@@ -34,15 +34,15 @@ export interface Meta {
     id: string;
 }
 /**
- * @generated from protobuf message server.CallRequest
+ * @generated from protobuf message server.Request
  */
-export interface CallRequest {
+export interface Request {
     /**
      * @generated from protobuf field: server.Meta meta = 1;
      */
     meta?: Meta;
     /**
-     * @generated from protobuf field: google.protobuf.Any data = 3;
+     * @generated from protobuf field: google.protobuf.Any data = 2;
      */
     data?: Any;
 }
@@ -55,7 +55,7 @@ export interface CallResponse {
      */
     meta?: Meta;
     /**
-     * @generated from protobuf field: google.protobuf.Any data = 3;
+     * @generated from protobuf field: google.protobuf.Any data = 2;
      */
     data?: Any;
 }
@@ -63,6 +63,15 @@ export interface CallResponse {
  * @generated from protobuf message server.SubscribeRequest
  */
 export interface SubscribeRequest {
+    /**
+     * @generated from protobuf field: server.Meta meta = 1;
+     */
+    meta?: Meta;
+}
+/**
+ * @generated from protobuf message server.UnsubscribeRequest
+ */
+export interface UnsubscribeRequest {
     /**
      * @generated from protobuf field: server.Meta meta = 1;
      */
@@ -95,67 +104,46 @@ export interface SubscribeResponse {
     data?: SubscribeData;
 }
 /**
- * @generated from protobuf message server.HeartbeatMessage
- */
-export interface HeartbeatMessage {
-    /**
-     * @generated from protobuf field: bool heartbeat = 1;
-     */
-    heartbeat: boolean;
-}
-/**
  * @generated from protobuf enum server.MessageType
  */
 export enum MessageType {
     /**
-     * @generated from protobuf enum value: Welcome = 0;
+     * @generated from protobuf enum value: Call = 0;
      */
-    Welcome = 0,
+    Call = 0,
     /**
-     * @generated from protobuf enum value: Call = 1;
+     * @generated from protobuf enum value: CallSuccess = 1;
      */
-    Call = 1,
+    CallSuccess = 1,
     /**
-     * @generated from protobuf enum value: CallSuccess = 2;
+     * @generated from protobuf enum value: CallError = 2;
      */
-    CallSuccess = 2,
+    CallError = 2,
     /**
-     * @generated from protobuf enum value: CallError = 3;
+     * @generated from protobuf enum value: Subscribe = 3;
      */
-    CallError = 3,
+    Subscribe = 3,
     /**
-     * @generated from protobuf enum value: Subscribe = 4;
+     * @generated from protobuf enum value: SubscribeError = 4;
      */
-    Subscribe = 4,
+    SubscribeError = 4,
     /**
-     * @generated from protobuf enum value: SubscribeError = 5;
+     * @generated from protobuf enum value: Unsubscribe = 5;
      */
-    SubscribeError = 5,
+    Unsubscribe = 5,
     /**
-     * @generated from protobuf enum value: Unsubscribe = 6;
+     * @generated from protobuf enum value: Event = 6;
      */
-    Unsubscribe = 6,
-    /**
-     * @generated from protobuf enum value: Event = 7;
-     */
-    Event = 7,
-    /**
-     * @generated from protobuf enum value: Heartbeat = 20;
-     */
-    Heartbeat = 20
+    Event = 6
 }
 /**
  * @generated from protobuf enum server.Domain
  */
 export enum Domain {
     /**
-     * @generated from protobuf enum value: Auth = 0;
+     * @generated from protobuf enum value: Users = 0;
      */
-    Auth = 0,
-    /**
-     * @generated from protobuf enum value: Users = 1;
-     */
-    Users = 1
+    Users = 0
 }
 /**
  * @generated from protobuf enum server.SubscribeAction
@@ -250,20 +238,20 @@ class Meta$Type extends MessageType$<Meta> {
  */
 export const Meta = new Meta$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class CallRequest$Type extends MessageType$<CallRequest> {
+class Request$Type extends MessageType$<Request> {
     constructor() {
-        super("server.CallRequest", [
+        super("server.Request", [
             { no: 1, name: "meta", kind: "message", T: () => Meta },
-            { no: 3, name: "data", kind: "message", T: () => Any }
+            { no: 2, name: "data", kind: "message", T: () => Any }
         ]);
     }
-    create(value?: PartialMessage<CallRequest>): CallRequest {
+    create(value?: PartialMessage<Request>): Request {
         const message = globalThis.Object.create((this.messagePrototype!));
         if (value !== undefined)
-            reflectionMergePartial<CallRequest>(this, message, value);
+            reflectionMergePartial<Request>(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: CallRequest): CallRequest {
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Request): Request {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -271,7 +259,7 @@ class CallRequest$Type extends MessageType$<CallRequest> {
                 case /* server.Meta meta */ 1:
                     message.meta = Meta.internalBinaryRead(reader, reader.uint32(), options, message.meta);
                     break;
-                case /* google.protobuf.Any data */ 3:
+                case /* google.protobuf.Any data */ 2:
                     message.data = Any.internalBinaryRead(reader, reader.uint32(), options, message.data);
                     break;
                 default:
@@ -285,13 +273,13 @@ class CallRequest$Type extends MessageType$<CallRequest> {
         }
         return message;
     }
-    internalBinaryWrite(message: CallRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message: Request, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
         /* server.Meta meta = 1; */
         if (message.meta)
             Meta.internalBinaryWrite(message.meta, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* google.protobuf.Any data = 3; */
+        /* google.protobuf.Any data = 2; */
         if (message.data)
-            Any.internalBinaryWrite(message.data, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+            Any.internalBinaryWrite(message.data, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -299,15 +287,15 @@ class CallRequest$Type extends MessageType$<CallRequest> {
     }
 }
 /**
- * @generated MessageType for protobuf message server.CallRequest
+ * @generated MessageType for protobuf message server.Request
  */
-export const CallRequest = new CallRequest$Type();
+export const Request = new Request$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class CallResponse$Type extends MessageType$<CallResponse> {
     constructor() {
         super("server.CallResponse", [
             { no: 1, name: "meta", kind: "message", T: () => Meta },
-            { no: 3, name: "data", kind: "message", T: () => Any }
+            { no: 2, name: "data", kind: "message", T: () => Any }
         ]);
     }
     create(value?: PartialMessage<CallResponse>): CallResponse {
@@ -324,7 +312,7 @@ class CallResponse$Type extends MessageType$<CallResponse> {
                 case /* server.Meta meta */ 1:
                     message.meta = Meta.internalBinaryRead(reader, reader.uint32(), options, message.meta);
                     break;
-                case /* google.protobuf.Any data */ 3:
+                case /* google.protobuf.Any data */ 2:
                     message.data = Any.internalBinaryRead(reader, reader.uint32(), options, message.data);
                     break;
                 default:
@@ -342,9 +330,9 @@ class CallResponse$Type extends MessageType$<CallResponse> {
         /* server.Meta meta = 1; */
         if (message.meta)
             Meta.internalBinaryWrite(message.meta, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* google.protobuf.Any data = 3; */
+        /* google.protobuf.Any data = 2; */
         if (message.data)
-            Any.internalBinaryWrite(message.data, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+            Any.internalBinaryWrite(message.data, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -401,6 +389,52 @@ class SubscribeRequest$Type extends MessageType$<SubscribeRequest> {
  * @generated MessageType for protobuf message server.SubscribeRequest
  */
 export const SubscribeRequest = new SubscribeRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class UnsubscribeRequest$Type extends MessageType$<UnsubscribeRequest> {
+    constructor() {
+        super("server.UnsubscribeRequest", [
+            { no: 1, name: "meta", kind: "message", T: () => Meta }
+        ]);
+    }
+    create(value?: PartialMessage<UnsubscribeRequest>): UnsubscribeRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        if (value !== undefined)
+            reflectionMergePartial<UnsubscribeRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: UnsubscribeRequest): UnsubscribeRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* server.Meta meta */ 1:
+                    message.meta = Meta.internalBinaryRead(reader, reader.uint32(), options, message.meta);
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: UnsubscribeRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* server.Meta meta = 1; */
+        if (message.meta)
+            Meta.internalBinaryWrite(message.meta, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message server.UnsubscribeRequest
+ */
+export const UnsubscribeRequest = new UnsubscribeRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SubscribeData$Type extends MessageType$<SubscribeData> {
     constructor() {
@@ -508,58 +542,11 @@ class SubscribeResponse$Type extends MessageType$<SubscribeResponse> {
  * @generated MessageType for protobuf message server.SubscribeResponse
  */
 export const SubscribeResponse = new SubscribeResponse$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class HeartbeatMessage$Type extends MessageType$<HeartbeatMessage> {
-    constructor() {
-        super("server.HeartbeatMessage", [
-            { no: 1, name: "heartbeat", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
-    }
-    create(value?: PartialMessage<HeartbeatMessage>): HeartbeatMessage {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.heartbeat = false;
-        if (value !== undefined)
-            reflectionMergePartial<HeartbeatMessage>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: HeartbeatMessage): HeartbeatMessage {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* bool heartbeat */ 1:
-                    message.heartbeat = reader.bool();
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: HeartbeatMessage, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool heartbeat = 1; */
-        if (message.heartbeat !== false)
-            writer.tag(1, WireType.Varint).bool(message.heartbeat);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message server.HeartbeatMessage
- */
-export const HeartbeatMessage = new HeartbeatMessage$Type();
 /**
  * @generated ServiceType for protobuf service server.Server
  */
 export const Server = new ServiceType("server.Server", [
-    { name: "Call", options: {}, I: CallRequest, O: CallResponse },
-    { name: "Subscribe", options: {}, I: SubscribeRequest, O: SubscribeResponse },
-    { name: "Heartbeat", options: {}, I: HeartbeatMessage, O: HeartbeatMessage }
+    { name: "Call", options: {}, I: Request, O: CallResponse },
+    { name: "Subscribe", options: {}, I: Request, O: SubscribeResponse },
+    { name: "UnSubscribe", options: {}, I: UnsubscribeRequest, O: Any }
 ]);
