@@ -8,6 +8,9 @@ export const enum Status {
   /** Не найдено */
   NotFound,
 
+  /** Уже имеется */
+  AlreadyAvailable,
+
   /** Недостаточно прав */
   PermissionDenied,
 
