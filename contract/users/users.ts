@@ -11,6 +11,7 @@ import { UnknownFieldHandler } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
+import { Timestamp } from "../google/protobuf/timestamp";
 /**
  * @generated from protobuf message users.CommonRequest
  */
@@ -86,41 +87,144 @@ export interface Account {
      */
     id: number;
     /**
-     * @generated from protobuf field: repeated string phones = 2;
+     * @generated from protobuf field: repeated users.AccountPhone phones = 2;
      */
-    phones: string[];
+    phones: AccountPhone[];
     /**
-     * @generated from protobuf field: string photo = 3;
+     * @generated from protobuf field: repeated users.AccountEmail emails = 3;
+     */
+    emails: AccountEmail[];
+    /**
+     * @generated from protobuf field: repeated users.AccountRole roles = 4;
+     */
+    roles: AccountRole[];
+    /**
+     * @generated from protobuf field: string photo = 5;
      */
     photo: string;
     /**
-     * @generated from protobuf field: string name = 4;
+     * @generated from protobuf field: string name = 6;
      */
     name: string;
     /**
-     * @generated from protobuf field: string surname = 5;
+     * @generated from protobuf field: string surname = 7;
      */
     surname: string;
     /**
-     * @generated from protobuf field: string patronymic = 6;
+     * @generated from protobuf field: string patronymic = 8;
      */
     patronymic: string;
     /**
-     * @generated from protobuf field: string birthdate = 7;
+     * @generated from protobuf field: google.protobuf.Timestamp birthdate = 9;
      */
-    birthdate: string;
+    birthdate?: Timestamp;
     /**
-     * @generated from protobuf field: int32 country = 8;
+     * @generated from protobuf field: int32 country = 10;
      */
     country: number;
     /**
-     * @generated from protobuf field: int32 locale = 9;
+     * @generated from protobuf field: int32 district = 11;
+     */
+    district: number;
+    /**
+     * @generated from protobuf field: int32 locale = 12;
      */
     locale: number;
     /**
-     * @generated from protobuf field: int32 timezone = 10;
+     * @generated from protobuf field: int32 timezone = 13;
      */
     timezone: number;
+    /**
+     * @generated from protobuf field: google.protobuf.Timestamp created_at = 14;
+     */
+    createdAt?: Timestamp;
+    /**
+     * @generated from protobuf field: google.protobuf.Timestamp updated_at = 15;
+     */
+    updatedAt?: Timestamp;
+}
+/**
+ * @generated from protobuf message users.AccountEmail
+ */
+export interface AccountEmail {
+    /**
+     * @generated from protobuf field: uint64 id = 1;
+     */
+    id: bigint;
+    /**
+     * @generated from protobuf field: uint32 account_id = 2;
+     */
+    accountId: number;
+    /**
+     * @generated from protobuf field: string email = 3;
+     */
+    email: string;
+    /**
+     * @generated from protobuf field: int32 order = 4;
+     */
+    order: number;
+    /**
+     * @generated from protobuf field: google.protobuf.Timestamp created_at = 5;
+     */
+    createdAt?: Timestamp;
+    /**
+     * @generated from protobuf field: google.protobuf.Timestamp updated_at = 6;
+     */
+    updatedAt?: Timestamp;
+}
+/**
+ * @generated from protobuf message users.AccountPhone
+ */
+export interface AccountPhone {
+    /**
+     * @generated from protobuf field: uint64 id = 1;
+     */
+    id: bigint;
+    /**
+     * @generated from protobuf field: uint32 account_id = 2;
+     */
+    accountId: number;
+    /**
+     * @generated from protobuf field: string phone = 3;
+     */
+    phone: string;
+    /**
+     * @generated from protobuf field: int32 order = 4;
+     */
+    order: number;
+    /**
+     * @generated from protobuf field: google.protobuf.Timestamp created_at = 5;
+     */
+    createdAt?: Timestamp;
+    /**
+     * @generated from protobuf field: google.protobuf.Timestamp updated_at = 6;
+     */
+    updatedAt?: Timestamp;
+}
+/**
+ * @generated from protobuf message users.AccountRole
+ */
+export interface AccountRole {
+    /**
+     * @generated from protobuf field: uint64 id = 1;
+     */
+    id: bigint;
+    /**
+     * @generated from protobuf field: uint32 account_id = 2;
+     */
+    accountId: number;
+    /**
+     * @generated from protobuf field: string role = 3;
+     */
+    role: string;
+    /**
+     * @generated from protobuf field: int32 order = 4;
+     */
+    order: number;
+    /**
+     * @generated from protobuf field: google.protobuf.Timestamp created_at = 5;
+     */
+    createdAt?: Timestamp;
 }
 /**
  * @generated from protobuf message users.UpdateAccountDataRequest
@@ -538,27 +642,34 @@ class Account$Type extends MessageType<Account> {
     constructor() {
         super("users.Account", [
             { no: 1, name: "id", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 2, name: "phones", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "photo", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "surname", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 6, name: "patronymic", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 7, name: "birthdate", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 8, name: "country", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 9, name: "locale", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 10, name: "timezone", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
+            { no: 2, name: "phones", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => AccountPhone },
+            { no: 3, name: "emails", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => AccountEmail },
+            { no: 4, name: "roles", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => AccountRole },
+            { no: 5, name: "photo", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 6, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 7, name: "surname", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 8, name: "patronymic", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 9, name: "birthdate", kind: "message", T: () => Timestamp },
+            { no: 10, name: "country", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 11, name: "district", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 12, name: "locale", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 13, name: "timezone", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 14, name: "created_at", kind: "message", T: () => Timestamp },
+            { no: 15, name: "updated_at", kind: "message", T: () => Timestamp }
         ]);
     }
     create(value?: PartialMessage<Account>): Account {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.id = 0;
         message.phones = [];
+        message.emails = [];
+        message.roles = [];
         message.photo = "";
         message.name = "";
         message.surname = "";
         message.patronymic = "";
-        message.birthdate = "";
         message.country = 0;
+        message.district = 0;
         message.locale = 0;
         message.timezone = 0;
         if (value !== undefined)
@@ -573,32 +684,47 @@ class Account$Type extends MessageType<Account> {
                 case /* int32 id */ 1:
                     message.id = reader.int32();
                     break;
-                case /* repeated string phones */ 2:
-                    message.phones.push(reader.string());
+                case /* repeated users.AccountPhone phones */ 2:
+                    message.phones.push(AccountPhone.internalBinaryRead(reader, reader.uint32(), options));
                     break;
-                case /* string photo */ 3:
+                case /* repeated users.AccountEmail emails */ 3:
+                    message.emails.push(AccountEmail.internalBinaryRead(reader, reader.uint32(), options));
+                    break;
+                case /* repeated users.AccountRole roles */ 4:
+                    message.roles.push(AccountRole.internalBinaryRead(reader, reader.uint32(), options));
+                    break;
+                case /* string photo */ 5:
                     message.photo = reader.string();
                     break;
-                case /* string name */ 4:
+                case /* string name */ 6:
                     message.name = reader.string();
                     break;
-                case /* string surname */ 5:
+                case /* string surname */ 7:
                     message.surname = reader.string();
                     break;
-                case /* string patronymic */ 6:
+                case /* string patronymic */ 8:
                     message.patronymic = reader.string();
                     break;
-                case /* string birthdate */ 7:
-                    message.birthdate = reader.string();
+                case /* google.protobuf.Timestamp birthdate */ 9:
+                    message.birthdate = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.birthdate);
                     break;
-                case /* int32 country */ 8:
+                case /* int32 country */ 10:
                     message.country = reader.int32();
                     break;
-                case /* int32 locale */ 9:
+                case /* int32 district */ 11:
+                    message.district = reader.int32();
+                    break;
+                case /* int32 locale */ 12:
                     message.locale = reader.int32();
                     break;
-                case /* int32 timezone */ 10:
+                case /* int32 timezone */ 13:
                     message.timezone = reader.int32();
+                    break;
+                case /* google.protobuf.Timestamp created_at */ 14:
+                    message.createdAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.createdAt);
+                    break;
+                case /* google.protobuf.Timestamp updated_at */ 15:
+                    message.updatedAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.updatedAt);
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -615,33 +741,48 @@ class Account$Type extends MessageType<Account> {
         /* int32 id = 1; */
         if (message.id !== 0)
             writer.tag(1, WireType.Varint).int32(message.id);
-        /* repeated string phones = 2; */
+        /* repeated users.AccountPhone phones = 2; */
         for (let i = 0; i < message.phones.length; i++)
-            writer.tag(2, WireType.LengthDelimited).string(message.phones[i]);
-        /* string photo = 3; */
+            AccountPhone.internalBinaryWrite(message.phones[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+        /* repeated users.AccountEmail emails = 3; */
+        for (let i = 0; i < message.emails.length; i++)
+            AccountEmail.internalBinaryWrite(message.emails[i], writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+        /* repeated users.AccountRole roles = 4; */
+        for (let i = 0; i < message.roles.length; i++)
+            AccountRole.internalBinaryWrite(message.roles[i], writer.tag(4, WireType.LengthDelimited).fork(), options).join();
+        /* string photo = 5; */
         if (message.photo !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.photo);
-        /* string name = 4; */
+            writer.tag(5, WireType.LengthDelimited).string(message.photo);
+        /* string name = 6; */
         if (message.name !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.name);
-        /* string surname = 5; */
+            writer.tag(6, WireType.LengthDelimited).string(message.name);
+        /* string surname = 7; */
         if (message.surname !== "")
-            writer.tag(5, WireType.LengthDelimited).string(message.surname);
-        /* string patronymic = 6; */
+            writer.tag(7, WireType.LengthDelimited).string(message.surname);
+        /* string patronymic = 8; */
         if (message.patronymic !== "")
-            writer.tag(6, WireType.LengthDelimited).string(message.patronymic);
-        /* string birthdate = 7; */
-        if (message.birthdate !== "")
-            writer.tag(7, WireType.LengthDelimited).string(message.birthdate);
-        /* int32 country = 8; */
+            writer.tag(8, WireType.LengthDelimited).string(message.patronymic);
+        /* google.protobuf.Timestamp birthdate = 9; */
+        if (message.birthdate)
+            Timestamp.internalBinaryWrite(message.birthdate, writer.tag(9, WireType.LengthDelimited).fork(), options).join();
+        /* int32 country = 10; */
         if (message.country !== 0)
-            writer.tag(8, WireType.Varint).int32(message.country);
-        /* int32 locale = 9; */
+            writer.tag(10, WireType.Varint).int32(message.country);
+        /* int32 district = 11; */
+        if (message.district !== 0)
+            writer.tag(11, WireType.Varint).int32(message.district);
+        /* int32 locale = 12; */
         if (message.locale !== 0)
-            writer.tag(9, WireType.Varint).int32(message.locale);
-        /* int32 timezone = 10; */
+            writer.tag(12, WireType.Varint).int32(message.locale);
+        /* int32 timezone = 13; */
         if (message.timezone !== 0)
-            writer.tag(10, WireType.Varint).int32(message.timezone);
+            writer.tag(13, WireType.Varint).int32(message.timezone);
+        /* google.protobuf.Timestamp created_at = 14; */
+        if (message.createdAt)
+            Timestamp.internalBinaryWrite(message.createdAt, writer.tag(14, WireType.LengthDelimited).fork(), options).join();
+        /* google.protobuf.Timestamp updated_at = 15; */
+        if (message.updatedAt)
+            Timestamp.internalBinaryWrite(message.updatedAt, writer.tag(15, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -652,6 +793,254 @@ class Account$Type extends MessageType<Account> {
  * @generated MessageType for protobuf message users.Account
  */
 export const Account = new Account$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class AccountEmail$Type extends MessageType<AccountEmail> {
+    constructor() {
+        super("users.AccountEmail", [
+            { no: 1, name: "id", kind: "scalar", T: 4 /*ScalarType.UINT64*/, L: 0 /*LongType.BIGINT*/ },
+            { no: 2, name: "account_id", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
+            { no: 3, name: "email", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "order", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 5, name: "created_at", kind: "message", T: () => Timestamp },
+            { no: 6, name: "updated_at", kind: "message", T: () => Timestamp }
+        ]);
+    }
+    create(value?: PartialMessage<AccountEmail>): AccountEmail {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.id = 0n;
+        message.accountId = 0;
+        message.email = "";
+        message.order = 0;
+        if (value !== undefined)
+            reflectionMergePartial<AccountEmail>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: AccountEmail): AccountEmail {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* uint64 id */ 1:
+                    message.id = reader.uint64().toBigInt();
+                    break;
+                case /* uint32 account_id */ 2:
+                    message.accountId = reader.uint32();
+                    break;
+                case /* string email */ 3:
+                    message.email = reader.string();
+                    break;
+                case /* int32 order */ 4:
+                    message.order = reader.int32();
+                    break;
+                case /* google.protobuf.Timestamp created_at */ 5:
+                    message.createdAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.createdAt);
+                    break;
+                case /* google.protobuf.Timestamp updated_at */ 6:
+                    message.updatedAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.updatedAt);
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: AccountEmail, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* uint64 id = 1; */
+        if (message.id !== 0n)
+            writer.tag(1, WireType.Varint).uint64(message.id);
+        /* uint32 account_id = 2; */
+        if (message.accountId !== 0)
+            writer.tag(2, WireType.Varint).uint32(message.accountId);
+        /* string email = 3; */
+        if (message.email !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.email);
+        /* int32 order = 4; */
+        if (message.order !== 0)
+            writer.tag(4, WireType.Varint).int32(message.order);
+        /* google.protobuf.Timestamp created_at = 5; */
+        if (message.createdAt)
+            Timestamp.internalBinaryWrite(message.createdAt, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
+        /* google.protobuf.Timestamp updated_at = 6; */
+        if (message.updatedAt)
+            Timestamp.internalBinaryWrite(message.updatedAt, writer.tag(6, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message users.AccountEmail
+ */
+export const AccountEmail = new AccountEmail$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class AccountPhone$Type extends MessageType<AccountPhone> {
+    constructor() {
+        super("users.AccountPhone", [
+            { no: 1, name: "id", kind: "scalar", T: 4 /*ScalarType.UINT64*/, L: 0 /*LongType.BIGINT*/ },
+            { no: 2, name: "account_id", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
+            { no: 3, name: "phone", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "order", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 5, name: "created_at", kind: "message", T: () => Timestamp },
+            { no: 6, name: "updated_at", kind: "message", T: () => Timestamp }
+        ]);
+    }
+    create(value?: PartialMessage<AccountPhone>): AccountPhone {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.id = 0n;
+        message.accountId = 0;
+        message.phone = "";
+        message.order = 0;
+        if (value !== undefined)
+            reflectionMergePartial<AccountPhone>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: AccountPhone): AccountPhone {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* uint64 id */ 1:
+                    message.id = reader.uint64().toBigInt();
+                    break;
+                case /* uint32 account_id */ 2:
+                    message.accountId = reader.uint32();
+                    break;
+                case /* string phone */ 3:
+                    message.phone = reader.string();
+                    break;
+                case /* int32 order */ 4:
+                    message.order = reader.int32();
+                    break;
+                case /* google.protobuf.Timestamp created_at */ 5:
+                    message.createdAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.createdAt);
+                    break;
+                case /* google.protobuf.Timestamp updated_at */ 6:
+                    message.updatedAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.updatedAt);
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: AccountPhone, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* uint64 id = 1; */
+        if (message.id !== 0n)
+            writer.tag(1, WireType.Varint).uint64(message.id);
+        /* uint32 account_id = 2; */
+        if (message.accountId !== 0)
+            writer.tag(2, WireType.Varint).uint32(message.accountId);
+        /* string phone = 3; */
+        if (message.phone !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.phone);
+        /* int32 order = 4; */
+        if (message.order !== 0)
+            writer.tag(4, WireType.Varint).int32(message.order);
+        /* google.protobuf.Timestamp created_at = 5; */
+        if (message.createdAt)
+            Timestamp.internalBinaryWrite(message.createdAt, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
+        /* google.protobuf.Timestamp updated_at = 6; */
+        if (message.updatedAt)
+            Timestamp.internalBinaryWrite(message.updatedAt, writer.tag(6, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message users.AccountPhone
+ */
+export const AccountPhone = new AccountPhone$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class AccountRole$Type extends MessageType<AccountRole> {
+    constructor() {
+        super("users.AccountRole", [
+            { no: 1, name: "id", kind: "scalar", T: 4 /*ScalarType.UINT64*/, L: 0 /*LongType.BIGINT*/ },
+            { no: 2, name: "account_id", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
+            { no: 3, name: "role", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "order", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 5, name: "created_at", kind: "message", T: () => Timestamp }
+        ]);
+    }
+    create(value?: PartialMessage<AccountRole>): AccountRole {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.id = 0n;
+        message.accountId = 0;
+        message.role = "";
+        message.order = 0;
+        if (value !== undefined)
+            reflectionMergePartial<AccountRole>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: AccountRole): AccountRole {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* uint64 id */ 1:
+                    message.id = reader.uint64().toBigInt();
+                    break;
+                case /* uint32 account_id */ 2:
+                    message.accountId = reader.uint32();
+                    break;
+                case /* string role */ 3:
+                    message.role = reader.string();
+                    break;
+                case /* int32 order */ 4:
+                    message.order = reader.int32();
+                    break;
+                case /* google.protobuf.Timestamp created_at */ 5:
+                    message.createdAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.createdAt);
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: AccountRole, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* uint64 id = 1; */
+        if (message.id !== 0n)
+            writer.tag(1, WireType.Varint).uint64(message.id);
+        /* uint32 account_id = 2; */
+        if (message.accountId !== 0)
+            writer.tag(2, WireType.Varint).uint32(message.accountId);
+        /* string role = 3; */
+        if (message.role !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.role);
+        /* int32 order = 4; */
+        if (message.order !== 0)
+            writer.tag(4, WireType.Varint).int32(message.order);
+        /* google.protobuf.Timestamp created_at = 5; */
+        if (message.createdAt)
+            Timestamp.internalBinaryWrite(message.createdAt, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message users.AccountRole
+ */
+export const AccountRole = new AccountRole$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class UpdateAccountDataRequest$Type extends MessageType<UpdateAccountDataRequest> {
     constructor() {
