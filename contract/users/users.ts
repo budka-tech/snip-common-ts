@@ -1407,7 +1407,7 @@ export const RemovePhoneRequest = new RemovePhoneRequest$Type();
  * @generated ServiceType for protobuf service users.Users
  */
 export const Users = new ServiceType("users.Users", [
-    { name: "Register", options: {}, I: RegisterRequest, O: LoginResponse },
+    { name: "Register", options: {}, I: RegisterRequest, O: CommonResponse },
     { name: "Login", options: {}, I: LoginRequest, O: LoginResponse },
     { name: "HasSession", options: {}, I: HasSessionRequest, O: CommonResponse },
     { name: "GetAccount", options: {}, I: CommonRequest, O: Account },

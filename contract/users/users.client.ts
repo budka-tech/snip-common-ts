@@ -11,11 +11,11 @@ import type { UpdatePasswordRequest } from "./users";
 import type { UpdateAccountDataRequest } from "./users";
 import type { Account } from "./users";
 import type { CommonRequest } from "./users";
-import type { CommonResponse } from "./users";
 import type { HasSessionRequest } from "./users";
+import type { LoginResponse } from "./users";
 import type { LoginRequest } from "./users";
 import { stackIntercept } from "@protobuf-ts/runtime-rpc";
-import type { LoginResponse } from "./users";
+import type { CommonResponse } from "./users";
 import type { RegisterRequest } from "./users";
 import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
 import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
@@ -24,9 +24,9 @@ import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
  */
 export interface IUsersClient {
     /**
-     * @generated from protobuf rpc: Register(users.RegisterRequest) returns (users.LoginResponse);
+     * @generated from protobuf rpc: Register(users.RegisterRequest) returns (users.CommonResponse);
      */
-    register(input: RegisterRequest, options?: RpcOptions): UnaryCall<RegisterRequest, LoginResponse>;
+    register(input: RegisterRequest, options?: RpcOptions): UnaryCall<RegisterRequest, CommonResponse>;
     /**
      * @generated from protobuf rpc: Login(users.LoginRequest) returns (users.LoginResponse);
      */
@@ -74,11 +74,11 @@ export class UsersClient implements IUsersClient, ServiceInfo {
     constructor(private readonly _transport: RpcTransport) {
     }
     /**
-     * @generated from protobuf rpc: Register(users.RegisterRequest) returns (users.LoginResponse);
+     * @generated from protobuf rpc: Register(users.RegisterRequest) returns (users.CommonResponse);
      */
-    register(input: RegisterRequest, options?: RpcOptions): UnaryCall<RegisterRequest, LoginResponse> {
+    register(input: RegisterRequest, options?: RpcOptions): UnaryCall<RegisterRequest, CommonResponse> {
         const method = this.methods[0], opt = this._transport.mergeOptions(options);
-        return stackIntercept<RegisterRequest, LoginResponse>("unary", this._transport, method, opt, input);
+        return stackIntercept<RegisterRequest, CommonResponse>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: Login(users.LoginRequest) returns (users.LoginResponse);
