@@ -30,9 +30,9 @@ export interface CommonResponse {
      */
     status: boolean;
     /**
-     * @generated from protobuf field: repeated uint32 codes = 2;
+     * @generated from protobuf field: uint32 code = 2;
      */
-    codes: number[];
+    code: number;
 }
 /**
  * @generated from protobuf message users.HasSessionRequest
@@ -376,13 +376,13 @@ class CommonResponse$Type extends MessageType<CommonResponse> {
     constructor() {
         super("users.CommonResponse", [
             { no: 1, name: "status", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "codes", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 13 /*ScalarType.UINT32*/ }
+            { no: 2, name: "code", kind: "scalar", T: 13 /*ScalarType.UINT32*/ }
         ]);
     }
     create(value?: PartialMessage<CommonResponse>): CommonResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.status = false;
-        message.codes = [];
+        message.code = 0;
         if (value !== undefined)
             reflectionMergePartial<CommonResponse>(this, message, value);
         return message;
@@ -395,12 +395,8 @@ class CommonResponse$Type extends MessageType<CommonResponse> {
                 case /* bool status */ 1:
                     message.status = reader.bool();
                     break;
-                case /* repeated uint32 codes */ 2:
-                    if (wireType === WireType.LengthDelimited)
-                        for (let e = reader.int32() + reader.pos; reader.pos < e;)
-                            message.codes.push(reader.uint32());
-                    else
-                        message.codes.push(reader.uint32());
+                case /* uint32 code */ 2:
+                    message.code = reader.uint32();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -417,13 +413,9 @@ class CommonResponse$Type extends MessageType<CommonResponse> {
         /* bool status = 1; */
         if (message.status !== false)
             writer.tag(1, WireType.Varint).bool(message.status);
-        /* repeated uint32 codes = 2; */
-        if (message.codes.length) {
-            writer.tag(2, WireType.LengthDelimited).fork();
-            for (let i = 0; i < message.codes.length; i++)
-                writer.uint32(message.codes[i]);
-            writer.join();
-        }
+        /* uint32 code = 2; */
+        if (message.code !== 0)
+            writer.tag(2, WireType.Varint).uint32(message.code);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
