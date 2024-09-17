@@ -3,7 +3,7 @@
 // tslint:disable
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
-import { Sms } from "./gsm";
+import { Gsm } from "./gsm";
 import type { GetFlashCallResponse } from "./gsm";
 import type { GetFlashCallRequest } from "./gsm";
 import { stackIntercept } from "@protobuf-ts/runtime-rpc";
@@ -12,9 +12,9 @@ import type { GetSmsRequest } from "./gsm";
 import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
 import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
 /**
- * @generated from protobuf service gsm.Sms
+ * @generated from protobuf service gsm.Gsm
  */
-export interface ISmsClient {
+export interface IGsmClient {
     /**
      * @generated from protobuf rpc: GetSms(gsm.GetSmsRequest) returns (gsm.GetSmsResponse);
      */
@@ -25,12 +25,12 @@ export interface ISmsClient {
     getFlashCall(input: GetFlashCallRequest, options?: RpcOptions): UnaryCall<GetFlashCallRequest, GetFlashCallResponse>;
 }
 /**
- * @generated from protobuf service gsm.Sms
+ * @generated from protobuf service gsm.Gsm
  */
-export class SmsClient implements ISmsClient, ServiceInfo {
-    typeName = Sms.typeName;
-    methods = Sms.methods;
-    options = Sms.options;
+export class GsmClient implements IGsmClient, ServiceInfo {
+    typeName = Gsm.typeName;
+    methods = Gsm.methods;
+    options = Gsm.options;
     constructor(private readonly _transport: RpcTransport) {
     }
     /**

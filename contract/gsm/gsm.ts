@@ -248,9 +248,9 @@ class GetFlashCallResponse$Type extends MessageType<GetFlashCallResponse> {
  */
 export const GetFlashCallResponse = new GetFlashCallResponse$Type();
 /**
- * @generated ServiceType for protobuf service gsm.Sms
+ * @generated ServiceType for protobuf service gsm.Gsm
  */
-export const Sms = new ServiceType("gsm.Sms", [
+export const Gsm = new ServiceType("gsm.Gsm", [
     { name: "GetSms", options: {}, I: GetSmsRequest, O: GetSmsResponse },
     { name: "GetFlashCall", options: {}, I: GetFlashCallRequest, O: GetFlashCallResponse }
 ]);
