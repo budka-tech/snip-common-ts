@@ -9,7 +9,7 @@ export const enum Status {
   NotFound,
 
   /** Уже имеется */
-  AlreadyAvailable,
+  AlreadyExists,
 
   /** Недостаточно прав */
   PermissionDenied,
@@ -41,12 +41,15 @@ export const enum Status {
   /** Время ожидания истекло */
   Timeout,
 
-  /** Неверный ввод */
-  InvalidInput,
-
   /** Ресурс недоступен */
   ResourceUnavailable,
 
   /** Операция не удалась */
   OperationFailed,
+
+  /** Конфликт */
+  Conflict,
+
+  /** Не реализован */
+  NotImplemented,
 }
