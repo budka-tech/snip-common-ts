@@ -12,68 +12,118 @@ import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
 /**
- * @generated from protobuf message gsm.GetSmsRequest
+ * @generated from protobuf message gsm.CommonResponse
  */
-export interface GetSmsRequest {
+export interface CommonResponse {
     /**
-     * @generated from protobuf field: int32 userId = 1;
+     * @generated from protobuf field: bool status = 1;
      */
-    userId: number;
+    status: boolean;
+    /**
+     * @generated from protobuf field: uint32 code = 2;
+     */
+    code: number;
+}
+/**
+ * @generated from protobuf message gsm.SendSmsRequest
+ */
+export interface SendSmsRequest {
+    /**
+     * @generated from protobuf field: string message = 1;
+     */
+    message: string;
     /**
      * @generated from protobuf field: string phone = 2;
      */
     phone: string;
 }
 /**
- * @generated from protobuf message gsm.GetSmsResponse
+ * @generated from protobuf message gsm.FlashCallRequest
  */
-export interface GetSmsResponse {
-    /**
-     * @generated from protobuf field: string sms = 1;
-     */
-    sms: string;
-}
-/**
- * @generated from protobuf message gsm.GetFlashCallRequest
- */
-export interface GetFlashCallRequest {
+export interface FlashCallRequest {
     /**
      * @generated from protobuf field: string phone = 1;
      */
     phone: string;
 }
-/**
- * @generated from protobuf message gsm.GetFlashCallResponse
- */
-export interface GetFlashCallResponse {
-    /**
-     * @generated from protobuf field: bool status = 1;
-     */
-    status: boolean;
-}
 // @generated message type with reflection information, may provide speed optimized methods
-class GetSmsRequest$Type extends MessageType<GetSmsRequest> {
+class CommonResponse$Type extends MessageType<CommonResponse> {
     constructor() {
-        super("gsm.GetSmsRequest", [
-            { no: 1, name: "userId", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 2, name: "phone", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        super("gsm.CommonResponse", [
+            { no: 1, name: "status", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
+            { no: 2, name: "code", kind: "scalar", T: 13 /*ScalarType.UINT32*/ }
         ]);
     }
-    create(value?: PartialMessage<GetSmsRequest>): GetSmsRequest {
+    create(value?: PartialMessage<CommonResponse>): CommonResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.userId = 0;
-        message.phone = "";
+        message.status = false;
+        message.code = 0;
         if (value !== undefined)
-            reflectionMergePartial<GetSmsRequest>(this, message, value);
+            reflectionMergePartial<CommonResponse>(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetSmsRequest): GetSmsRequest {
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: CommonResponse): CommonResponse {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int32 userId */ 1:
-                    message.userId = reader.int32();
+                case /* bool status */ 1:
+                    message.status = reader.bool();
+                    break;
+                case /* uint32 code */ 2:
+                    message.code = reader.uint32();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: CommonResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* bool status = 1; */
+        if (message.status !== false)
+            writer.tag(1, WireType.Varint).bool(message.status);
+        /* uint32 code = 2; */
+        if (message.code !== 0)
+            writer.tag(2, WireType.Varint).uint32(message.code);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message gsm.CommonResponse
+ */
+export const CommonResponse = new CommonResponse$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class SendSmsRequest$Type extends MessageType<SendSmsRequest> {
+    constructor() {
+        super("gsm.SendSmsRequest", [
+            { no: 1, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "phone", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value?: PartialMessage<SendSmsRequest>): SendSmsRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.message = "";
+        message.phone = "";
+        if (value !== undefined)
+            reflectionMergePartial<SendSmsRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: SendSmsRequest): SendSmsRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* string message */ 1:
+                    message.message = reader.string();
                     break;
                 case /* string phone */ 2:
                     message.phone = reader.string();
@@ -89,10 +139,10 @@ class GetSmsRequest$Type extends MessageType<GetSmsRequest> {
         }
         return message;
     }
-    internalBinaryWrite(message: GetSmsRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int32 userId = 1; */
-        if (message.userId !== 0)
-            writer.tag(1, WireType.Varint).int32(message.userId);
+    internalBinaryWrite(message: SendSmsRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* string message = 1; */
+        if (message.message !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.message);
         /* string phone = 2; */
         if (message.phone !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.phone);
@@ -103,71 +153,24 @@ class GetSmsRequest$Type extends MessageType<GetSmsRequest> {
     }
 }
 /**
- * @generated MessageType for protobuf message gsm.GetSmsRequest
+ * @generated MessageType for protobuf message gsm.SendSmsRequest
  */
-export const GetSmsRequest = new GetSmsRequest$Type();
+export const SendSmsRequest = new SendSmsRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class GetSmsResponse$Type extends MessageType<GetSmsResponse> {
+class FlashCallRequest$Type extends MessageType<FlashCallRequest> {
     constructor() {
-        super("gsm.GetSmsResponse", [
-            { no: 1, name: "sms", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
-        ]);
-    }
-    create(value?: PartialMessage<GetSmsResponse>): GetSmsResponse {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.sms = "";
-        if (value !== undefined)
-            reflectionMergePartial<GetSmsResponse>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetSmsResponse): GetSmsResponse {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* string sms */ 1:
-                    message.sms = reader.string();
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: GetSmsResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string sms = 1; */
-        if (message.sms !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.sms);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message gsm.GetSmsResponse
- */
-export const GetSmsResponse = new GetSmsResponse$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class GetFlashCallRequest$Type extends MessageType<GetFlashCallRequest> {
-    constructor() {
-        super("gsm.GetFlashCallRequest", [
+        super("gsm.FlashCallRequest", [
             { no: 1, name: "phone", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
-    create(value?: PartialMessage<GetFlashCallRequest>): GetFlashCallRequest {
+    create(value?: PartialMessage<FlashCallRequest>): FlashCallRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.phone = "";
         if (value !== undefined)
-            reflectionMergePartial<GetFlashCallRequest>(this, message, value);
+            reflectionMergePartial<FlashCallRequest>(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetFlashCallRequest): GetFlashCallRequest {
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: FlashCallRequest): FlashCallRequest {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -186,7 +189,7 @@ class GetFlashCallRequest$Type extends MessageType<GetFlashCallRequest> {
         }
         return message;
     }
-    internalBinaryWrite(message: GetFlashCallRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message: FlashCallRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
         /* string phone = 1; */
         if (message.phone !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.phone);
@@ -197,60 +200,13 @@ class GetFlashCallRequest$Type extends MessageType<GetFlashCallRequest> {
     }
 }
 /**
- * @generated MessageType for protobuf message gsm.GetFlashCallRequest
+ * @generated MessageType for protobuf message gsm.FlashCallRequest
  */
-export const GetFlashCallRequest = new GetFlashCallRequest$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class GetFlashCallResponse$Type extends MessageType<GetFlashCallResponse> {
-    constructor() {
-        super("gsm.GetFlashCallResponse", [
-            { no: 1, name: "status", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
-        ]);
-    }
-    create(value?: PartialMessage<GetFlashCallResponse>): GetFlashCallResponse {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.status = false;
-        if (value !== undefined)
-            reflectionMergePartial<GetFlashCallResponse>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetFlashCallResponse): GetFlashCallResponse {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* bool status */ 1:
-                    message.status = reader.bool();
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: GetFlashCallResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool status = 1; */
-        if (message.status !== false)
-            writer.tag(1, WireType.Varint).bool(message.status);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message gsm.GetFlashCallResponse
- */
-export const GetFlashCallResponse = new GetFlashCallResponse$Type();
+export const FlashCallRequest = new FlashCallRequest$Type();
 /**
  * @generated ServiceType for protobuf service gsm.Gsm
  */
 export const Gsm = new ServiceType("gsm.Gsm", [
-    { name: "GetSms", options: {}, I: GetSmsRequest, O: GetSmsResponse },
-    { name: "GetFlashCall", options: {}, I: GetFlashCallRequest, O: GetFlashCallResponse }
+    { name: "SendSms", options: {}, I: SendSmsRequest, O: CommonResponse },
+    { name: "FlashCall", options: {}, I: FlashCallRequest, O: CommonResponse }
 ]);
