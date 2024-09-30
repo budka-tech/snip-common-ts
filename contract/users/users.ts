@@ -51,6 +51,10 @@ export interface IdentificationResponse {
      * @generated from protobuf field: string data = 4;
      */
     data: string;
+    /**
+     * @generated from protobuf field: google.protobuf.Timestamp endedAt = 5;
+     */
+    endedAt?: Timestamp;
 }
 /**
  * @generated from protobuf message users.CheckCodeRequest
@@ -484,7 +488,8 @@ class IdentificationResponse$Type extends MessageType<IdentificationResponse> {
             { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
             { no: 2, name: "type", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
             { no: 3, name: "methods", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 13 /*ScalarType.UINT32*/ },
-            { no: 4, name: "data", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 4, name: "data", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "endedAt", kind: "message", T: () => Timestamp }
         ]);
     }
     create(value?: PartialMessage<IdentificationResponse>): IdentificationResponse {
@@ -518,6 +523,9 @@ class IdentificationResponse$Type extends MessageType<IdentificationResponse> {
                 case /* string data */ 4:
                     message.data = reader.string();
                     break;
+                case /* google.protobuf.Timestamp endedAt */ 5:
+                    message.endedAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.endedAt);
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -546,6 +554,9 @@ class IdentificationResponse$Type extends MessageType<IdentificationResponse> {
         /* string data = 4; */
         if (message.data !== "")
             writer.tag(4, WireType.LengthDelimited).string(message.data);
+        /* google.protobuf.Timestamp endedAt = 5; */
+        if (message.endedAt)
+            Timestamp.internalBinaryWrite(message.endedAt, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
