@@ -40,13 +40,13 @@ export interface IdentificationResponse {
      */
     status: number;
     /**
-     * @generated from protobuf field: users.IdentificationType type = 2;
+     * @generated from protobuf field: uint32 type = 2;
      */
-    type: IdentificationType;
+    type: number;
     /**
-     * @generated from protobuf field: repeated users.IdentificationType otherMethods = 3;
+     * @generated from protobuf field: repeated uint32 otherMethods = 3;
      */
-    otherMethods: IdentificationType[];
+    otherMethods: number[];
     /**
      * @generated from protobuf field: string data = 4;
      */
@@ -383,23 +383,6 @@ export interface RemovePhoneRequest {
      */
     phone: string;
 }
-/**
- * @generated from protobuf enum users.IdentificationType
- */
-export enum IdentificationType {
-    /**
-     * @generated from protobuf enum value: FlashCall = 0;
-     */
-    FlashCall = 0,
-    /**
-     * @generated from protobuf enum value: SMS = 1;
-     */
-    SMS = 1,
-    /**
-     * @generated from protobuf enum value: Push = 2;
-     */
-    Push = 2
-}
 // @generated message type with reflection information, may provide speed optimized methods
 class CommonRequest$Type extends MessageType<CommonRequest> {
     constructor() {
@@ -499,8 +482,8 @@ class IdentificationResponse$Type extends MessageType<IdentificationResponse> {
     constructor() {
         super("users.IdentificationResponse", [
             { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
-            { no: 2, name: "type", kind: "enum", T: () => ["users.IdentificationType", IdentificationType] },
-            { no: 3, name: "otherMethods", kind: "enum", repeat: 1 /*RepeatType.PACKED*/, T: () => ["users.IdentificationType", IdentificationType] },
+            { no: 2, name: "type", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
+            { no: 3, name: "otherMethods", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 13 /*ScalarType.UINT32*/ },
             { no: 4, name: "data", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
@@ -522,15 +505,15 @@ class IdentificationResponse$Type extends MessageType<IdentificationResponse> {
                 case /* uint32 status */ 1:
                     message.status = reader.uint32();
                     break;
-                case /* users.IdentificationType type */ 2:
-                    message.type = reader.int32();
+                case /* uint32 type */ 2:
+                    message.type = reader.uint32();
                     break;
-                case /* repeated users.IdentificationType otherMethods */ 3:
+                case /* repeated uint32 otherMethods */ 3:
                     if (wireType === WireType.LengthDelimited)
                         for (let e = reader.int32() + reader.pos; reader.pos < e;)
-                            message.otherMethods.push(reader.int32());
+                            message.otherMethods.push(reader.uint32());
                     else
-                        message.otherMethods.push(reader.int32());
+                        message.otherMethods.push(reader.uint32());
                     break;
                 case /* string data */ 4:
                     message.data = reader.string();
@@ -550,14 +533,14 @@ class IdentificationResponse$Type extends MessageType<IdentificationResponse> {
         /* uint32 status = 1; */
         if (message.status !== 0)
             writer.tag(1, WireType.Varint).uint32(message.status);
-        /* users.IdentificationType type = 2; */
+        /* uint32 type = 2; */
         if (message.type !== 0)
-            writer.tag(2, WireType.Varint).int32(message.type);
-        /* repeated users.IdentificationType otherMethods = 3; */
+            writer.tag(2, WireType.Varint).uint32(message.type);
+        /* repeated uint32 otherMethods = 3; */
         if (message.otherMethods.length) {
             writer.tag(3, WireType.LengthDelimited).fork();
             for (let i = 0; i < message.otherMethods.length; i++)
-                writer.int32(message.otherMethods[i]);
+                writer.uint32(message.otherMethods[i]);
             writer.join();
         }
         /* string data = 4; */
