@@ -36,21 +36,17 @@ export interface IdentificationRequest {
  */
 export interface IdentificationResponse {
     /**
-     * @generated from protobuf field: uint32 status = 1;
+     * @generated from protobuf field: users.IdentificationType type = 1;
      */
-    status: number;
+    type: IdentificationType;
     /**
-     * @generated from protobuf field: optional users.IdentificationType type = 2;
-     */
-    type?: IdentificationType;
-    /**
-     * @generated from protobuf field: repeated users.IdentificationType otherMethods = 3;
+     * @generated from protobuf field: repeated users.IdentificationType otherMethods = 2;
      */
     otherMethods: IdentificationType[];
     /**
-     * @generated from protobuf field: optional string data = 4;
+     * @generated from protobuf field: string data = 3;
      */
-    data?: string;
+    data: string;
 }
 /**
  * @generated from protobuf message users.CheckCodeRequest
@@ -498,16 +494,16 @@ export const IdentificationRequest = new IdentificationRequest$Type();
 class IdentificationResponse$Type extends MessageType<IdentificationResponse> {
     constructor() {
         super("users.IdentificationResponse", [
-            { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
-            { no: 2, name: "type", kind: "enum", opt: true, T: () => ["users.IdentificationType", IdentificationType] },
-            { no: 3, name: "otherMethods", kind: "enum", repeat: 1 /*RepeatType.PACKED*/, T: () => ["users.IdentificationType", IdentificationType] },
-            { no: 4, name: "data", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "type", kind: "enum", T: () => ["users.IdentificationType", IdentificationType] },
+            { no: 2, name: "otherMethods", kind: "enum", repeat: 1 /*RepeatType.PACKED*/, T: () => ["users.IdentificationType", IdentificationType] },
+            { no: 3, name: "data", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<IdentificationResponse>): IdentificationResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.status = 0;
+        message.type = 0;
         message.otherMethods = [];
+        message.data = "";
         if (value !== undefined)
             reflectionMergePartial<IdentificationResponse>(this, message, value);
         return message;
@@ -517,20 +513,17 @@ class IdentificationResponse$Type extends MessageType<IdentificationResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* uint32 status */ 1:
-                    message.status = reader.uint32();
-                    break;
-                case /* optional users.IdentificationType type */ 2:
+                case /* users.IdentificationType type */ 1:
                     message.type = reader.int32();
                     break;
-                case /* repeated users.IdentificationType otherMethods */ 3:
+                case /* repeated users.IdentificationType otherMethods */ 2:
                     if (wireType === WireType.LengthDelimited)
                         for (let e = reader.int32() + reader.pos; reader.pos < e;)
                             message.otherMethods.push(reader.int32());
                     else
                         message.otherMethods.push(reader.int32());
                     break;
-                case /* optional string data */ 4:
+                case /* string data */ 3:
                     message.data = reader.string();
                     break;
                 default:
@@ -545,22 +538,19 @@ class IdentificationResponse$Type extends MessageType<IdentificationResponse> {
         return message;
     }
     internalBinaryWrite(message: IdentificationResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* uint32 status = 1; */
-        if (message.status !== 0)
-            writer.tag(1, WireType.Varint).uint32(message.status);
-        /* optional users.IdentificationType type = 2; */
-        if (message.type !== undefined)
-            writer.tag(2, WireType.Varint).int32(message.type);
-        /* repeated users.IdentificationType otherMethods = 3; */
+        /* users.IdentificationType type = 1; */
+        if (message.type !== 0)
+            writer.tag(1, WireType.Varint).int32(message.type);
+        /* repeated users.IdentificationType otherMethods = 2; */
         if (message.otherMethods.length) {
-            writer.tag(3, WireType.LengthDelimited).fork();
+            writer.tag(2, WireType.LengthDelimited).fork();
             for (let i = 0; i < message.otherMethods.length; i++)
                 writer.int32(message.otherMethods[i]);
             writer.join();
         }
-        /* optional string data = 4; */
-        if (message.data !== undefined)
-            writer.tag(4, WireType.LengthDelimited).string(message.data);
+        /* string data = 3; */
+        if (message.data !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.data);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
