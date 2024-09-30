@@ -16,13 +16,9 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface CommonResponse {
     /**
-     * @generated from protobuf field: bool status = 1;
+     * @generated from protobuf field: uint32 status = 1;
      */
-    status: boolean;
-    /**
-     * @generated from protobuf field: uint32 code = 2;
-     */
-    code: number;
+    status: number;
 }
 /**
  * @generated from protobuf message gsm.SendSmsRequest
@@ -50,14 +46,12 @@ export interface FlashCallRequest {
 class CommonResponse$Type extends MessageType<CommonResponse> {
     constructor() {
         super("gsm.CommonResponse", [
-            { no: 1, name: "status", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 2, name: "code", kind: "scalar", T: 13 /*ScalarType.UINT32*/ }
+            { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ }
         ]);
     }
     create(value?: PartialMessage<CommonResponse>): CommonResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.status = false;
-        message.code = 0;
+        message.status = 0;
         if (value !== undefined)
             reflectionMergePartial<CommonResponse>(this, message, value);
         return message;
@@ -67,11 +61,8 @@ class CommonResponse$Type extends MessageType<CommonResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* bool status */ 1:
-                    message.status = reader.bool();
-                    break;
-                case /* uint32 code */ 2:
-                    message.code = reader.uint32();
+                case /* uint32 status */ 1:
+                    message.status = reader.uint32();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -85,12 +76,9 @@ class CommonResponse$Type extends MessageType<CommonResponse> {
         return message;
     }
     internalBinaryWrite(message: CommonResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* bool status = 1; */
-        if (message.status !== false)
-            writer.tag(1, WireType.Varint).bool(message.status);
-        /* uint32 code = 2; */
-        if (message.code !== 0)
-            writer.tag(2, WireType.Varint).uint32(message.code);
+        /* uint32 status = 1; */
+        if (message.status !== 0)
+            writer.tag(1, WireType.Varint).uint32(message.status);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

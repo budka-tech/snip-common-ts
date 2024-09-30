@@ -12,11 +12,14 @@ import type { UpdateAccountDataRequest } from "./users";
 import type { Account } from "./users";
 import type { CommonRequest } from "./users";
 import type { HasSessionRequest } from "./users";
+import type { RegisterRequest } from "./users";
 import type { LoginResponse } from "./users";
 import type { LoginRequest } from "./users";
-import { stackIntercept } from "@protobuf-ts/runtime-rpc";
 import type { CommonResponse } from "./users";
-import type { RegisterRequest } from "./users";
+import type { CheckCodeRequest } from "./users";
+import { stackIntercept } from "@protobuf-ts/runtime-rpc";
+import type { IdentificationResponse } from "./users";
+import type { IdentificationRequest } from "./users";
 import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
 import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
 /**
@@ -24,13 +27,21 @@ import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
  */
 export interface IUsersClient {
     /**
-     * @generated from protobuf rpc: Register(users.RegisterRequest) returns (users.CommonResponse);
+     * @generated from protobuf rpc: Identification(users.IdentificationRequest) returns (users.IdentificationResponse);
      */
-    register(input: RegisterRequest, options?: RpcOptions): UnaryCall<RegisterRequest, CommonResponse>;
+    identification(input: IdentificationRequest, options?: RpcOptions): UnaryCall<IdentificationRequest, IdentificationResponse>;
     /**
-     * @generated from protobuf rpc: Login(users.LoginRequest) returns (users.LoginResponse);
+     * @generated from protobuf rpc: CheckCode(users.CheckCodeRequest) returns (users.CommonResponse);
      */
-    login(input: LoginRequest, options?: RpcOptions): UnaryCall<LoginRequest, LoginResponse>;
+    checkCode(input: CheckCodeRequest, options?: RpcOptions): UnaryCall<CheckCodeRequest, CommonResponse>;
+    /**
+     * @generated from protobuf rpc: LoginByCode(users.LoginRequest) returns (users.LoginResponse);
+     */
+    loginByCode(input: LoginRequest, options?: RpcOptions): UnaryCall<LoginRequest, LoginResponse>;
+    /**
+     * @generated from protobuf rpc: Register(users.RegisterRequest) returns (users.LoginResponse);
+     */
+    register(input: RegisterRequest, options?: RpcOptions): UnaryCall<RegisterRequest, LoginResponse>;
     /**
      * @generated from protobuf rpc: HasSession(users.HasSessionRequest) returns (users.CommonResponse);
      */
@@ -74,73 +85,87 @@ export class UsersClient implements IUsersClient, ServiceInfo {
     constructor(private readonly _transport: RpcTransport) {
     }
     /**
-     * @generated from protobuf rpc: Register(users.RegisterRequest) returns (users.CommonResponse);
+     * @generated from protobuf rpc: Identification(users.IdentificationRequest) returns (users.IdentificationResponse);
      */
-    register(input: RegisterRequest, options?: RpcOptions): UnaryCall<RegisterRequest, CommonResponse> {
+    identification(input: IdentificationRequest, options?: RpcOptions): UnaryCall<IdentificationRequest, IdentificationResponse> {
         const method = this.methods[0], opt = this._transport.mergeOptions(options);
-        return stackIntercept<RegisterRequest, CommonResponse>("unary", this._transport, method, opt, input);
+        return stackIntercept<IdentificationRequest, IdentificationResponse>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: Login(users.LoginRequest) returns (users.LoginResponse);
+     * @generated from protobuf rpc: CheckCode(users.CheckCodeRequest) returns (users.CommonResponse);
      */
-    login(input: LoginRequest, options?: RpcOptions): UnaryCall<LoginRequest, LoginResponse> {
+    checkCode(input: CheckCodeRequest, options?: RpcOptions): UnaryCall<CheckCodeRequest, CommonResponse> {
         const method = this.methods[1], opt = this._transport.mergeOptions(options);
+        return stackIntercept<CheckCodeRequest, CommonResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: LoginByCode(users.LoginRequest) returns (users.LoginResponse);
+     */
+    loginByCode(input: LoginRequest, options?: RpcOptions): UnaryCall<LoginRequest, LoginResponse> {
+        const method = this.methods[2], opt = this._transport.mergeOptions(options);
         return stackIntercept<LoginRequest, LoginResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: Register(users.RegisterRequest) returns (users.LoginResponse);
+     */
+    register(input: RegisterRequest, options?: RpcOptions): UnaryCall<RegisterRequest, LoginResponse> {
+        const method = this.methods[3], opt = this._transport.mergeOptions(options);
+        return stackIntercept<RegisterRequest, LoginResponse>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: HasSession(users.HasSessionRequest) returns (users.CommonResponse);
      */
     hasSession(input: HasSessionRequest, options?: RpcOptions): UnaryCall<HasSessionRequest, CommonResponse> {
-        const method = this.methods[2], opt = this._transport.mergeOptions(options);
+        const method = this.methods[4], opt = this._transport.mergeOptions(options);
         return stackIntercept<HasSessionRequest, CommonResponse>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: GetAccount(users.CommonRequest) returns (users.Account);
      */
     getAccount(input: CommonRequest, options?: RpcOptions): UnaryCall<CommonRequest, Account> {
-        const method = this.methods[3], opt = this._transport.mergeOptions(options);
+        const method = this.methods[5], opt = this._transport.mergeOptions(options);
         return stackIntercept<CommonRequest, Account>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: UpdateAccountData(users.UpdateAccountDataRequest) returns (users.CommonResponse);
      */
     updateAccountData(input: UpdateAccountDataRequest, options?: RpcOptions): UnaryCall<UpdateAccountDataRequest, CommonResponse> {
-        const method = this.methods[4], opt = this._transport.mergeOptions(options);
+        const method = this.methods[6], opt = this._transport.mergeOptions(options);
         return stackIntercept<UpdateAccountDataRequest, CommonResponse>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: UpdatePassword(users.UpdatePasswordRequest) returns (users.CommonResponse);
      */
     updatePassword(input: UpdatePasswordRequest, options?: RpcOptions): UnaryCall<UpdatePasswordRequest, CommonResponse> {
-        const method = this.methods[5], opt = this._transport.mergeOptions(options);
+        const method = this.methods[7], opt = this._transport.mergeOptions(options);
         return stackIntercept<UpdatePasswordRequest, CommonResponse>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: UpdatePhoto(users.UpdatePhotoRequest) returns (users.CommonResponse);
      */
     updatePhoto(input: UpdatePhotoRequest, options?: RpcOptions): UnaryCall<UpdatePhotoRequest, CommonResponse> {
-        const method = this.methods[6], opt = this._transport.mergeOptions(options);
+        const method = this.methods[8], opt = this._transport.mergeOptions(options);
         return stackIntercept<UpdatePhotoRequest, CommonResponse>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: AddPhone(users.AddPhoneRequest) returns (users.CommonResponse);
      */
     addPhone(input: AddPhoneRequest, options?: RpcOptions): UnaryCall<AddPhoneRequest, CommonResponse> {
-        const method = this.methods[7], opt = this._transport.mergeOptions(options);
+        const method = this.methods[9], opt = this._transport.mergeOptions(options);
         return stackIntercept<AddPhoneRequest, CommonResponse>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: UpdatePhone(users.UpdatePhotoRequest) returns (users.CommonResponse);
      */
     updatePhone(input: UpdatePhotoRequest, options?: RpcOptions): UnaryCall<UpdatePhotoRequest, CommonResponse> {
-        const method = this.methods[8], opt = this._transport.mergeOptions(options);
+        const method = this.methods[10], opt = this._transport.mergeOptions(options);
         return stackIntercept<UpdatePhotoRequest, CommonResponse>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: RemovePhone(users.RemovePhoneRequest) returns (users.CommonResponse);
      */
     removePhone(input: RemovePhoneRequest, options?: RpcOptions): UnaryCall<RemovePhoneRequest, CommonResponse> {
-        const method = this.methods[9], opt = this._transport.mergeOptions(options);
+        const method = this.methods[11], opt = this._transport.mergeOptions(options);
         return stackIntercept<RemovePhoneRequest, CommonResponse>("unary", this._transport, method, opt, input);
     }
 }
