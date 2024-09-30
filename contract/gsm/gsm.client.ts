@@ -6,7 +6,7 @@ import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { Gsm } from "./gsm";
 import type { FlashCallRequest } from "./gsm";
 import { stackIntercept } from "@protobuf-ts/runtime-rpc";
-import type { CommonResponse } from "./gsm";
+import type { Response } from "../common/common";
 import type { SendSmsRequest } from "./gsm";
 import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
 import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
@@ -15,13 +15,13 @@ import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
  */
 export interface IGsmClient {
     /**
-     * @generated from protobuf rpc: SendSms(gsm.SendSmsRequest) returns (gsm.CommonResponse);
+     * @generated from protobuf rpc: SendSms(gsm.SendSmsRequest) returns (common.Response);
      */
-    sendSms(input: SendSmsRequest, options?: RpcOptions): UnaryCall<SendSmsRequest, CommonResponse>;
+    sendSms(input: SendSmsRequest, options?: RpcOptions): UnaryCall<SendSmsRequest, Response>;
     /**
-     * @generated from protobuf rpc: FlashCall(gsm.FlashCallRequest) returns (gsm.CommonResponse);
+     * @generated from protobuf rpc: FlashCall(gsm.FlashCallRequest) returns (common.Response);
      */
-    flashCall(input: FlashCallRequest, options?: RpcOptions): UnaryCall<FlashCallRequest, CommonResponse>;
+    flashCall(input: FlashCallRequest, options?: RpcOptions): UnaryCall<FlashCallRequest, Response>;
 }
 /**
  * @generated from protobuf service gsm.Gsm
@@ -33,17 +33,17 @@ export class GsmClient implements IGsmClient, ServiceInfo {
     constructor(private readonly _transport: RpcTransport) {
     }
     /**
-     * @generated from protobuf rpc: SendSms(gsm.SendSmsRequest) returns (gsm.CommonResponse);
+     * @generated from protobuf rpc: SendSms(gsm.SendSmsRequest) returns (common.Response);
      */
-    sendSms(input: SendSmsRequest, options?: RpcOptions): UnaryCall<SendSmsRequest, CommonResponse> {
+    sendSms(input: SendSmsRequest, options?: RpcOptions): UnaryCall<SendSmsRequest, Response> {
         const method = this.methods[0], opt = this._transport.mergeOptions(options);
-        return stackIntercept<SendSmsRequest, CommonResponse>("unary", this._transport, method, opt, input);
+        return stackIntercept<SendSmsRequest, Response>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: FlashCall(gsm.FlashCallRequest) returns (gsm.CommonResponse);
+     * @generated from protobuf rpc: FlashCall(gsm.FlashCallRequest) returns (common.Response);
      */
-    flashCall(input: FlashCallRequest, options?: RpcOptions): UnaryCall<FlashCallRequest, CommonResponse> {
+    flashCall(input: FlashCallRequest, options?: RpcOptions): UnaryCall<FlashCallRequest, Response> {
         const method = this.methods[1], opt = this._transport.mergeOptions(options);
-        return stackIntercept<FlashCallRequest, CommonResponse>("unary", this._transport, method, opt, input);
+        return stackIntercept<FlashCallRequest, Response>("unary", this._transport, method, opt, input);
     }
 }
