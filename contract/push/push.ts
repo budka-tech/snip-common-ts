@@ -26,9 +26,9 @@ export interface CommonResponse {
  */
 export interface NowRequest {
     /**
-     * @generated from protobuf field: string id = 1;
+     * @generated from protobuf field: repeated string id = 1;
      */
-    id: string;
+    id: string[];
     /**
      * @generated from protobuf field: string text = 2;
      */
@@ -102,13 +102,13 @@ export const CommonResponse = new CommonResponse$Type();
 class NowRequest$Type extends MessageType<NowRequest> {
     constructor() {
         super("gsm.NowRequest", [
-            { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 1, name: "id", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "text", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<NowRequest>): NowRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.id = "";
+        message.id = [];
         message.text = "";
         if (value !== undefined)
             reflectionMergePartial<NowRequest>(this, message, value);
@@ -119,8 +119,8 @@ class NowRequest$Type extends MessageType<NowRequest> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string id */ 1:
-                    message.id = reader.string();
+                case /* repeated string id */ 1:
+                    message.id.push(reader.string());
                     break;
                 case /* string text */ 2:
                     message.text = reader.string();
@@ -137,9 +137,9 @@ class NowRequest$Type extends MessageType<NowRequest> {
         return message;
     }
     internalBinaryWrite(message: NowRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string id = 1; */
-        if (message.id !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.id);
+        /* repeated string id = 1; */
+        for (let i = 0; i < message.id.length; i++)
+            writer.tag(1, WireType.LengthDelimited).string(message.id[i]);
         /* string text = 2; */
         if (message.text !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.text);

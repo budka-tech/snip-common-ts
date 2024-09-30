@@ -44,9 +44,9 @@ export interface IdentificationResponse {
      */
     type: number;
     /**
-     * @generated from protobuf field: repeated uint32 otherMethods = 3;
+     * @generated from protobuf field: repeated uint32 methods = 3;
      */
-    otherMethods: number[];
+    methods: number[];
     /**
      * @generated from protobuf field: string data = 4;
      */
@@ -483,7 +483,7 @@ class IdentificationResponse$Type extends MessageType<IdentificationResponse> {
         super("users.IdentificationResponse", [
             { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
             { no: 2, name: "type", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
-            { no: 3, name: "otherMethods", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 13 /*ScalarType.UINT32*/ },
+            { no: 3, name: "methods", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 13 /*ScalarType.UINT32*/ },
             { no: 4, name: "data", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
@@ -491,7 +491,7 @@ class IdentificationResponse$Type extends MessageType<IdentificationResponse> {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.status = 0;
         message.type = 0;
-        message.otherMethods = [];
+        message.methods = [];
         message.data = "";
         if (value !== undefined)
             reflectionMergePartial<IdentificationResponse>(this, message, value);
@@ -508,12 +508,12 @@ class IdentificationResponse$Type extends MessageType<IdentificationResponse> {
                 case /* uint32 type */ 2:
                     message.type = reader.uint32();
                     break;
-                case /* repeated uint32 otherMethods */ 3:
+                case /* repeated uint32 methods */ 3:
                     if (wireType === WireType.LengthDelimited)
                         for (let e = reader.int32() + reader.pos; reader.pos < e;)
-                            message.otherMethods.push(reader.uint32());
+                            message.methods.push(reader.uint32());
                     else
-                        message.otherMethods.push(reader.uint32());
+                        message.methods.push(reader.uint32());
                     break;
                 case /* string data */ 4:
                     message.data = reader.string();
@@ -536,11 +536,11 @@ class IdentificationResponse$Type extends MessageType<IdentificationResponse> {
         /* uint32 type = 2; */
         if (message.type !== 0)
             writer.tag(2, WireType.Varint).uint32(message.type);
-        /* repeated uint32 otherMethods = 3; */
-        if (message.otherMethods.length) {
+        /* repeated uint32 methods = 3; */
+        if (message.methods.length) {
             writer.tag(3, WireType.LengthDelimited).fork();
-            for (let i = 0; i < message.otherMethods.length; i++)
-                writer.uint32(message.otherMethods[i]);
+            for (let i = 0; i < message.methods.length; i++)
+                writer.uint32(message.methods[i]);
             writer.join();
         }
         /* string data = 4; */
