@@ -4,10 +4,9 @@
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { Server } from "./server";
-import type { UnsubscribeRequest } from "./server";
 import { stackIntercept } from "@protobuf-ts/runtime-rpc";
 import type { Empty } from "../google/protobuf/empty";
-import type { Request } from "./server";
+import type { ParamsRequest } from "./server";
 import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
 import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
 /**
@@ -15,17 +14,9 @@ import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
  */
 export interface IServerClient {
     /**
-     * @generated from protobuf rpc: Call(server.Request) returns (google.protobuf.Empty);
+     * @generated from protobuf rpc: Request(server.ParamsRequest) returns (google.protobuf.Empty);
      */
-    call(input: Request, options?: RpcOptions): UnaryCall<Request, Empty>;
-    /**
-     * @generated from protobuf rpc: Subscribe(server.Request) returns (google.protobuf.Empty);
-     */
-    subscribe(input: Request, options?: RpcOptions): UnaryCall<Request, Empty>;
-    /**
-     * @generated from protobuf rpc: UnSubscribe(server.UnsubscribeRequest) returns (google.protobuf.Empty);
-     */
-    unSubscribe(input: UnsubscribeRequest, options?: RpcOptions): UnaryCall<UnsubscribeRequest, Empty>;
+    request(input: ParamsRequest, options?: RpcOptions): UnaryCall<ParamsRequest, Empty>;
 }
 /**
  * @generated from protobuf service server.Server
@@ -37,24 +28,10 @@ export class ServerClient implements IServerClient, ServiceInfo {
     constructor(private readonly _transport: RpcTransport) {
     }
     /**
-     * @generated from protobuf rpc: Call(server.Request) returns (google.protobuf.Empty);
+     * @generated from protobuf rpc: Request(server.ParamsRequest) returns (google.protobuf.Empty);
      */
-    call(input: Request, options?: RpcOptions): UnaryCall<Request, Empty> {
+    request(input: ParamsRequest, options?: RpcOptions): UnaryCall<ParamsRequest, Empty> {
         const method = this.methods[0], opt = this._transport.mergeOptions(options);
-        return stackIntercept<Request, Empty>("unary", this._transport, method, opt, input);
-    }
-    /**
-     * @generated from protobuf rpc: Subscribe(server.Request) returns (google.protobuf.Empty);
-     */
-    subscribe(input: Request, options?: RpcOptions): UnaryCall<Request, Empty> {
-        const method = this.methods[1], opt = this._transport.mergeOptions(options);
-        return stackIntercept<Request, Empty>("unary", this._transport, method, opt, input);
-    }
-    /**
-     * @generated from protobuf rpc: UnSubscribe(server.UnsubscribeRequest) returns (google.protobuf.Empty);
-     */
-    unSubscribe(input: UnsubscribeRequest, options?: RpcOptions): UnaryCall<UnsubscribeRequest, Empty> {
-        const method = this.methods[2], opt = this._transport.mergeOptions(options);
-        return stackIntercept<UnsubscribeRequest, Empty>("unary", this._transport, method, opt, input);
+        return stackIntercept<ParamsRequest, Empty>("unary", this._transport, method, opt, input);
     }
 }

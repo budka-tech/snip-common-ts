@@ -26,18 +26,14 @@ export interface Meta {
      */
     domain: Domain;
     /**
-     * @generated from protobuf field: string name = 3;
+     * @generated from protobuf field: uint32 id = 3;
      */
-    name: string;
-    /**
-     * @generated from protobuf field: string id = 4;
-     */
-    id: string;
+    id: number;
 }
 /**
- * @generated from protobuf message server.Request
+ * @generated from protobuf message server.ParamsRequest
  */
-export interface Request {
+export interface ParamsRequest {
     /**
      * @generated from protobuf field: server.Meta meta = 1;
      */
@@ -48,61 +44,21 @@ export interface Request {
     data?: Any;
 }
 /**
- * @generated from protobuf message server.CallResponse
+ * @generated from protobuf message server.Response
  */
-export interface CallResponse {
+export interface Response {
     /**
      * @generated from protobuf field: server.Meta meta = 1;
      */
     meta?: Meta;
     /**
-     * @generated from protobuf field: google.protobuf.Any data = 2;
+     * @generated from protobuf field: uint32 status = 2;
+     */
+    status: number;
+    /**
+     * @generated from protobuf field: google.protobuf.Any data = 3;
      */
     data?: Any;
-}
-/**
- * @generated from protobuf message server.CallSuccessResponse
- */
-export interface CallSuccessResponse {
-    /**
-     * @generated from protobuf field: server.Meta meta = 1;
-     */
-    meta?: Meta;
-    /**
-     * @generated from protobuf field: google.protobuf.Any data = 2;
-     */
-    data?: Any;
-}
-/**
- * @generated from protobuf message server.CallErrorResponse
- */
-export interface CallErrorResponse {
-    /**
-     * @generated from protobuf field: server.Meta meta = 1;
-     */
-    meta?: Meta;
-    /**
-     * @generated from protobuf field: uint32 code = 2;
-     */
-    code: number;
-}
-/**
- * @generated from protobuf message server.SubscribeRequest
- */
-export interface SubscribeRequest {
-    /**
-     * @generated from protobuf field: server.Meta meta = 1;
-     */
-    meta?: Meta;
-}
-/**
- * @generated from protobuf message server.UnsubscribeRequest
- */
-export interface UnsubscribeRequest {
-    /**
-     * @generated from protobuf field: server.Meta meta = 1;
-     */
-    meta?: Meta;
 }
 /**
  * @generated from protobuf message server.SubscribeData
@@ -118,45 +74,6 @@ export interface SubscribeData {
     data?: Any;
 }
 /**
- * @generated from protobuf message server.SubscribeResponse
- */
-export interface SubscribeResponse {
-    /**
-     * @generated from protobuf field: server.Meta meta = 1;
-     */
-    meta?: Meta;
-    /**
-     * @generated from protobuf field: server.SubscribeData data = 2;
-     */
-    data?: SubscribeData;
-}
-/**
- * @generated from protobuf message server.SubscribeErrorResponse
- */
-export interface SubscribeErrorResponse {
-    /**
-     * @generated from protobuf field: server.Meta meta = 1;
-     */
-    meta?: Meta;
-    /**
-     * @generated from protobuf field: uint32 code = 2;
-     */
-    code: number;
-}
-/**
- * @generated from protobuf message server.EventMessage
- */
-export interface EventMessage {
-    /**
-     * @generated from protobuf field: server.Meta meta = 1;
-     */
-    meta?: Meta;
-    /**
-     * @generated from protobuf field: uint32 code = 2;
-     */
-    code: number;
-}
-/**
  * @generated from protobuf enum server.MessageType
  */
 export enum MessageType {
@@ -165,29 +82,17 @@ export enum MessageType {
      */
     Call = 0,
     /**
-     * @generated from protobuf enum value: CallSuccess = 1;
+     * @generated from protobuf enum value: Subscribe = 1;
      */
-    CallSuccess = 1,
+    Subscribe = 1,
     /**
-     * @generated from protobuf enum value: CallError = 2;
+     * @generated from protobuf enum value: Unsubscribe = 2;
      */
-    CallError = 2,
+    Unsubscribe = 2,
     /**
-     * @generated from protobuf enum value: Subscribe = 3;
+     * @generated from protobuf enum value: Event = 3;
      */
-    Subscribe = 3,
-    /**
-     * @generated from protobuf enum value: SubscribeError = 4;
-     */
-    SubscribeError = 4,
-    /**
-     * @generated from protobuf enum value: Unsubscribe = 5;
-     */
-    Unsubscribe = 5,
-    /**
-     * @generated from protobuf enum value: Event = 6;
-     */
-    Event = 6
+    Event = 3
 }
 /**
  * @generated from protobuf enum server.Domain
@@ -233,16 +138,14 @@ class Meta$Type extends MessageType$<Meta> {
         super("server.Meta", [
             { no: 1, name: "type", kind: "enum", T: () => ["server.MessageType", MessageType] },
             { no: 2, name: "domain", kind: "enum", T: () => ["server.Domain", Domain] },
-            { no: 3, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 3, name: "id", kind: "scalar", T: 13 /*ScalarType.UINT32*/ }
         ]);
     }
     create(value?: PartialMessage<Meta>): Meta {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.type = 0;
         message.domain = 0;
-        message.name = "";
-        message.id = "";
+        message.id = 0;
         if (value !== undefined)
             reflectionMergePartial<Meta>(this, message, value);
         return message;
@@ -258,11 +161,8 @@ class Meta$Type extends MessageType$<Meta> {
                 case /* server.Domain domain */ 2:
                     message.domain = reader.int32();
                     break;
-                case /* string name */ 3:
-                    message.name = reader.string();
-                    break;
-                case /* string id */ 4:
-                    message.id = reader.string();
+                case /* uint32 id */ 3:
+                    message.id = reader.uint32();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -282,12 +182,9 @@ class Meta$Type extends MessageType$<Meta> {
         /* server.Domain domain = 2; */
         if (message.domain !== 0)
             writer.tag(2, WireType.Varint).int32(message.domain);
-        /* string name = 3; */
-        if (message.name !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.name);
-        /* string id = 4; */
-        if (message.id !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.id);
+        /* uint32 id = 3; */
+        if (message.id !== 0)
+            writer.tag(3, WireType.Varint).uint32(message.id);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -299,20 +196,20 @@ class Meta$Type extends MessageType$<Meta> {
  */
 export const Meta = new Meta$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class Request$Type extends MessageType$<Request> {
+class ParamsRequest$Type extends MessageType$<ParamsRequest> {
     constructor() {
-        super("server.Request", [
+        super("server.ParamsRequest", [
             { no: 1, name: "meta", kind: "message", T: () => Meta },
             { no: 2, name: "data", kind: "message", T: () => Any }
         ]);
     }
-    create(value?: PartialMessage<Request>): Request {
+    create(value?: PartialMessage<ParamsRequest>): ParamsRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
         if (value !== undefined)
-            reflectionMergePartial<Request>(this, message, value);
+            reflectionMergePartial<ParamsRequest>(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Request): Request {
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: ParamsRequest): ParamsRequest {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -334,7 +231,7 @@ class Request$Type extends MessageType$<Request> {
         }
         return message;
     }
-    internalBinaryWrite(message: Request, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message: ParamsRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
         /* server.Meta meta = 1; */
         if (message.meta)
             Meta.internalBinaryWrite(message.meta, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
@@ -348,24 +245,26 @@ class Request$Type extends MessageType$<Request> {
     }
 }
 /**
- * @generated MessageType for protobuf message server.Request
+ * @generated MessageType for protobuf message server.ParamsRequest
  */
-export const Request = new Request$Type();
+export const ParamsRequest = new ParamsRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class CallResponse$Type extends MessageType$<CallResponse> {
+class Response$Type extends MessageType$<Response> {
     constructor() {
-        super("server.CallResponse", [
+        super("server.Response", [
             { no: 1, name: "meta", kind: "message", T: () => Meta },
-            { no: 2, name: "data", kind: "message", T: () => Any }
+            { no: 2, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
+            { no: 3, name: "data", kind: "message", T: () => Any }
         ]);
     }
-    create(value?: PartialMessage<CallResponse>): CallResponse {
+    create(value?: PartialMessage<Response>): Response {
         const message = globalThis.Object.create((this.messagePrototype!));
+        message.status = 0;
         if (value !== undefined)
-            reflectionMergePartial<CallResponse>(this, message, value);
+            reflectionMergePartial<Response>(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: CallResponse): CallResponse {
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Response): Response {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -373,7 +272,10 @@ class CallResponse$Type extends MessageType$<CallResponse> {
                 case /* server.Meta meta */ 1:
                     message.meta = Meta.internalBinaryRead(reader, reader.uint32(), options, message.meta);
                     break;
-                case /* google.protobuf.Any data */ 2:
+                case /* uint32 status */ 2:
+                    message.status = reader.uint32();
+                    break;
+                case /* google.protobuf.Any data */ 3:
                     message.data = Any.internalBinaryRead(reader, reader.uint32(), options, message.data);
                     break;
                 default:
@@ -387,13 +289,16 @@ class CallResponse$Type extends MessageType$<CallResponse> {
         }
         return message;
     }
-    internalBinaryWrite(message: CallResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message: Response, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
         /* server.Meta meta = 1; */
         if (message.meta)
             Meta.internalBinaryWrite(message.meta, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* google.protobuf.Any data = 2; */
+        /* uint32 status = 2; */
+        if (message.status !== 0)
+            writer.tag(2, WireType.Varint).uint32(message.status);
+        /* google.protobuf.Any data = 3; */
         if (message.data)
-            Any.internalBinaryWrite(message.data, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+            Any.internalBinaryWrite(message.data, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -401,208 +306,9 @@ class CallResponse$Type extends MessageType$<CallResponse> {
     }
 }
 /**
- * @generated MessageType for protobuf message server.CallResponse
+ * @generated MessageType for protobuf message server.Response
  */
-export const CallResponse = new CallResponse$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class CallSuccessResponse$Type extends MessageType$<CallSuccessResponse> {
-    constructor() {
-        super("server.CallSuccessResponse", [
-            { no: 1, name: "meta", kind: "message", T: () => Meta },
-            { no: 2, name: "data", kind: "message", T: () => Any }
-        ]);
-    }
-    create(value?: PartialMessage<CallSuccessResponse>): CallSuccessResponse {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        if (value !== undefined)
-            reflectionMergePartial<CallSuccessResponse>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: CallSuccessResponse): CallSuccessResponse {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* server.Meta meta */ 1:
-                    message.meta = Meta.internalBinaryRead(reader, reader.uint32(), options, message.meta);
-                    break;
-                case /* google.protobuf.Any data */ 2:
-                    message.data = Any.internalBinaryRead(reader, reader.uint32(), options, message.data);
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: CallSuccessResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* server.Meta meta = 1; */
-        if (message.meta)
-            Meta.internalBinaryWrite(message.meta, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* google.protobuf.Any data = 2; */
-        if (message.data)
-            Any.internalBinaryWrite(message.data, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message server.CallSuccessResponse
- */
-export const CallSuccessResponse = new CallSuccessResponse$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class CallErrorResponse$Type extends MessageType$<CallErrorResponse> {
-    constructor() {
-        super("server.CallErrorResponse", [
-            { no: 1, name: "meta", kind: "message", T: () => Meta },
-            { no: 2, name: "code", kind: "scalar", T: 13 /*ScalarType.UINT32*/ }
-        ]);
-    }
-    create(value?: PartialMessage<CallErrorResponse>): CallErrorResponse {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.code = 0;
-        if (value !== undefined)
-            reflectionMergePartial<CallErrorResponse>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: CallErrorResponse): CallErrorResponse {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* server.Meta meta */ 1:
-                    message.meta = Meta.internalBinaryRead(reader, reader.uint32(), options, message.meta);
-                    break;
-                case /* uint32 code */ 2:
-                    message.code = reader.uint32();
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: CallErrorResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* server.Meta meta = 1; */
-        if (message.meta)
-            Meta.internalBinaryWrite(message.meta, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* uint32 code = 2; */
-        if (message.code !== 0)
-            writer.tag(2, WireType.Varint).uint32(message.code);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message server.CallErrorResponse
- */
-export const CallErrorResponse = new CallErrorResponse$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class SubscribeRequest$Type extends MessageType$<SubscribeRequest> {
-    constructor() {
-        super("server.SubscribeRequest", [
-            { no: 1, name: "meta", kind: "message", T: () => Meta }
-        ]);
-    }
-    create(value?: PartialMessage<SubscribeRequest>): SubscribeRequest {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        if (value !== undefined)
-            reflectionMergePartial<SubscribeRequest>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: SubscribeRequest): SubscribeRequest {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* server.Meta meta */ 1:
-                    message.meta = Meta.internalBinaryRead(reader, reader.uint32(), options, message.meta);
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: SubscribeRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* server.Meta meta = 1; */
-        if (message.meta)
-            Meta.internalBinaryWrite(message.meta, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message server.SubscribeRequest
- */
-export const SubscribeRequest = new SubscribeRequest$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class UnsubscribeRequest$Type extends MessageType$<UnsubscribeRequest> {
-    constructor() {
-        super("server.UnsubscribeRequest", [
-            { no: 1, name: "meta", kind: "message", T: () => Meta }
-        ]);
-    }
-    create(value?: PartialMessage<UnsubscribeRequest>): UnsubscribeRequest {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        if (value !== undefined)
-            reflectionMergePartial<UnsubscribeRequest>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: UnsubscribeRequest): UnsubscribeRequest {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* server.Meta meta */ 1:
-                    message.meta = Meta.internalBinaryRead(reader, reader.uint32(), options, message.meta);
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: UnsubscribeRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* server.Meta meta = 1; */
-        if (message.meta)
-            Meta.internalBinaryWrite(message.meta, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message server.UnsubscribeRequest
- */
-export const UnsubscribeRequest = new UnsubscribeRequest$Type();
+export const Response = new Response$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SubscribeData$Type extends MessageType$<SubscribeData> {
     constructor() {
@@ -657,172 +363,9 @@ class SubscribeData$Type extends MessageType$<SubscribeData> {
  * @generated MessageType for protobuf message server.SubscribeData
  */
 export const SubscribeData = new SubscribeData$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class SubscribeResponse$Type extends MessageType$<SubscribeResponse> {
-    constructor() {
-        super("server.SubscribeResponse", [
-            { no: 1, name: "meta", kind: "message", T: () => Meta },
-            { no: 2, name: "data", kind: "message", T: () => SubscribeData }
-        ]);
-    }
-    create(value?: PartialMessage<SubscribeResponse>): SubscribeResponse {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        if (value !== undefined)
-            reflectionMergePartial<SubscribeResponse>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: SubscribeResponse): SubscribeResponse {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* server.Meta meta */ 1:
-                    message.meta = Meta.internalBinaryRead(reader, reader.uint32(), options, message.meta);
-                    break;
-                case /* server.SubscribeData data */ 2:
-                    message.data = SubscribeData.internalBinaryRead(reader, reader.uint32(), options, message.data);
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: SubscribeResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* server.Meta meta = 1; */
-        if (message.meta)
-            Meta.internalBinaryWrite(message.meta, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* server.SubscribeData data = 2; */
-        if (message.data)
-            SubscribeData.internalBinaryWrite(message.data, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message server.SubscribeResponse
- */
-export const SubscribeResponse = new SubscribeResponse$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class SubscribeErrorResponse$Type extends MessageType$<SubscribeErrorResponse> {
-    constructor() {
-        super("server.SubscribeErrorResponse", [
-            { no: 1, name: "meta", kind: "message", T: () => Meta },
-            { no: 2, name: "code", kind: "scalar", T: 13 /*ScalarType.UINT32*/ }
-        ]);
-    }
-    create(value?: PartialMessage<SubscribeErrorResponse>): SubscribeErrorResponse {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.code = 0;
-        if (value !== undefined)
-            reflectionMergePartial<SubscribeErrorResponse>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: SubscribeErrorResponse): SubscribeErrorResponse {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* server.Meta meta */ 1:
-                    message.meta = Meta.internalBinaryRead(reader, reader.uint32(), options, message.meta);
-                    break;
-                case /* uint32 code */ 2:
-                    message.code = reader.uint32();
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: SubscribeErrorResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* server.Meta meta = 1; */
-        if (message.meta)
-            Meta.internalBinaryWrite(message.meta, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* uint32 code = 2; */
-        if (message.code !== 0)
-            writer.tag(2, WireType.Varint).uint32(message.code);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message server.SubscribeErrorResponse
- */
-export const SubscribeErrorResponse = new SubscribeErrorResponse$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class EventMessage$Type extends MessageType$<EventMessage> {
-    constructor() {
-        super("server.EventMessage", [
-            { no: 1, name: "meta", kind: "message", T: () => Meta },
-            { no: 2, name: "code", kind: "scalar", T: 13 /*ScalarType.UINT32*/ }
-        ]);
-    }
-    create(value?: PartialMessage<EventMessage>): EventMessage {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.code = 0;
-        if (value !== undefined)
-            reflectionMergePartial<EventMessage>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: EventMessage): EventMessage {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* server.Meta meta */ 1:
-                    message.meta = Meta.internalBinaryRead(reader, reader.uint32(), options, message.meta);
-                    break;
-                case /* uint32 code */ 2:
-                    message.code = reader.uint32();
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: EventMessage, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* server.Meta meta = 1; */
-        if (message.meta)
-            Meta.internalBinaryWrite(message.meta, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* uint32 code = 2; */
-        if (message.code !== 0)
-            writer.tag(2, WireType.Varint).uint32(message.code);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message server.EventMessage
- */
-export const EventMessage = new EventMessage$Type();
 /**
  * @generated ServiceType for protobuf service server.Server
  */
 export const Server = new ServiceType("server.Server", [
-    { name: "Call", options: {}, I: Request, O: Empty },
-    { name: "Subscribe", options: {}, I: Request, O: Empty },
-    { name: "UnSubscribe", options: {}, I: UnsubscribeRequest, O: Empty }
+    { name: "Request", options: {}, I: ParamsRequest, O: Empty }
 ]);
