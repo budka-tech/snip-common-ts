@@ -99,17 +99,21 @@ export enum MessageType {
  */
 export enum Domain {
     /**
-     * @generated from protobuf enum value: Auth = 0;
+     * @generated from protobuf enum value: Socket = 0;
      */
-    Auth = 0,
+    Socket = 0,
     /**
-     * @generated from protobuf enum value: Users = 1;
+     * @generated from protobuf enum value: Auth = 1;
      */
-    Users = 1,
+    Auth = 1,
     /**
-     * @generated from protobuf enum value: Assist = 2;
+     * @generated from protobuf enum value: Users = 2;
      */
-    Assist = 2
+    Users = 2,
+    /**
+     * @generated from protobuf enum value: Assist = 3;
+     */
+    Assist = 3
 }
 /**
  * @generated from protobuf enum server.SubscribeAction
