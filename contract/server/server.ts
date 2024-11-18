@@ -44,6 +44,23 @@ export interface ParamsRequest {
     data?: Any;
 }
 /**
+ * @generated from protobuf message server.WhoamiRequest
+ */
+export interface WhoamiRequest {
+    /**
+     * @generated from protobuf field: optional uint32 userId = 1;
+     */
+    userId?: number;
+    /**
+     * @generated from protobuf field: optional uint64 sessionId = 2;
+     */
+    sessionId?: bigint;
+    /**
+     * @generated from protobuf field: optional string wsSession = 3;
+     */
+    wsSession?: string;
+}
+/**
  * @generated from protobuf message server.Response
  */
 export interface Response {
@@ -253,6 +270,66 @@ class ParamsRequest$Type extends MessageType$<ParamsRequest> {
  */
 export const ParamsRequest = new ParamsRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
+class WhoamiRequest$Type extends MessageType$<WhoamiRequest> {
+    constructor() {
+        super("server.WhoamiRequest", [
+            { no: 1, name: "userId", kind: "scalar", opt: true, T: 13 /*ScalarType.UINT32*/ },
+            { no: 2, name: "sessionId", kind: "scalar", opt: true, T: 4 /*ScalarType.UINT64*/, L: 0 /*LongType.BIGINT*/ },
+            { no: 3, name: "wsSession", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value?: PartialMessage<WhoamiRequest>): WhoamiRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        if (value !== undefined)
+            reflectionMergePartial<WhoamiRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: WhoamiRequest): WhoamiRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* optional uint32 userId */ 1:
+                    message.userId = reader.uint32();
+                    break;
+                case /* optional uint64 sessionId */ 2:
+                    message.sessionId = reader.uint64().toBigInt();
+                    break;
+                case /* optional string wsSession */ 3:
+                    message.wsSession = reader.string();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: WhoamiRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* optional uint32 userId = 1; */
+        if (message.userId !== undefined)
+            writer.tag(1, WireType.Varint).uint32(message.userId);
+        /* optional uint64 sessionId = 2; */
+        if (message.sessionId !== undefined)
+            writer.tag(2, WireType.Varint).uint64(message.sessionId);
+        /* optional string wsSession = 3; */
+        if (message.wsSession !== undefined)
+            writer.tag(3, WireType.LengthDelimited).string(message.wsSession);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message server.WhoamiRequest
+ */
+export const WhoamiRequest = new WhoamiRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
 class Response$Type extends MessageType$<Response> {
     constructor() {
         super("server.Response", [
@@ -371,5 +448,6 @@ export const SubscribeData = new SubscribeData$Type();
  * @generated ServiceType for protobuf service server.Server
  */
 export const Server = new ServiceType("server.Server", [
+    { name: "Whoami", options: {}, I: WhoamiRequest, O: Empty },
     { name: "Request", options: {}, I: ParamsRequest, O: Empty }
 ]);
