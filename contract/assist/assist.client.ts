@@ -8,8 +8,8 @@ import type { GetMessagesInChatResponse } from "./assist";
 import type { GetMessagesInChatRequest } from "./assist";
 import type { GetMessageByIDResponse } from "./assist";
 import type { GetMessageByIDRequest } from "./assist";
-import type { CreateMessageResponse } from "./assist";
-import type { CreateMessageRequest } from "./assist";
+import type { SendMessageResponse } from "./assist";
+import type { SendMessageRequest } from "./assist";
 import type { GetUserFoldersResponse } from "./assist";
 import type { GetUserFoldersRequest } from "./assist";
 import type { GetFolderByIDResponse } from "./assist";
@@ -83,9 +83,9 @@ export interface IAssistClient {
      */
     getUserFolders(input: GetUserFoldersRequest, options?: RpcOptions): UnaryCall<GetUserFoldersRequest, GetUserFoldersResponse>;
     /**
-     * @generated from protobuf rpc: CreateMessage(assist.CreateMessageRequest) returns (assist.CreateMessageResponse);
+     * @generated from protobuf rpc: SendMessage(assist.SendMessageRequest) returns (assist.SendMessageResponse);
      */
-    createMessage(input: CreateMessageRequest, options?: RpcOptions): UnaryCall<CreateMessageRequest, CreateMessageResponse>;
+    sendMessage(input: SendMessageRequest, options?: RpcOptions): UnaryCall<SendMessageRequest, SendMessageResponse>;
     /**
      * @generated from protobuf rpc: GetMessageByID(assist.GetMessageByIDRequest) returns (assist.GetMessageByIDResponse);
      */
@@ -182,11 +182,11 @@ export class AssistClient implements IAssistClient, ServiceInfo {
         return stackIntercept<GetUserFoldersRequest, GetUserFoldersResponse>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: CreateMessage(assist.CreateMessageRequest) returns (assist.CreateMessageResponse);
+     * @generated from protobuf rpc: SendMessage(assist.SendMessageRequest) returns (assist.SendMessageResponse);
      */
-    createMessage(input: CreateMessageRequest, options?: RpcOptions): UnaryCall<CreateMessageRequest, CreateMessageResponse> {
+    sendMessage(input: SendMessageRequest, options?: RpcOptions): UnaryCall<SendMessageRequest, SendMessageResponse> {
         const method = this.methods[11], opt = this._transport.mergeOptions(options);
-        return stackIntercept<CreateMessageRequest, CreateMessageResponse>("unary", this._transport, method, opt, input);
+        return stackIntercept<SendMessageRequest, SendMessageResponse>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: GetMessageByID(assist.GetMessageByIDRequest) returns (assist.GetMessageByIDResponse);

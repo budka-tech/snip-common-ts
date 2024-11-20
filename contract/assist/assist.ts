@@ -146,6 +146,10 @@ export interface Chat {
      * @generated from protobuf field: optional string title = 4;
      */
     title?: string;
+    /**
+     * @generated from protobuf field: google.protobuf.Timestamp timestamp = 5;
+     */
+    timestamp?: Timestamp;
 }
 /**
  * @generated from protobuf message assist.CreateChatRequest
@@ -340,9 +344,9 @@ export interface Message {
     timestamp?: Timestamp;
 }
 /**
- * @generated from protobuf message assist.CreateMessageRequest
+ * @generated from protobuf message assist.SendMessageRequest
  */
-export interface CreateMessageRequest {
+export interface SendMessageRequest {
     /**
      * @generated from protobuf field: bytes chat_id = 1;
      */
@@ -353,13 +357,17 @@ export interface CreateMessageRequest {
     content: string;
 }
 /**
- * @generated from protobuf message assist.CreateMessageResponse
+ * @generated from protobuf message assist.SendMessageResponse
  */
-export interface CreateMessageResponse {
+export interface SendMessageResponse {
     /**
-     * @generated from protobuf field: assist.Message message = 1;
+     * @generated from protobuf field: assist.Message request_message = 1;
      */
-    message?: Message;
+    requestMessage?: Message;
+    /**
+     * @generated from protobuf field: assist.Message response_message = 3;
+     */
+    responseMessage?: Message;
     /**
      * @generated from protobuf field: uint32 status = 2;
      */
@@ -901,7 +909,8 @@ class Chat$Type extends MessageType<Chat> {
             { no: 1, name: "id", kind: "scalar", T: 12 /*ScalarType.BYTES*/ },
             { no: 2, name: "user_id", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
             { no: 3, name: "folder_id", kind: "scalar", opt: true, T: 12 /*ScalarType.BYTES*/ },
-            { no: 4, name: "title", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ }
+            { no: 4, name: "title", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "timestamp", kind: "message", T: () => Timestamp }
         ]);
     }
     create(value?: PartialMessage<Chat>): Chat {
@@ -929,6 +938,9 @@ class Chat$Type extends MessageType<Chat> {
                 case /* optional string title */ 4:
                     message.title = reader.string();
                     break;
+                case /* google.protobuf.Timestamp timestamp */ 5:
+                    message.timestamp = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.timestamp);
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -953,6 +965,9 @@ class Chat$Type extends MessageType<Chat> {
         /* optional string title = 4; */
         if (message.title !== undefined)
             writer.tag(4, WireType.LengthDelimited).string(message.title);
+        /* google.protobuf.Timestamp timestamp = 5; */
+        if (message.timestamp)
+            Timestamp.internalBinaryWrite(message.timestamp, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1741,22 +1756,22 @@ class Message$Type extends MessageType<Message> {
  */
 export const Message = new Message$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class CreateMessageRequest$Type extends MessageType<CreateMessageRequest> {
+class SendMessageRequest$Type extends MessageType<SendMessageRequest> {
     constructor() {
-        super("assist.CreateMessageRequest", [
+        super("assist.SendMessageRequest", [
             { no: 1, name: "chat_id", kind: "scalar", T: 12 /*ScalarType.BYTES*/ },
             { no: 2, name: "content", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
-    create(value?: PartialMessage<CreateMessageRequest>): CreateMessageRequest {
+    create(value?: PartialMessage<SendMessageRequest>): SendMessageRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.chatId = new Uint8Array(0);
         message.content = "";
         if (value !== undefined)
-            reflectionMergePartial<CreateMessageRequest>(this, message, value);
+            reflectionMergePartial<SendMessageRequest>(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: CreateMessageRequest): CreateMessageRequest {
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: SendMessageRequest): SendMessageRequest {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -1778,7 +1793,7 @@ class CreateMessageRequest$Type extends MessageType<CreateMessageRequest> {
         }
         return message;
     }
-    internalBinaryWrite(message: CreateMessageRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message: SendMessageRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
         /* bytes chat_id = 1; */
         if (message.chatId.length)
             writer.tag(1, WireType.LengthDelimited).bytes(message.chatId);
@@ -1792,31 +1807,35 @@ class CreateMessageRequest$Type extends MessageType<CreateMessageRequest> {
     }
 }
 /**
- * @generated MessageType for protobuf message assist.CreateMessageRequest
+ * @generated MessageType for protobuf message assist.SendMessageRequest
  */
-export const CreateMessageRequest = new CreateMessageRequest$Type();
+export const SendMessageRequest = new SendMessageRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class CreateMessageResponse$Type extends MessageType<CreateMessageResponse> {
+class SendMessageResponse$Type extends MessageType<SendMessageResponse> {
     constructor() {
-        super("assist.CreateMessageResponse", [
-            { no: 1, name: "message", kind: "message", T: () => Message },
+        super("assist.SendMessageResponse", [
+            { no: 1, name: "request_message", kind: "message", T: () => Message },
+            { no: 3, name: "response_message", kind: "message", T: () => Message },
             { no: 2, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ }
         ]);
     }
-    create(value?: PartialMessage<CreateMessageResponse>): CreateMessageResponse {
+    create(value?: PartialMessage<SendMessageResponse>): SendMessageResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.status = 0;
         if (value !== undefined)
-            reflectionMergePartial<CreateMessageResponse>(this, message, value);
+            reflectionMergePartial<SendMessageResponse>(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: CreateMessageResponse): CreateMessageResponse {
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: SendMessageResponse): SendMessageResponse {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* assist.Message message */ 1:
-                    message.message = Message.internalBinaryRead(reader, reader.uint32(), options, message.message);
+                case /* assist.Message request_message */ 1:
+                    message.requestMessage = Message.internalBinaryRead(reader, reader.uint32(), options, message.requestMessage);
+                    break;
+                case /* assist.Message response_message */ 3:
+                    message.responseMessage = Message.internalBinaryRead(reader, reader.uint32(), options, message.responseMessage);
                     break;
                 case /* uint32 status */ 2:
                     message.status = reader.uint32();
@@ -1832,10 +1851,13 @@ class CreateMessageResponse$Type extends MessageType<CreateMessageResponse> {
         }
         return message;
     }
-    internalBinaryWrite(message: CreateMessageResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* assist.Message message = 1; */
-        if (message.message)
-            Message.internalBinaryWrite(message.message, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+    internalBinaryWrite(message: SendMessageResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* assist.Message request_message = 1; */
+        if (message.requestMessage)
+            Message.internalBinaryWrite(message.requestMessage, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        /* assist.Message response_message = 3; */
+        if (message.responseMessage)
+            Message.internalBinaryWrite(message.responseMessage, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
         /* uint32 status = 2; */
         if (message.status !== 0)
             writer.tag(2, WireType.Varint).uint32(message.status);
@@ -1846,9 +1868,9 @@ class CreateMessageResponse$Type extends MessageType<CreateMessageResponse> {
     }
 }
 /**
- * @generated MessageType for protobuf message assist.CreateMessageResponse
+ * @generated MessageType for protobuf message assist.SendMessageResponse
  */
-export const CreateMessageResponse = new CreateMessageResponse$Type();
+export const SendMessageResponse = new SendMessageResponse$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class GetMessageByIDRequest$Type extends MessageType<GetMessageByIDRequest> {
     constructor() {
@@ -2082,7 +2104,7 @@ export const Assist = new ServiceType("assist.Assist", [
     { name: "DeleteFolder", options: {}, I: DeleteFolderRequest, O: Response },
     { name: "GetFolderByID", options: {}, I: GetFolderByIDRequest, O: GetFolderByIDResponse },
     { name: "GetUserFolders", options: {}, I: GetUserFoldersRequest, O: GetUserFoldersResponse },
-    { name: "CreateMessage", options: {}, I: CreateMessageRequest, O: CreateMessageResponse },
+    { name: "SendMessage", options: {}, I: SendMessageRequest, O: SendMessageResponse },
     { name: "GetMessageByID", options: {}, I: GetMessageByIDRequest, O: GetMessageByIDResponse },
     { name: "GetMessagesInChat", options: {}, I: GetMessagesInChatRequest, O: GetMessagesInChatResponse }
 ]);
