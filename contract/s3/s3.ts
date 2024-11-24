@@ -33,10 +33,6 @@ export interface Image {
      * @generated from protobuf field: string id = 1;
      */
     id: string; // Уникальный идентификатор изображения
-    /**
-     * @generated from protobuf field: string file_extension = 2;
-     */
-    fileExtension: string; // Расширение файла изображения
 }
 /**
  * ImageWithBucket message
@@ -52,10 +48,6 @@ export interface ImageWithBucket {
      * @generated from protobuf field: string bucket_name = 2;
      */
     bucketName: string; // Название бакета
-    /**
-     * @generated from protobuf field: string file_extension = 3;
-     */
-    fileExtension: string; // Расширение файла изображения
 }
 /**
  * Request and response messages for each function
@@ -146,6 +138,14 @@ export interface CreateImageRequest {
      * @generated from protobuf field: string file_extension = 3;
      */
     fileExtension: string;
+    /**
+     * @generated from protobuf field: optional float quality = 4;
+     */
+    quality?: number;
+    /**
+     * @generated from protobuf field: optional int32 max_size = 5;
+     */
+    maxSize?: number;
 }
 /**
  * @generated from protobuf message s3.CreateImageResponse
@@ -312,14 +312,12 @@ export const Bucket = new Bucket$Type();
 class Image$Type extends MessageType<Image> {
     constructor() {
         super("s3.Image", [
-            { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "file_extension", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<Image>): Image {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.id = "";
-        message.fileExtension = "";
         if (value !== undefined)
             reflectionMergePartial<Image>(this, message, value);
         return message;
@@ -331,9 +329,6 @@ class Image$Type extends MessageType<Image> {
             switch (fieldNo) {
                 case /* string id */ 1:
                     message.id = reader.string();
-                    break;
-                case /* string file_extension */ 2:
-                    message.fileExtension = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -350,9 +345,6 @@ class Image$Type extends MessageType<Image> {
         /* string id = 1; */
         if (message.id !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.id);
-        /* string file_extension = 2; */
-        if (message.fileExtension !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.fileExtension);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -368,15 +360,13 @@ class ImageWithBucket$Type extends MessageType<ImageWithBucket> {
     constructor() {
         super("s3.ImageWithBucket", [
             { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "bucket_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "file_extension", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 2, name: "bucket_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ImageWithBucket>): ImageWithBucket {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.id = "";
         message.bucketName = "";
-        message.fileExtension = "";
         if (value !== undefined)
             reflectionMergePartial<ImageWithBucket>(this, message, value);
         return message;
@@ -391,9 +381,6 @@ class ImageWithBucket$Type extends MessageType<ImageWithBucket> {
                     break;
                 case /* string bucket_name */ 2:
                     message.bucketName = reader.string();
-                    break;
-                case /* string file_extension */ 3:
-                    message.fileExtension = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -413,9 +400,6 @@ class ImageWithBucket$Type extends MessageType<ImageWithBucket> {
         /* string bucket_name = 2; */
         if (message.bucketName !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.bucketName);
-        /* string file_extension = 3; */
-        if (message.fileExtension !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.fileExtension);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -762,7 +746,9 @@ class CreateImageRequest$Type extends MessageType<CreateImageRequest> {
         super("s3.CreateImageRequest", [
             { no: 1, name: "bucket_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "file", kind: "scalar", T: 12 /*ScalarType.BYTES*/ },
-            { no: 3, name: "file_extension", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 3, name: "file_extension", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "quality", kind: "scalar", opt: true, T: 2 /*ScalarType.FLOAT*/ },
+            { no: 5, name: "max_size", kind: "scalar", opt: true, T: 5 /*ScalarType.INT32*/ }
         ]);
     }
     create(value?: PartialMessage<CreateImageRequest>): CreateImageRequest {
@@ -788,6 +774,12 @@ class CreateImageRequest$Type extends MessageType<CreateImageRequest> {
                 case /* string file_extension */ 3:
                     message.fileExtension = reader.string();
                     break;
+                case /* optional float quality */ 4:
+                    message.quality = reader.float();
+                    break;
+                case /* optional int32 max_size */ 5:
+                    message.maxSize = reader.int32();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -809,6 +801,12 @@ class CreateImageRequest$Type extends MessageType<CreateImageRequest> {
         /* string file_extension = 3; */
         if (message.fileExtension !== "")
             writer.tag(3, WireType.LengthDelimited).string(message.fileExtension);
+        /* optional float quality = 4; */
+        if (message.quality !== undefined)
+            writer.tag(4, WireType.Bit32).float(message.quality);
+        /* optional int32 max_size = 5; */
+        if (message.maxSize !== undefined)
+            writer.tag(5, WireType.Varint).int32(message.maxSize);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
