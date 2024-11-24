@@ -30,9 +30,9 @@ export interface Bucket {
  */
 export interface Image {
     /**
-     * @generated from protobuf field: string id = 1;
+     * @generated from protobuf field: bytes id = 1;
      */
-    id: string; // Уникальный идентификатор изображения
+    id: Uint8Array; // Уникальный идентификатор изображения
 }
 /**
  * ImageWithBucket message
@@ -41,9 +41,9 @@ export interface Image {
  */
 export interface ImageWithBucket {
     /**
-     * @generated from protobuf field: string id = 1;
+     * @generated from protobuf field: bytes id = 1;
      */
-    id: string; // Уникальный идентификатор изображения
+    id: Uint8Array; // Уникальный идентификатор изображения
     /**
      * @generated from protobuf field: string bucket_name = 2;
      */
@@ -165,9 +165,9 @@ export interface CreateImageResponse {
  */
 export interface GetImageRequest {
     /**
-     * @generated from protobuf field: string id = 1;
+     * @generated from protobuf field: bytes id = 1;
      */
-    id: string;
+    id: Uint8Array;
 }
 /**
  * @generated from protobuf message s3.GetImageResponse
@@ -187,9 +187,9 @@ export interface GetImageResponse {
  */
 export interface GetImageWithBucketRequest {
     /**
-     * @generated from protobuf field: string id = 1;
+     * @generated from protobuf field: bytes id = 1;
      */
-    id: string;
+    id: Uint8Array;
 }
 /**
  * @generated from protobuf message s3.GetImageWithBucketResponse
@@ -209,9 +209,9 @@ export interface GetImageWithBucketResponse {
  */
 export interface DeleteImageRequest {
     /**
-     * @generated from protobuf field: string id = 1;
+     * @generated from protobuf field: bytes id = 1;
      */
-    id: string;
+    id: Uint8Array;
 }
 /**
  * @generated from protobuf message s3.GetAllImagesRequest
@@ -312,12 +312,12 @@ export const Bucket = new Bucket$Type();
 class Image$Type extends MessageType<Image> {
     constructor() {
         super("s3.Image", [
-            { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "id", kind: "scalar", T: 12 /*ScalarType.BYTES*/ }
         ]);
     }
     create(value?: PartialMessage<Image>): Image {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.id = "";
+        message.id = new Uint8Array(0);
         if (value !== undefined)
             reflectionMergePartial<Image>(this, message, value);
         return message;
@@ -327,8 +327,8 @@ class Image$Type extends MessageType<Image> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string id */ 1:
-                    message.id = reader.string();
+                case /* bytes id */ 1:
+                    message.id = reader.bytes();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -342,9 +342,9 @@ class Image$Type extends MessageType<Image> {
         return message;
     }
     internalBinaryWrite(message: Image, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string id = 1; */
-        if (message.id !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.id);
+        /* bytes id = 1; */
+        if (message.id.length)
+            writer.tag(1, WireType.LengthDelimited).bytes(message.id);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -359,13 +359,13 @@ export const Image = new Image$Type();
 class ImageWithBucket$Type extends MessageType<ImageWithBucket> {
     constructor() {
         super("s3.ImageWithBucket", [
-            { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 1, name: "id", kind: "scalar", T: 12 /*ScalarType.BYTES*/ },
             { no: 2, name: "bucket_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<ImageWithBucket>): ImageWithBucket {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.id = "";
+        message.id = new Uint8Array(0);
         message.bucketName = "";
         if (value !== undefined)
             reflectionMergePartial<ImageWithBucket>(this, message, value);
@@ -376,8 +376,8 @@ class ImageWithBucket$Type extends MessageType<ImageWithBucket> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string id */ 1:
-                    message.id = reader.string();
+                case /* bytes id */ 1:
+                    message.id = reader.bytes();
                     break;
                 case /* string bucket_name */ 2:
                     message.bucketName = reader.string();
@@ -394,9 +394,9 @@ class ImageWithBucket$Type extends MessageType<ImageWithBucket> {
         return message;
     }
     internalBinaryWrite(message: ImageWithBucket, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string id = 1; */
-        if (message.id !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.id);
+        /* bytes id = 1; */
+        if (message.id.length)
+            writer.tag(1, WireType.LengthDelimited).bytes(message.id);
         /* string bucket_name = 2; */
         if (message.bucketName !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.bucketName);
@@ -875,12 +875,12 @@ export const CreateImageResponse = new CreateImageResponse$Type();
 class GetImageRequest$Type extends MessageType<GetImageRequest> {
     constructor() {
         super("s3.GetImageRequest", [
-            { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "id", kind: "scalar", T: 12 /*ScalarType.BYTES*/ }
         ]);
     }
     create(value?: PartialMessage<GetImageRequest>): GetImageRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.id = "";
+        message.id = new Uint8Array(0);
         if (value !== undefined)
             reflectionMergePartial<GetImageRequest>(this, message, value);
         return message;
@@ -890,8 +890,8 @@ class GetImageRequest$Type extends MessageType<GetImageRequest> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string id */ 1:
-                    message.id = reader.string();
+                case /* bytes id */ 1:
+                    message.id = reader.bytes();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -905,9 +905,9 @@ class GetImageRequest$Type extends MessageType<GetImageRequest> {
         return message;
     }
     internalBinaryWrite(message: GetImageRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string id = 1; */
-        if (message.id !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.id);
+        /* bytes id = 1; */
+        if (message.id.length)
+            writer.tag(1, WireType.LengthDelimited).bytes(message.id);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -976,12 +976,12 @@ export const GetImageResponse = new GetImageResponse$Type();
 class GetImageWithBucketRequest$Type extends MessageType<GetImageWithBucketRequest> {
     constructor() {
         super("s3.GetImageWithBucketRequest", [
-            { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "id", kind: "scalar", T: 12 /*ScalarType.BYTES*/ }
         ]);
     }
     create(value?: PartialMessage<GetImageWithBucketRequest>): GetImageWithBucketRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.id = "";
+        message.id = new Uint8Array(0);
         if (value !== undefined)
             reflectionMergePartial<GetImageWithBucketRequest>(this, message, value);
         return message;
@@ -991,8 +991,8 @@ class GetImageWithBucketRequest$Type extends MessageType<GetImageWithBucketReque
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string id */ 1:
-                    message.id = reader.string();
+                case /* bytes id */ 1:
+                    message.id = reader.bytes();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -1006,9 +1006,9 @@ class GetImageWithBucketRequest$Type extends MessageType<GetImageWithBucketReque
         return message;
     }
     internalBinaryWrite(message: GetImageWithBucketRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string id = 1; */
-        if (message.id !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.id);
+        /* bytes id = 1; */
+        if (message.id.length)
+            writer.tag(1, WireType.LengthDelimited).bytes(message.id);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1077,12 +1077,12 @@ export const GetImageWithBucketResponse = new GetImageWithBucketResponse$Type();
 class DeleteImageRequest$Type extends MessageType<DeleteImageRequest> {
     constructor() {
         super("s3.DeleteImageRequest", [
-            { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "id", kind: "scalar", T: 12 /*ScalarType.BYTES*/ }
         ]);
     }
     create(value?: PartialMessage<DeleteImageRequest>): DeleteImageRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.id = "";
+        message.id = new Uint8Array(0);
         if (value !== undefined)
             reflectionMergePartial<DeleteImageRequest>(this, message, value);
         return message;
@@ -1092,8 +1092,8 @@ class DeleteImageRequest$Type extends MessageType<DeleteImageRequest> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string id */ 1:
-                    message.id = reader.string();
+                case /* bytes id */ 1:
+                    message.id = reader.bytes();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -1107,9 +1107,9 @@ class DeleteImageRequest$Type extends MessageType<DeleteImageRequest> {
         return message;
     }
     internalBinaryWrite(message: DeleteImageRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string id = 1; */
-        if (message.id !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.id);
+        /* bytes id = 1; */
+        if (message.id.length)
+            writer.tag(1, WireType.LengthDelimited).bytes(message.id);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
