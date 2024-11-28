@@ -146,6 +146,10 @@ export interface CreateImageRequest {
      * @generated from protobuf field: optional int32 max_size = 5;
      */
     maxSize?: number;
+    /**
+     * @generated from protobuf field: optional bytes id = 6;
+     */
+    id?: Uint8Array;
 }
 /**
  * @generated from protobuf message s3.CreateImageResponse
@@ -748,7 +752,8 @@ class CreateImageRequest$Type extends MessageType<CreateImageRequest> {
             { no: 2, name: "file", kind: "scalar", T: 12 /*ScalarType.BYTES*/ },
             { no: 3, name: "file_extension", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 4, name: "quality", kind: "scalar", opt: true, T: 2 /*ScalarType.FLOAT*/ },
-            { no: 5, name: "max_size", kind: "scalar", opt: true, T: 5 /*ScalarType.INT32*/ }
+            { no: 5, name: "max_size", kind: "scalar", opt: true, T: 5 /*ScalarType.INT32*/ },
+            { no: 6, name: "id", kind: "scalar", opt: true, T: 12 /*ScalarType.BYTES*/ }
         ]);
     }
     create(value?: PartialMessage<CreateImageRequest>): CreateImageRequest {
@@ -780,6 +785,9 @@ class CreateImageRequest$Type extends MessageType<CreateImageRequest> {
                 case /* optional int32 max_size */ 5:
                     message.maxSize = reader.int32();
                     break;
+                case /* optional bytes id */ 6:
+                    message.id = reader.bytes();
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -807,6 +815,9 @@ class CreateImageRequest$Type extends MessageType<CreateImageRequest> {
         /* optional int32 max_size = 5; */
         if (message.maxSize !== undefined)
             writer.tag(5, WireType.Varint).int32(message.maxSize);
+        /* optional bytes id = 6; */
+        if (message.id !== undefined)
+            writer.tag(6, WireType.LengthDelimited).bytes(message.id);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
