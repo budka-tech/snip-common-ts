@@ -59,6 +59,10 @@ export interface IdentifyResponse {
      * @generated from protobuf field: optional users.AccountFull account = 2;
      */
     account?: AccountFull;
+    /**
+     * @generated from protobuf field: repeated string errors = 3;
+     */
+    errors: string[];
 }
 /**
  * @generated from protobuf message users.LoginRequest
@@ -605,12 +609,14 @@ class IdentifyResponse$Type extends MessageType<IdentifyResponse> {
     constructor() {
         super("users.IdentifyResponse", [
             { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
-            { no: 2, name: "account", kind: "message", T: () => AccountFull }
+            { no: 2, name: "account", kind: "message", T: () => AccountFull },
+            { no: 3, name: "errors", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<IdentifyResponse>): IdentifyResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.status = 0;
+        message.errors = [];
         if (value !== undefined)
             reflectionMergePartial<IdentifyResponse>(this, message, value);
         return message;
@@ -625,6 +631,9 @@ class IdentifyResponse$Type extends MessageType<IdentifyResponse> {
                     break;
                 case /* optional users.AccountFull account */ 2:
                     message.account = AccountFull.internalBinaryRead(reader, reader.uint32(), options, message.account);
+                    break;
+                case /* repeated string errors */ 3:
+                    message.errors.push(reader.string());
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -644,6 +653,9 @@ class IdentifyResponse$Type extends MessageType<IdentifyResponse> {
         /* optional users.AccountFull account = 2; */
         if (message.account)
             AccountFull.internalBinaryWrite(message.account, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+        /* repeated string errors = 3; */
+        for (let i = 0; i < message.errors.length; i++)
+            writer.tag(3, WireType.LengthDelimited).string(message.errors[i]);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
