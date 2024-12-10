@@ -4,17 +4,18 @@
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { Users } from "./users";
-import type { RemovePhoneRequest } from "./users";
-import type { AddPhoneRequest } from "./users";
-import type { UpdatePhotoRequest } from "./users";
-import type { UpdatePasswordRequest } from "./users";
+import type { EmailManipulationRequest } from "./users";
+import type { GetEmailsResponse } from "./users";
+import type { ConfirmResponse } from "./users";
+import type { PhoneManipulationRequest } from "./users";
+import type { GetPhonesResponse } from "./users";
 import type { UpdateAccountDataRequest } from "./users";
+import type { GetSessionsResponse } from "./users";
 import type { Account } from "./users";
 import type { CommonRequest } from "./users";
-import type { HasSessionRequest } from "./users";
-import type { RegisterRequest } from "./users";
-import type { Response } from "../common/common";
 import type { CheckCodeRequest } from "./users";
+import type { Response } from "../common/common";
+import type { LogoutRequest } from "./users";
 import type { LoginResponse } from "./users";
 import type { LoginRequest } from "./users";
 import { stackIntercept } from "@protobuf-ts/runtime-rpc";
@@ -35,49 +36,61 @@ export interface IUsersClient {
      */
     login(input: LoginRequest, options?: RpcOptions): UnaryCall<LoginRequest, LoginResponse>;
     /**
+     * @generated from protobuf rpc: Logout(users.LogoutRequest) returns (common.Response);
+     */
+    logout(input: LogoutRequest, options?: RpcOptions): UnaryCall<LogoutRequest, Response>;
+    /**
      * @generated from protobuf rpc: CheckCode(users.CheckCodeRequest) returns (common.Response);
      */
     checkCode(input: CheckCodeRequest, options?: RpcOptions): UnaryCall<CheckCodeRequest, Response>;
-    /**
-     * @generated from protobuf rpc: LoginByCode(users.LoginRequest) returns (users.LoginResponse);
-     */
-    loginByCode(input: LoginRequest, options?: RpcOptions): UnaryCall<LoginRequest, LoginResponse>;
-    /**
-     * @generated from protobuf rpc: Register(users.RegisterRequest) returns (users.LoginResponse);
-     */
-    register(input: RegisterRequest, options?: RpcOptions): UnaryCall<RegisterRequest, LoginResponse>;
-    /**
-     * @generated from protobuf rpc: HasSession(users.HasSessionRequest) returns (common.Response);
-     */
-    hasSession(input: HasSessionRequest, options?: RpcOptions): UnaryCall<HasSessionRequest, Response>;
     /**
      * @generated from protobuf rpc: GetAccount(users.CommonRequest) returns (users.Account);
      */
     getAccount(input: CommonRequest, options?: RpcOptions): UnaryCall<CommonRequest, Account>;
     /**
+     * @generated from protobuf rpc: GetAccountShort(users.CommonRequest) returns (users.Account);
+     */
+    getAccountShort(input: CommonRequest, options?: RpcOptions): UnaryCall<CommonRequest, Account>;
+    /**
+     * @generated from protobuf rpc: GetSessions(users.CommonRequest) returns (users.GetSessionsResponse);
+     */
+    getSessions(input: CommonRequest, options?: RpcOptions): UnaryCall<CommonRequest, GetSessionsResponse>;
+    /**
      * @generated from protobuf rpc: UpdateAccountData(users.UpdateAccountDataRequest) returns (common.Response);
      */
     updateAccountData(input: UpdateAccountDataRequest, options?: RpcOptions): UnaryCall<UpdateAccountDataRequest, Response>;
     /**
-     * @generated from protobuf rpc: UpdatePassword(users.UpdatePasswordRequest) returns (common.Response);
+     * @generated from protobuf rpc: GetPhones(users.CommonRequest) returns (users.GetPhonesResponse);
      */
-    updatePassword(input: UpdatePasswordRequest, options?: RpcOptions): UnaryCall<UpdatePasswordRequest, Response>;
+    getPhones(input: CommonRequest, options?: RpcOptions): UnaryCall<CommonRequest, GetPhonesResponse>;
     /**
-     * @generated from protobuf rpc: UpdatePhoto(users.UpdatePhotoRequest) returns (common.Response);
+     * @generated from protobuf rpc: AttachPhone(users.PhoneManipulationRequest) returns (users.ConfirmResponse);
      */
-    updatePhoto(input: UpdatePhotoRequest, options?: RpcOptions): UnaryCall<UpdatePhotoRequest, Response>;
+    attachPhone(input: PhoneManipulationRequest, options?: RpcOptions): UnaryCall<PhoneManipulationRequest, ConfirmResponse>;
     /**
-     * @generated from protobuf rpc: AddPhone(users.AddPhoneRequest) returns (common.Response);
+     * @generated from protobuf rpc: DetachPhone(users.PhoneManipulationRequest) returns (users.ConfirmResponse);
      */
-    addPhone(input: AddPhoneRequest, options?: RpcOptions): UnaryCall<AddPhoneRequest, Response>;
+    detachPhone(input: PhoneManipulationRequest, options?: RpcOptions): UnaryCall<PhoneManipulationRequest, ConfirmResponse>;
     /**
-     * @generated from protobuf rpc: UpdatePhone(users.UpdatePhotoRequest) returns (common.Response);
+     * @generated from protobuf rpc: SetPrimaryPhone(users.PhoneManipulationRequest) returns (users.ConfirmResponse);
      */
-    updatePhone(input: UpdatePhotoRequest, options?: RpcOptions): UnaryCall<UpdatePhotoRequest, Response>;
+    setPrimaryPhone(input: PhoneManipulationRequest, options?: RpcOptions): UnaryCall<PhoneManipulationRequest, ConfirmResponse>;
     /**
-     * @generated from protobuf rpc: RemovePhone(users.RemovePhoneRequest) returns (common.Response);
+     * @generated from protobuf rpc: GetEmails(users.CommonRequest) returns (users.GetEmailsResponse);
      */
-    removePhone(input: RemovePhoneRequest, options?: RpcOptions): UnaryCall<RemovePhoneRequest, Response>;
+    getEmails(input: CommonRequest, options?: RpcOptions): UnaryCall<CommonRequest, GetEmailsResponse>;
+    /**
+     * @generated from protobuf rpc: AttachEmail(users.EmailManipulationRequest) returns (users.ConfirmResponse);
+     */
+    attachEmail(input: EmailManipulationRequest, options?: RpcOptions): UnaryCall<EmailManipulationRequest, ConfirmResponse>;
+    /**
+     * @generated from protobuf rpc: DetachEmail(users.EmailManipulationRequest) returns (users.ConfirmResponse);
+     */
+    detachEmail(input: EmailManipulationRequest, options?: RpcOptions): UnaryCall<EmailManipulationRequest, ConfirmResponse>;
+    /**
+     * @generated from protobuf rpc: SetPrimaryEmail(users.EmailManipulationRequest) returns (users.ConfirmResponse);
+     */
+    setPrimaryEmail(input: EmailManipulationRequest, options?: RpcOptions): UnaryCall<EmailManipulationRequest, ConfirmResponse>;
 }
 /**
  * @generated from protobuf service users.Users
@@ -103,39 +116,39 @@ export class UsersClient implements IUsersClient, ServiceInfo {
         return stackIntercept<LoginRequest, LoginResponse>("unary", this._transport, method, opt, input);
     }
     /**
+     * @generated from protobuf rpc: Logout(users.LogoutRequest) returns (common.Response);
+     */
+    logout(input: LogoutRequest, options?: RpcOptions): UnaryCall<LogoutRequest, Response> {
+        const method = this.methods[2], opt = this._transport.mergeOptions(options);
+        return stackIntercept<LogoutRequest, Response>("unary", this._transport, method, opt, input);
+    }
+    /**
      * @generated from protobuf rpc: CheckCode(users.CheckCodeRequest) returns (common.Response);
      */
     checkCode(input: CheckCodeRequest, options?: RpcOptions): UnaryCall<CheckCodeRequest, Response> {
-        const method = this.methods[2], opt = this._transport.mergeOptions(options);
-        return stackIntercept<CheckCodeRequest, Response>("unary", this._transport, method, opt, input);
-    }
-    /**
-     * @generated from protobuf rpc: LoginByCode(users.LoginRequest) returns (users.LoginResponse);
-     */
-    loginByCode(input: LoginRequest, options?: RpcOptions): UnaryCall<LoginRequest, LoginResponse> {
         const method = this.methods[3], opt = this._transport.mergeOptions(options);
-        return stackIntercept<LoginRequest, LoginResponse>("unary", this._transport, method, opt, input);
-    }
-    /**
-     * @generated from protobuf rpc: Register(users.RegisterRequest) returns (users.LoginResponse);
-     */
-    register(input: RegisterRequest, options?: RpcOptions): UnaryCall<RegisterRequest, LoginResponse> {
-        const method = this.methods[4], opt = this._transport.mergeOptions(options);
-        return stackIntercept<RegisterRequest, LoginResponse>("unary", this._transport, method, opt, input);
-    }
-    /**
-     * @generated from protobuf rpc: HasSession(users.HasSessionRequest) returns (common.Response);
-     */
-    hasSession(input: HasSessionRequest, options?: RpcOptions): UnaryCall<HasSessionRequest, Response> {
-        const method = this.methods[5], opt = this._transport.mergeOptions(options);
-        return stackIntercept<HasSessionRequest, Response>("unary", this._transport, method, opt, input);
+        return stackIntercept<CheckCodeRequest, Response>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: GetAccount(users.CommonRequest) returns (users.Account);
      */
     getAccount(input: CommonRequest, options?: RpcOptions): UnaryCall<CommonRequest, Account> {
-        const method = this.methods[6], opt = this._transport.mergeOptions(options);
+        const method = this.methods[4], opt = this._transport.mergeOptions(options);
         return stackIntercept<CommonRequest, Account>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: GetAccountShort(users.CommonRequest) returns (users.Account);
+     */
+    getAccountShort(input: CommonRequest, options?: RpcOptions): UnaryCall<CommonRequest, Account> {
+        const method = this.methods[5], opt = this._transport.mergeOptions(options);
+        return stackIntercept<CommonRequest, Account>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: GetSessions(users.CommonRequest) returns (users.GetSessionsResponse);
+     */
+    getSessions(input: CommonRequest, options?: RpcOptions): UnaryCall<CommonRequest, GetSessionsResponse> {
+        const method = this.methods[6], opt = this._transport.mergeOptions(options);
+        return stackIntercept<CommonRequest, GetSessionsResponse>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: UpdateAccountData(users.UpdateAccountDataRequest) returns (common.Response);
@@ -145,38 +158,59 @@ export class UsersClient implements IUsersClient, ServiceInfo {
         return stackIntercept<UpdateAccountDataRequest, Response>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: UpdatePassword(users.UpdatePasswordRequest) returns (common.Response);
+     * @generated from protobuf rpc: GetPhones(users.CommonRequest) returns (users.GetPhonesResponse);
      */
-    updatePassword(input: UpdatePasswordRequest, options?: RpcOptions): UnaryCall<UpdatePasswordRequest, Response> {
+    getPhones(input: CommonRequest, options?: RpcOptions): UnaryCall<CommonRequest, GetPhonesResponse> {
         const method = this.methods[8], opt = this._transport.mergeOptions(options);
-        return stackIntercept<UpdatePasswordRequest, Response>("unary", this._transport, method, opt, input);
+        return stackIntercept<CommonRequest, GetPhonesResponse>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: UpdatePhoto(users.UpdatePhotoRequest) returns (common.Response);
+     * @generated from protobuf rpc: AttachPhone(users.PhoneManipulationRequest) returns (users.ConfirmResponse);
      */
-    updatePhoto(input: UpdatePhotoRequest, options?: RpcOptions): UnaryCall<UpdatePhotoRequest, Response> {
+    attachPhone(input: PhoneManipulationRequest, options?: RpcOptions): UnaryCall<PhoneManipulationRequest, ConfirmResponse> {
         const method = this.methods[9], opt = this._transport.mergeOptions(options);
-        return stackIntercept<UpdatePhotoRequest, Response>("unary", this._transport, method, opt, input);
+        return stackIntercept<PhoneManipulationRequest, ConfirmResponse>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: AddPhone(users.AddPhoneRequest) returns (common.Response);
+     * @generated from protobuf rpc: DetachPhone(users.PhoneManipulationRequest) returns (users.ConfirmResponse);
      */
-    addPhone(input: AddPhoneRequest, options?: RpcOptions): UnaryCall<AddPhoneRequest, Response> {
+    detachPhone(input: PhoneManipulationRequest, options?: RpcOptions): UnaryCall<PhoneManipulationRequest, ConfirmResponse> {
         const method = this.methods[10], opt = this._transport.mergeOptions(options);
-        return stackIntercept<AddPhoneRequest, Response>("unary", this._transport, method, opt, input);
+        return stackIntercept<PhoneManipulationRequest, ConfirmResponse>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: UpdatePhone(users.UpdatePhotoRequest) returns (common.Response);
+     * @generated from protobuf rpc: SetPrimaryPhone(users.PhoneManipulationRequest) returns (users.ConfirmResponse);
      */
-    updatePhone(input: UpdatePhotoRequest, options?: RpcOptions): UnaryCall<UpdatePhotoRequest, Response> {
+    setPrimaryPhone(input: PhoneManipulationRequest, options?: RpcOptions): UnaryCall<PhoneManipulationRequest, ConfirmResponse> {
         const method = this.methods[11], opt = this._transport.mergeOptions(options);
-        return stackIntercept<UpdatePhotoRequest, Response>("unary", this._transport, method, opt, input);
+        return stackIntercept<PhoneManipulationRequest, ConfirmResponse>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: RemovePhone(users.RemovePhoneRequest) returns (common.Response);
+     * @generated from protobuf rpc: GetEmails(users.CommonRequest) returns (users.GetEmailsResponse);
      */
-    removePhone(input: RemovePhoneRequest, options?: RpcOptions): UnaryCall<RemovePhoneRequest, Response> {
+    getEmails(input: CommonRequest, options?: RpcOptions): UnaryCall<CommonRequest, GetEmailsResponse> {
         const method = this.methods[12], opt = this._transport.mergeOptions(options);
-        return stackIntercept<RemovePhoneRequest, Response>("unary", this._transport, method, opt, input);
+        return stackIntercept<CommonRequest, GetEmailsResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: AttachEmail(users.EmailManipulationRequest) returns (users.ConfirmResponse);
+     */
+    attachEmail(input: EmailManipulationRequest, options?: RpcOptions): UnaryCall<EmailManipulationRequest, ConfirmResponse> {
+        const method = this.methods[13], opt = this._transport.mergeOptions(options);
+        return stackIntercept<EmailManipulationRequest, ConfirmResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: DetachEmail(users.EmailManipulationRequest) returns (users.ConfirmResponse);
+     */
+    detachEmail(input: EmailManipulationRequest, options?: RpcOptions): UnaryCall<EmailManipulationRequest, ConfirmResponse> {
+        const method = this.methods[14], opt = this._transport.mergeOptions(options);
+        return stackIntercept<EmailManipulationRequest, ConfirmResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: SetPrimaryEmail(users.EmailManipulationRequest) returns (users.ConfirmResponse);
+     */
+    setPrimaryEmail(input: EmailManipulationRequest, options?: RpcOptions): UnaryCall<EmailManipulationRequest, ConfirmResponse> {
+        const method = this.methods[15], opt = this._transport.mergeOptions(options);
+        return stackIntercept<EmailManipulationRequest, ConfirmResponse>("unary", this._transport, method, opt, input);
     }
 }

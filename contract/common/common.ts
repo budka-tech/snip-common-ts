@@ -18,17 +18,25 @@ export interface Response {
      * @generated from protobuf field: uint32 status = 1;
      */
     status: number;
+    /**
+     * @generated from protobuf field: map<string, string> errors = 2;
+     */
+    errors: {
+        [key: string]: string;
+    };
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class Response$Type extends MessageType<Response> {
     constructor() {
         super("common.Response", [
-            { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ }
+            { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
+            { no: 2, name: "errors", kind: "map", K: 9 /*ScalarType.STRING*/, V: { kind: "scalar", T: 9 /*ScalarType.STRING*/ } }
         ]);
     }
     create(value?: PartialMessage<Response>): Response {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.status = 0;
+        message.errors = {};
         if (value !== undefined)
             reflectionMergePartial<Response>(this, message, value);
         return message;
@@ -41,6 +49,9 @@ class Response$Type extends MessageType<Response> {
                 case /* uint32 status */ 1:
                     message.status = reader.uint32();
                     break;
+                case /* map<string, string> errors */ 2:
+                    this.binaryReadMap2(message.errors, reader, options);
+                    break;
                 default:
                     let u = options.readUnknownField;
                     if (u === "throw")
@@ -52,10 +63,29 @@ class Response$Type extends MessageType<Response> {
         }
         return message;
     }
+    private binaryReadMap2(map: Response["errors"], reader: IBinaryReader, options: BinaryReadOptions): void {
+        let len = reader.uint32(), end = reader.pos + len, key: keyof Response["errors"] | undefined, val: Response["errors"][any] | undefined;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case 1:
+                    key = reader.string();
+                    break;
+                case 2:
+                    val = reader.string();
+                    break;
+                default: throw new globalThis.Error("unknown map entry field for field common.Response.errors");
+            }
+        }
+        map[key ?? ""] = val ?? "";
+    }
     internalBinaryWrite(message: Response, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
         /* uint32 status = 1; */
         if (message.status !== 0)
             writer.tag(1, WireType.Varint).uint32(message.status);
+        /* map<string, string> errors = 2; */
+        for (let k of globalThis.Object.keys(message.errors))
+            writer.tag(2, WireType.LengthDelimited).fork().tag(1, WireType.LengthDelimited).string(k).tag(2, WireType.LengthDelimited).string(message.errors[k]).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
