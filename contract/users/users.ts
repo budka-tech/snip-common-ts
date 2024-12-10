@@ -62,7 +62,7 @@ export interface IdentifyResponse {
      */
     account?: Account;
     /**
-     * @generated from protobuf field: optional users.Registration Registration = 4 [json_name = "Registration"];
+     * @generated from protobuf field: optional users.Registration registration = 4;
      */
     registration?: Registration;
 }
@@ -213,9 +213,9 @@ export interface Account {
  */
 export interface Registration {
     /**
-     * @generated from protobuf field: int32 id = 1;
+     * @generated from protobuf field: string id = 1;
      */
-    id: number;
+    id: string;
     /**
      * @generated from protobuf field: string phone = 2;
      */
@@ -667,7 +667,7 @@ class IdentifyResponse$Type extends MessageType<IdentifyResponse> {
             { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
             { no: 2, name: "errors", kind: "map", K: 9 /*ScalarType.STRING*/, V: { kind: "scalar", T: 9 /*ScalarType.STRING*/ } },
             { no: 3, name: "account", kind: "message", T: () => Account },
-            { no: 4, name: "Registration", kind: "message", jsonName: "Registration", T: () => Registration }
+            { no: 4, name: "registration", kind: "message", T: () => Registration }
         ]);
     }
     create(value?: PartialMessage<IdentifyResponse>): IdentifyResponse {
@@ -692,7 +692,7 @@ class IdentifyResponse$Type extends MessageType<IdentifyResponse> {
                 case /* optional users.Account account */ 3:
                     message.account = Account.internalBinaryRead(reader, reader.uint32(), options, message.account);
                     break;
-                case /* optional users.Registration Registration = 4 [json_name = "Registration"];*/ 4:
+                case /* optional users.Registration registration */ 4:
                     message.registration = Registration.internalBinaryRead(reader, reader.uint32(), options, message.registration);
                     break;
                 default:
@@ -732,7 +732,7 @@ class IdentifyResponse$Type extends MessageType<IdentifyResponse> {
         /* optional users.Account account = 3; */
         if (message.account)
             Account.internalBinaryWrite(message.account, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
-        /* optional users.Registration Registration = 4 [json_name = "Registration"]; */
+        /* optional users.Registration registration = 4; */
         if (message.registration)
             Registration.internalBinaryWrite(message.registration, writer.tag(4, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
@@ -1241,7 +1241,7 @@ export const Account = new Account$Type();
 class Registration$Type extends MessageType<Registration> {
     constructor() {
         super("users.Registration", [
-            { no: 1, name: "id", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "phone", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "type", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
             { no: 4, name: "code", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
@@ -1253,7 +1253,7 @@ class Registration$Type extends MessageType<Registration> {
     }
     create(value?: PartialMessage<Registration>): Registration {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.id = 0;
+        message.id = "";
         message.phone = "";
         message.type = 0;
         message.code = 0;
@@ -1268,8 +1268,8 @@ class Registration$Type extends MessageType<Registration> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int32 id */ 1:
-                    message.id = reader.int32();
+                case /* string id */ 1:
+                    message.id = reader.string();
                     break;
                 case /* string phone */ 2:
                     message.phone = reader.string();
@@ -1304,9 +1304,9 @@ class Registration$Type extends MessageType<Registration> {
         return message;
     }
     internalBinaryWrite(message: Registration, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int32 id = 1; */
-        if (message.id !== 0)
-            writer.tag(1, WireType.Varint).int32(message.id);
+        /* string id = 1; */
+        if (message.id !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.id);
         /* string phone = 2; */
         if (message.phone !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.phone);
