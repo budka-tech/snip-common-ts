@@ -196,9 +196,9 @@ export interface Account {
      */
     timezone: number;
     /**
-     * @generated from protobuf field: int32 photo = 10;
+     * @generated from protobuf field: bytes photo = 10;
      */
-    photo: number;
+    photo: Uint8Array;
     /**
      * @generated from protobuf field: google.protobuf.Timestamp created_at = 14;
      */
@@ -1118,7 +1118,7 @@ class Account$Type extends MessageType<Account> {
             { no: 7, name: "district", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
             { no: 8, name: "locale", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
             { no: 9, name: "timezone", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 10, name: "photo", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 10, name: "photo", kind: "scalar", T: 12 /*ScalarType.BYTES*/ },
             { no: 14, name: "created_at", kind: "message", T: () => Timestamp },
             { no: 15, name: "updated_at", kind: "message", T: () => Timestamp }
         ]);
@@ -1133,7 +1133,7 @@ class Account$Type extends MessageType<Account> {
         message.district = 0;
         message.locale = 0;
         message.timezone = 0;
-        message.photo = 0;
+        message.photo = new Uint8Array(0);
         if (value !== undefined)
             reflectionMergePartial<Account>(this, message, value);
         return message;
@@ -1170,8 +1170,8 @@ class Account$Type extends MessageType<Account> {
                 case /* int32 timezone */ 9:
                     message.timezone = reader.int32();
                     break;
-                case /* int32 photo */ 10:
-                    message.photo = reader.int32();
+                case /* bytes photo */ 10:
+                    message.photo = reader.bytes();
                     break;
                 case /* google.protobuf.Timestamp created_at */ 14:
                     message.createdAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.createdAt);
@@ -1218,9 +1218,9 @@ class Account$Type extends MessageType<Account> {
         /* int32 timezone = 9; */
         if (message.timezone !== 0)
             writer.tag(9, WireType.Varint).int32(message.timezone);
-        /* int32 photo = 10; */
-        if (message.photo !== 0)
-            writer.tag(10, WireType.Varint).int32(message.photo);
+        /* bytes photo = 10; */
+        if (message.photo.length)
+            writer.tag(10, WireType.LengthDelimited).bytes(message.photo);
         /* google.protobuf.Timestamp created_at = 14; */
         if (message.createdAt)
             Timestamp.internalBinaryWrite(message.createdAt, writer.tag(14, WireType.LengthDelimited).fork(), options).join();
