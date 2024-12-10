@@ -12,19 +12,11 @@ import { UnknownFieldHandler } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
-/**
- * @generated from protobuf message gsm.SendSmsRequest
- */
-export interface SendSmsRequest {
-    /**
-     * @generated from protobuf field: string message = 1;
-     */
-    message: string;
-    /**
-     * @generated from protobuf field: string phone = 2;
-     */
-    phone: string;
-}
+// message SendSmsRequest {
+//  string message = 1;
+//  string phone = 2;
+// }
+
 /**
  * @generated from protobuf message gsm.FlashCallRequest
  */
@@ -33,33 +25,46 @@ export interface FlashCallRequest {
      * @generated from protobuf field: string phone = 1;
      */
     phone: string;
+    /**
+     * @generated from protobuf field: string code = 2;
+     */
+    code: string;
+}
+/**
+ * @generated from protobuf message gsm.FlashCallBackRequest
+ */
+export interface FlashCallBackRequest {
+    /**
+     * @generated from protobuf field: string phone = 1;
+     */
+    phone: string;
 }
 // @generated message type with reflection information, may provide speed optimized methods
-class SendSmsRequest$Type extends MessageType<SendSmsRequest> {
+class FlashCallRequest$Type extends MessageType<FlashCallRequest> {
     constructor() {
-        super("gsm.SendSmsRequest", [
-            { no: 1, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "phone", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        super("gsm.FlashCallRequest", [
+            { no: 1, name: "phone", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "code", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
-    create(value?: PartialMessage<SendSmsRequest>): SendSmsRequest {
+    create(value?: PartialMessage<FlashCallRequest>): FlashCallRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.message = "";
         message.phone = "";
+        message.code = "";
         if (value !== undefined)
-            reflectionMergePartial<SendSmsRequest>(this, message, value);
+            reflectionMergePartial<FlashCallRequest>(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: SendSmsRequest): SendSmsRequest {
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: FlashCallRequest): FlashCallRequest {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string message */ 1:
-                    message.message = reader.string();
-                    break;
-                case /* string phone */ 2:
+                case /* string phone */ 1:
                     message.phone = reader.string();
+                    break;
+                case /* string code */ 2:
+                    message.code = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -72,13 +77,13 @@ class SendSmsRequest$Type extends MessageType<SendSmsRequest> {
         }
         return message;
     }
-    internalBinaryWrite(message: SendSmsRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string message = 1; */
-        if (message.message !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.message);
-        /* string phone = 2; */
+    internalBinaryWrite(message: FlashCallRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* string phone = 1; */
         if (message.phone !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.phone);
+            writer.tag(1, WireType.LengthDelimited).string(message.phone);
+        /* string code = 2; */
+        if (message.code !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.code);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -86,24 +91,24 @@ class SendSmsRequest$Type extends MessageType<SendSmsRequest> {
     }
 }
 /**
- * @generated MessageType for protobuf message gsm.SendSmsRequest
+ * @generated MessageType for protobuf message gsm.FlashCallRequest
  */
-export const SendSmsRequest = new SendSmsRequest$Type();
+export const FlashCallRequest = new FlashCallRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class FlashCallRequest$Type extends MessageType<FlashCallRequest> {
+class FlashCallBackRequest$Type extends MessageType<FlashCallBackRequest> {
     constructor() {
-        super("gsm.FlashCallRequest", [
+        super("gsm.FlashCallBackRequest", [
             { no: 1, name: "phone", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
-    create(value?: PartialMessage<FlashCallRequest>): FlashCallRequest {
+    create(value?: PartialMessage<FlashCallBackRequest>): FlashCallBackRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.phone = "";
         if (value !== undefined)
-            reflectionMergePartial<FlashCallRequest>(this, message, value);
+            reflectionMergePartial<FlashCallBackRequest>(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: FlashCallRequest): FlashCallRequest {
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: FlashCallBackRequest): FlashCallBackRequest {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -122,7 +127,7 @@ class FlashCallRequest$Type extends MessageType<FlashCallRequest> {
         }
         return message;
     }
-    internalBinaryWrite(message: FlashCallRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message: FlashCallBackRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
         /* string phone = 1; */
         if (message.phone !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.phone);
@@ -133,13 +138,13 @@ class FlashCallRequest$Type extends MessageType<FlashCallRequest> {
     }
 }
 /**
- * @generated MessageType for protobuf message gsm.FlashCallRequest
+ * @generated MessageType for protobuf message gsm.FlashCallBackRequest
  */
-export const FlashCallRequest = new FlashCallRequest$Type();
+export const FlashCallBackRequest = new FlashCallBackRequest$Type();
 /**
  * @generated ServiceType for protobuf service gsm.Gsm
  */
 export const Gsm = new ServiceType("gsm.Gsm", [
-    { name: "SendSms", options: {}, I: SendSmsRequest, O: Response },
-    { name: "FlashCall", options: {}, I: FlashCallRequest, O: Response }
+    { name: "FlashCall", options: {}, I: FlashCallRequest, O: Response },
+    { name: "FlashCallBack", options: {}, I: FlashCallBackRequest, O: Response }
 ]);

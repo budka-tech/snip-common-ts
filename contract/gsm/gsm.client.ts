@@ -4,10 +4,10 @@
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { Gsm } from "./gsm";
-import type { FlashCallRequest } from "./gsm";
+import type { FlashCallBackRequest } from "./gsm";
 import { stackIntercept } from "@protobuf-ts/runtime-rpc";
 import type { Response } from "../common/common";
-import type { SendSmsRequest } from "./gsm";
+import type { FlashCallRequest } from "./gsm";
 import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
 import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
 /**
@@ -15,13 +15,15 @@ import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
  */
 export interface IGsmClient {
     /**
-     * @generated from protobuf rpc: SendSms(gsm.SendSmsRequest) returns (common.Response);
-     */
-    sendSms(input: SendSmsRequest, options?: RpcOptions): UnaryCall<SendSmsRequest, Response>;
-    /**
+     *  rpc SendSms(SendSmsRequest) returns(common.Response);
+     *
      * @generated from protobuf rpc: FlashCall(gsm.FlashCallRequest) returns (common.Response);
      */
     flashCall(input: FlashCallRequest, options?: RpcOptions): UnaryCall<FlashCallRequest, Response>;
+    /**
+     * @generated from protobuf rpc: FlashCallBack(gsm.FlashCallBackRequest) returns (common.Response);
+     */
+    flashCallBack(input: FlashCallBackRequest, options?: RpcOptions): UnaryCall<FlashCallBackRequest, Response>;
 }
 /**
  * @generated from protobuf service gsm.Gsm
@@ -33,17 +35,19 @@ export class GsmClient implements IGsmClient, ServiceInfo {
     constructor(private readonly _transport: RpcTransport) {
     }
     /**
-     * @generated from protobuf rpc: SendSms(gsm.SendSmsRequest) returns (common.Response);
-     */
-    sendSms(input: SendSmsRequest, options?: RpcOptions): UnaryCall<SendSmsRequest, Response> {
-        const method = this.methods[0], opt = this._transport.mergeOptions(options);
-        return stackIntercept<SendSmsRequest, Response>("unary", this._transport, method, opt, input);
-    }
-    /**
+     *  rpc SendSms(SendSmsRequest) returns(common.Response);
+     *
      * @generated from protobuf rpc: FlashCall(gsm.FlashCallRequest) returns (common.Response);
      */
     flashCall(input: FlashCallRequest, options?: RpcOptions): UnaryCall<FlashCallRequest, Response> {
-        const method = this.methods[1], opt = this._transport.mergeOptions(options);
+        const method = this.methods[0], opt = this._transport.mergeOptions(options);
         return stackIntercept<FlashCallRequest, Response>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: FlashCallBack(gsm.FlashCallBackRequest) returns (common.Response);
+     */
+    flashCallBack(input: FlashCallBackRequest, options?: RpcOptions): UnaryCall<FlashCallBackRequest, Response> {
+        const method = this.methods[1], opt = this._transport.mergeOptions(options);
+        return stackIntercept<FlashCallBackRequest, Response>("unary", this._transport, method, opt, input);
     }
 }
