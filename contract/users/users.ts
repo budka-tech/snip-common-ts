@@ -23,18 +23,56 @@ export interface CommonRequest {
     accountId: number;
 }
 /**
- * @generated from protobuf message users.IdentificationRequest
+ * @generated from protobuf message users.IdentifyRequest
  */
-export interface IdentificationRequest {
+export interface IdentifyRequest {
+    /**
+     * @generated from protobuf field: string token = 1;
+     */
+    token: string;
+    /**
+     * @generated from protobuf field: string userAgent = 2;
+     */
+    userAgent: string;
+    /**
+     * @generated from protobuf field: int32 device = 3;
+     */
+    device: number;
+    /**
+     * @generated from protobuf field: bytes ip = 4;
+     */
+    ip: Uint8Array;
+    /**
+     * @generated from protobuf field: string fcm = 5;
+     */
+    fcm: string;
+}
+/**
+ * @generated from protobuf message users.IdentifyResponse
+ */
+export interface IdentifyResponse {
+    /**
+     * @generated from protobuf field: uint32 status = 1;
+     */
+    status: number;
+    /**
+     * @generated from protobuf field: optional users.AccountFull account = 2;
+     */
+    account?: AccountFull;
+}
+/**
+ * @generated from protobuf message users.LoginRequest
+ */
+export interface LoginRequest {
     /**
      * @generated from protobuf field: string phone = 1;
      */
     phone: string;
 }
 /**
- * @generated from protobuf message users.IdentificationResponse
+ * @generated from protobuf message users.LoginResponse
  */
-export interface IdentificationResponse {
+export interface LoginResponse {
     /**
      * @generated from protobuf field: uint32 status = 1;
      */
@@ -55,6 +93,71 @@ export interface IdentificationResponse {
      * @generated from protobuf field: google.protobuf.Timestamp endedAt = 5;
      */
     endedAt?: Timestamp;
+}
+/**
+ * @generated from protobuf message users.AccountFull
+ */
+export interface AccountFull {
+    /**
+     * @generated from protobuf field: int32 id = 1;
+     */
+    id: number;
+    /**
+     * @generated from protobuf field: string name = 2;
+     */
+    name: string;
+    /**
+     * @generated from protobuf field: string surname = 3;
+     */
+    surname: string;
+    /**
+     * @generated from protobuf field: string patronymic = 4;
+     */
+    patronymic: string;
+    /**
+     * @generated from protobuf field: google.protobuf.Timestamp birthdate = 5;
+     */
+    birthdate?: Timestamp;
+    /**
+     * @generated from protobuf field: int32 country = 6;
+     */
+    country: number;
+    /**
+     * @generated from protobuf field: int32 district = 7;
+     */
+    district: number;
+    /**
+     * @generated from protobuf field: int32 locale = 8;
+     */
+    locale: number;
+    /**
+     * @generated from protobuf field: int32 timezone = 9;
+     */
+    timezone: number;
+    /**
+     * @generated from protobuf field: int32 photo = 10;
+     */
+    photo: number;
+    /**
+     * @generated from protobuf field: repeated users.AccountEmail emails = 11;
+     */
+    emails: AccountEmail[];
+    /**
+     * @generated from protobuf field: repeated users.AccountPhone phones = 12;
+     */
+    phones: AccountPhone[];
+    /**
+     * @generated from protobuf field: repeated users.AccountRole roles = 13;
+     */
+    roles: AccountRole[];
+    /**
+     * @generated from protobuf field: google.protobuf.Timestamp createdAt = 14;
+     */
+    createdAt?: Timestamp;
+    /**
+     * @generated from protobuf field: google.protobuf.Timestamp updatedAt = 15;
+     */
+    updatedAt?: Timestamp;
 }
 /**
  * @generated from protobuf message users.CheckCodeRequest
@@ -111,32 +214,16 @@ export interface RegisterRequest {
      */
     timezone: number;
 }
-/**
- * @generated from protobuf message users.LoginRequest
- */
-export interface LoginRequest {
-    /**
-     * @generated from protobuf field: string phone = 1;
-     */
-    phone: string;
-}
-/**
- * @generated from protobuf message users.LoginResponse
- */
-export interface LoginResponse {
-    /**
-     * @generated from protobuf field: uint32 status = 1;
-     */
-    status: number;
-    /**
-     * @generated from protobuf field: optional int64 sessionId = 2;
-     */
-    sessionId?: bigint;
-    /**
-     * @generated from protobuf field: optional users.Account account = 3;
-     */
-    account?: Account;
-}
+// message LoginRequest {
+//  string phone = 1;
+// }
+// 
+// message LoginResponse {
+//  uint32 status = 1;
+//  optional int64 sessionId = 2;
+//  optional Account account = 3;
+// }
+
 /**
  * @generated from protobuf message users.Account
  */
@@ -435,20 +522,153 @@ class CommonRequest$Type extends MessageType<CommonRequest> {
  */
 export const CommonRequest = new CommonRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class IdentificationRequest$Type extends MessageType<IdentificationRequest> {
+class IdentifyRequest$Type extends MessageType<IdentifyRequest> {
     constructor() {
-        super("users.IdentificationRequest", [
+        super("users.IdentifyRequest", [
+            { no: 1, name: "token", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "userAgent", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "device", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 4, name: "ip", kind: "scalar", T: 12 /*ScalarType.BYTES*/ },
+            { no: 5, name: "fcm", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value?: PartialMessage<IdentifyRequest>): IdentifyRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.token = "";
+        message.userAgent = "";
+        message.device = 0;
+        message.ip = new Uint8Array(0);
+        message.fcm = "";
+        if (value !== undefined)
+            reflectionMergePartial<IdentifyRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: IdentifyRequest): IdentifyRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* string token */ 1:
+                    message.token = reader.string();
+                    break;
+                case /* string userAgent */ 2:
+                    message.userAgent = reader.string();
+                    break;
+                case /* int32 device */ 3:
+                    message.device = reader.int32();
+                    break;
+                case /* bytes ip */ 4:
+                    message.ip = reader.bytes();
+                    break;
+                case /* string fcm */ 5:
+                    message.fcm = reader.string();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: IdentifyRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* string token = 1; */
+        if (message.token !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.token);
+        /* string userAgent = 2; */
+        if (message.userAgent !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.userAgent);
+        /* int32 device = 3; */
+        if (message.device !== 0)
+            writer.tag(3, WireType.Varint).int32(message.device);
+        /* bytes ip = 4; */
+        if (message.ip.length)
+            writer.tag(4, WireType.LengthDelimited).bytes(message.ip);
+        /* string fcm = 5; */
+        if (message.fcm !== "")
+            writer.tag(5, WireType.LengthDelimited).string(message.fcm);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message users.IdentifyRequest
+ */
+export const IdentifyRequest = new IdentifyRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class IdentifyResponse$Type extends MessageType<IdentifyResponse> {
+    constructor() {
+        super("users.IdentifyResponse", [
+            { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
+            { no: 2, name: "account", kind: "message", T: () => AccountFull }
+        ]);
+    }
+    create(value?: PartialMessage<IdentifyResponse>): IdentifyResponse {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.status = 0;
+        if (value !== undefined)
+            reflectionMergePartial<IdentifyResponse>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: IdentifyResponse): IdentifyResponse {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* uint32 status */ 1:
+                    message.status = reader.uint32();
+                    break;
+                case /* optional users.AccountFull account */ 2:
+                    message.account = AccountFull.internalBinaryRead(reader, reader.uint32(), options, message.account);
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: IdentifyResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* uint32 status = 1; */
+        if (message.status !== 0)
+            writer.tag(1, WireType.Varint).uint32(message.status);
+        /* optional users.AccountFull account = 2; */
+        if (message.account)
+            AccountFull.internalBinaryWrite(message.account, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message users.IdentifyResponse
+ */
+export const IdentifyResponse = new IdentifyResponse$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class LoginRequest$Type extends MessageType<LoginRequest> {
+    constructor() {
+        super("users.LoginRequest", [
             { no: 1, name: "phone", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
-    create(value?: PartialMessage<IdentificationRequest>): IdentificationRequest {
+    create(value?: PartialMessage<LoginRequest>): LoginRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.phone = "";
         if (value !== undefined)
-            reflectionMergePartial<IdentificationRequest>(this, message, value);
+            reflectionMergePartial<LoginRequest>(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: IdentificationRequest): IdentificationRequest {
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: LoginRequest): LoginRequest {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -467,7 +687,7 @@ class IdentificationRequest$Type extends MessageType<IdentificationRequest> {
         }
         return message;
     }
-    internalBinaryWrite(message: IdentificationRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message: LoginRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
         /* string phone = 1; */
         if (message.phone !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.phone);
@@ -478,13 +698,13 @@ class IdentificationRequest$Type extends MessageType<IdentificationRequest> {
     }
 }
 /**
- * @generated MessageType for protobuf message users.IdentificationRequest
+ * @generated MessageType for protobuf message users.LoginRequest
  */
-export const IdentificationRequest = new IdentificationRequest$Type();
+export const LoginRequest = new LoginRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class IdentificationResponse$Type extends MessageType<IdentificationResponse> {
+class LoginResponse$Type extends MessageType<LoginResponse> {
     constructor() {
-        super("users.IdentificationResponse", [
+        super("users.LoginResponse", [
             { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
             { no: 2, name: "type", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
             { no: 3, name: "methods", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 13 /*ScalarType.UINT32*/ },
@@ -492,17 +712,17 @@ class IdentificationResponse$Type extends MessageType<IdentificationResponse> {
             { no: 5, name: "endedAt", kind: "message", T: () => Timestamp }
         ]);
     }
-    create(value?: PartialMessage<IdentificationResponse>): IdentificationResponse {
+    create(value?: PartialMessage<LoginResponse>): LoginResponse {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.status = 0;
         message.type = 0;
         message.methods = [];
         message.data = "";
         if (value !== undefined)
-            reflectionMergePartial<IdentificationResponse>(this, message, value);
+            reflectionMergePartial<LoginResponse>(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: IdentificationResponse): IdentificationResponse {
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: LoginResponse): LoginResponse {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -537,7 +757,7 @@ class IdentificationResponse$Type extends MessageType<IdentificationResponse> {
         }
         return message;
     }
-    internalBinaryWrite(message: IdentificationResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message: LoginResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
         /* uint32 status = 1; */
         if (message.status !== 0)
             writer.tag(1, WireType.Varint).uint32(message.status);
@@ -564,9 +784,165 @@ class IdentificationResponse$Type extends MessageType<IdentificationResponse> {
     }
 }
 /**
- * @generated MessageType for protobuf message users.IdentificationResponse
+ * @generated MessageType for protobuf message users.LoginResponse
  */
-export const IdentificationResponse = new IdentificationResponse$Type();
+export const LoginResponse = new LoginResponse$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class AccountFull$Type extends MessageType<AccountFull> {
+    constructor() {
+        super("users.AccountFull", [
+            { no: 1, name: "id", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "surname", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "patronymic", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "birthdate", kind: "message", T: () => Timestamp },
+            { no: 6, name: "country", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 7, name: "district", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 8, name: "locale", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 9, name: "timezone", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 10, name: "photo", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 11, name: "emails", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => AccountEmail },
+            { no: 12, name: "phones", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => AccountPhone },
+            { no: 13, name: "roles", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => AccountRole },
+            { no: 14, name: "createdAt", kind: "message", T: () => Timestamp },
+            { no: 15, name: "updatedAt", kind: "message", T: () => Timestamp }
+        ]);
+    }
+    create(value?: PartialMessage<AccountFull>): AccountFull {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.id = 0;
+        message.name = "";
+        message.surname = "";
+        message.patronymic = "";
+        message.country = 0;
+        message.district = 0;
+        message.locale = 0;
+        message.timezone = 0;
+        message.photo = 0;
+        message.emails = [];
+        message.phones = [];
+        message.roles = [];
+        if (value !== undefined)
+            reflectionMergePartial<AccountFull>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: AccountFull): AccountFull {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* int32 id */ 1:
+                    message.id = reader.int32();
+                    break;
+                case /* string name */ 2:
+                    message.name = reader.string();
+                    break;
+                case /* string surname */ 3:
+                    message.surname = reader.string();
+                    break;
+                case /* string patronymic */ 4:
+                    message.patronymic = reader.string();
+                    break;
+                case /* google.protobuf.Timestamp birthdate */ 5:
+                    message.birthdate = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.birthdate);
+                    break;
+                case /* int32 country */ 6:
+                    message.country = reader.int32();
+                    break;
+                case /* int32 district */ 7:
+                    message.district = reader.int32();
+                    break;
+                case /* int32 locale */ 8:
+                    message.locale = reader.int32();
+                    break;
+                case /* int32 timezone */ 9:
+                    message.timezone = reader.int32();
+                    break;
+                case /* int32 photo */ 10:
+                    message.photo = reader.int32();
+                    break;
+                case /* repeated users.AccountEmail emails */ 11:
+                    message.emails.push(AccountEmail.internalBinaryRead(reader, reader.uint32(), options));
+                    break;
+                case /* repeated users.AccountPhone phones */ 12:
+                    message.phones.push(AccountPhone.internalBinaryRead(reader, reader.uint32(), options));
+                    break;
+                case /* repeated users.AccountRole roles */ 13:
+                    message.roles.push(AccountRole.internalBinaryRead(reader, reader.uint32(), options));
+                    break;
+                case /* google.protobuf.Timestamp createdAt */ 14:
+                    message.createdAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.createdAt);
+                    break;
+                case /* google.protobuf.Timestamp updatedAt */ 15:
+                    message.updatedAt = Timestamp.internalBinaryRead(reader, reader.uint32(), options, message.updatedAt);
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: AccountFull, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* int32 id = 1; */
+        if (message.id !== 0)
+            writer.tag(1, WireType.Varint).int32(message.id);
+        /* string name = 2; */
+        if (message.name !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.name);
+        /* string surname = 3; */
+        if (message.surname !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.surname);
+        /* string patronymic = 4; */
+        if (message.patronymic !== "")
+            writer.tag(4, WireType.LengthDelimited).string(message.patronymic);
+        /* google.protobuf.Timestamp birthdate = 5; */
+        if (message.birthdate)
+            Timestamp.internalBinaryWrite(message.birthdate, writer.tag(5, WireType.LengthDelimited).fork(), options).join();
+        /* int32 country = 6; */
+        if (message.country !== 0)
+            writer.tag(6, WireType.Varint).int32(message.country);
+        /* int32 district = 7; */
+        if (message.district !== 0)
+            writer.tag(7, WireType.Varint).int32(message.district);
+        /* int32 locale = 8; */
+        if (message.locale !== 0)
+            writer.tag(8, WireType.Varint).int32(message.locale);
+        /* int32 timezone = 9; */
+        if (message.timezone !== 0)
+            writer.tag(9, WireType.Varint).int32(message.timezone);
+        /* int32 photo = 10; */
+        if (message.photo !== 0)
+            writer.tag(10, WireType.Varint).int32(message.photo);
+        /* repeated users.AccountEmail emails = 11; */
+        for (let i = 0; i < message.emails.length; i++)
+            AccountEmail.internalBinaryWrite(message.emails[i], writer.tag(11, WireType.LengthDelimited).fork(), options).join();
+        /* repeated users.AccountPhone phones = 12; */
+        for (let i = 0; i < message.phones.length; i++)
+            AccountPhone.internalBinaryWrite(message.phones[i], writer.tag(12, WireType.LengthDelimited).fork(), options).join();
+        /* repeated users.AccountRole roles = 13; */
+        for (let i = 0; i < message.roles.length; i++)
+            AccountRole.internalBinaryWrite(message.roles[i], writer.tag(13, WireType.LengthDelimited).fork(), options).join();
+        /* google.protobuf.Timestamp createdAt = 14; */
+        if (message.createdAt)
+            Timestamp.internalBinaryWrite(message.createdAt, writer.tag(14, WireType.LengthDelimited).fork(), options).join();
+        /* google.protobuf.Timestamp updatedAt = 15; */
+        if (message.updatedAt)
+            Timestamp.internalBinaryWrite(message.updatedAt, writer.tag(15, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message users.AccountFull
+ */
+export const AccountFull = new AccountFull$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class CheckCodeRequest$Type extends MessageType<CheckCodeRequest> {
     constructor() {
@@ -764,114 +1140,6 @@ class RegisterRequest$Type extends MessageType<RegisterRequest> {
  * @generated MessageType for protobuf message users.RegisterRequest
  */
 export const RegisterRequest = new RegisterRequest$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class LoginRequest$Type extends MessageType<LoginRequest> {
-    constructor() {
-        super("users.LoginRequest", [
-            { no: 1, name: "phone", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
-        ]);
-    }
-    create(value?: PartialMessage<LoginRequest>): LoginRequest {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.phone = "";
-        if (value !== undefined)
-            reflectionMergePartial<LoginRequest>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: LoginRequest): LoginRequest {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* string phone */ 1:
-                    message.phone = reader.string();
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: LoginRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string phone = 1; */
-        if (message.phone !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.phone);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message users.LoginRequest
- */
-export const LoginRequest = new LoginRequest$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class LoginResponse$Type extends MessageType<LoginResponse> {
-    constructor() {
-        super("users.LoginResponse", [
-            { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
-            { no: 2, name: "sessionId", kind: "scalar", opt: true, T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ },
-            { no: 3, name: "account", kind: "message", T: () => Account }
-        ]);
-    }
-    create(value?: PartialMessage<LoginResponse>): LoginResponse {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.status = 0;
-        if (value !== undefined)
-            reflectionMergePartial<LoginResponse>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: LoginResponse): LoginResponse {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* uint32 status */ 1:
-                    message.status = reader.uint32();
-                    break;
-                case /* optional int64 sessionId */ 2:
-                    message.sessionId = reader.int64().toBigInt();
-                    break;
-                case /* optional users.Account account */ 3:
-                    message.account = Account.internalBinaryRead(reader, reader.uint32(), options, message.account);
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: LoginResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* uint32 status = 1; */
-        if (message.status !== 0)
-            writer.tag(1, WireType.Varint).uint32(message.status);
-        /* optional int64 sessionId = 2; */
-        if (message.sessionId !== undefined)
-            writer.tag(2, WireType.Varint).int64(message.sessionId);
-        /* optional users.Account account = 3; */
-        if (message.account)
-            Account.internalBinaryWrite(message.account, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message users.LoginResponse
- */
-export const LoginResponse = new LoginResponse$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class Account$Type extends MessageType<Account> {
     constructor() {
@@ -1658,7 +1926,8 @@ export const RemovePhoneRequest = new RemovePhoneRequest$Type();
  * @generated ServiceType for protobuf service users.Users
  */
 export const Users = new ServiceType("users.Users", [
-    { name: "Identification", options: {}, I: IdentificationRequest, O: IdentificationResponse },
+    { name: "Identify", options: {}, I: IdentifyRequest, O: IdentifyResponse },
+    { name: "Login", options: {}, I: LoginRequest, O: LoginResponse },
     { name: "CheckCode", options: {}, I: CheckCodeRequest, O: Response },
     { name: "LoginByCode", options: {}, I: LoginRequest, O: LoginResponse },
     { name: "Register", options: {}, I: RegisterRequest, O: LoginResponse },
