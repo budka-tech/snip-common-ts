@@ -1,0 +1,22 @@
+{
+  "name": "@budka-tech/snip-common-ts",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/budka-tech/snip-common-ts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/budka-tech/snip-common-ts/issues"
+  },
+  "homepage": "https://github.com/budka-tech/snip-common-ts#readme",
+  "description": "",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}
