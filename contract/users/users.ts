@@ -547,69 +547,73 @@ export interface GetPhonesResponse {
  */
 export enum Method {
     /**
-     * @generated from protobuf enum value: IDENTIFY = 0;
+     * @generated from protobuf enum value: NULL = 0;
      */
-    IDENTIFY = 0,
+    NULL = 0,
     /**
-     * @generated from protobuf enum value: LOGIN = 1;
+     * @generated from protobuf enum value: IDENTIFY = 1;
      */
-    LOGIN = 1,
+    IDENTIFY = 1,
     /**
-     * @generated from protobuf enum value: LOGOUT = 2;
+     * @generated from protobuf enum value: LOGIN = 2;
      */
-    LOGOUT = 2,
+    LOGIN = 2,
     /**
-     * @generated from protobuf enum value: CHECK_CODE = 3;
+     * @generated from protobuf enum value: LOGOUT = 3;
      */
-    CHECK_CODE = 3,
+    LOGOUT = 3,
     /**
-     * @generated from protobuf enum value: GET_ACCOUNT = 4;
+     * @generated from protobuf enum value: CHECK_CODE = 4;
      */
-    GET_ACCOUNT = 4,
+    CHECK_CODE = 4,
     /**
-     * @generated from protobuf enum value: GET_ACCOUNT_SHORT = 5;
+     * @generated from protobuf enum value: GET_ACCOUNT = 5;
      */
-    GET_ACCOUNT_SHORT = 5,
+    GET_ACCOUNT = 5,
     /**
-     * @generated from protobuf enum value: GET_SESSIONS = 6;
+     * @generated from protobuf enum value: GET_ACCOUNT_SHORT = 6;
      */
-    GET_SESSIONS = 6,
+    GET_ACCOUNT_SHORT = 6,
     /**
-     * @generated from protobuf enum value: UPDATE_ACCOUNT_DATA = 7;
+     * @generated from protobuf enum value: GET_SESSIONS = 7;
      */
-    UPDATE_ACCOUNT_DATA = 7,
+    GET_SESSIONS = 7,
     /**
-     * @generated from protobuf enum value: GET_PHONES = 8;
+     * @generated from protobuf enum value: UPDATE_ACCOUNT_DATA = 8;
      */
-    GET_PHONES = 8,
+    UPDATE_ACCOUNT_DATA = 8,
     /**
-     * @generated from protobuf enum value: ATTACH_PHONE = 9;
+     * @generated from protobuf enum value: GET_PHONES = 9;
      */
-    ATTACH_PHONE = 9,
+    GET_PHONES = 9,
     /**
-     * @generated from protobuf enum value: DETACH_PHONE = 10;
+     * @generated from protobuf enum value: ATTACH_PHONE = 10;
      */
-    DETACH_PHONE = 10,
+    ATTACH_PHONE = 10,
     /**
-     * @generated from protobuf enum value: SET_PRIMARY_PHONE = 11;
+     * @generated from protobuf enum value: DETACH_PHONE = 11;
      */
-    SET_PRIMARY_PHONE = 11,
+    DETACH_PHONE = 11,
     /**
-     * @generated from protobuf enum value: GET_EMAILS = 12;
+     * @generated from protobuf enum value: SET_PRIMARY_PHONE = 12;
      */
-    GET_EMAILS = 12,
+    SET_PRIMARY_PHONE = 12,
     /**
-     * @generated from protobuf enum value: ATTACH_EMAIL = 13;
+     * @generated from protobuf enum value: GET_EMAILS = 13;
      */
-    ATTACH_EMAIL = 13,
+    GET_EMAILS = 13,
     /**
-     * @generated from protobuf enum value: DETACH_EMAIL = 14;
+     * @generated from protobuf enum value: ATTACH_EMAIL = 14;
      */
-    DETACH_EMAIL = 14,
+    ATTACH_EMAIL = 14,
     /**
-     * @generated from protobuf enum value: SET_PRIMARY_EMAIL = 15;
+     * @generated from protobuf enum value: DETACH_EMAIL = 15;
      */
-    SET_PRIMARY_EMAIL = 15
+    DETACH_EMAIL = 15,
+    /**
+     * @generated from protobuf enum value: SET_PRIMARY_EMAIL = 16;
+     */
+    SET_PRIMARY_EMAIL = 16
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class CommonRequest$Type extends MessageType<CommonRequest> {

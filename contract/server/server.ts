@@ -82,63 +82,75 @@ export interface SubscribeData {
  */
 export enum MessageType {
     /**
-     * @generated from protobuf enum value: Call = 0;
+     * @generated from protobuf enum value: Null0 = 0;
      */
-    Call = 0,
+    Null0 = 0,
     /**
-     * @generated from protobuf enum value: Subscribe = 1;
+     * @generated from protobuf enum value: Call = 1;
      */
-    Subscribe = 1,
+    Call = 1,
     /**
-     * @generated from protobuf enum value: Unsubscribe = 2;
+     * @generated from protobuf enum value: Subscribe = 2;
      */
-    Unsubscribe = 2,
+    Subscribe = 2,
     /**
-     * @generated from protobuf enum value: Event = 3;
+     * @generated from protobuf enum value: Unsubscribe = 3;
      */
-    Event = 3
+    Unsubscribe = 3,
+    /**
+     * @generated from protobuf enum value: Event = 4;
+     */
+    Event = 4
 }
 /**
  * @generated from protobuf enum server.Domain
  */
 export enum Domain {
     /**
-     * @generated from protobuf enum value: Socket = 0;
+     * @generated from protobuf enum value: Null1 = 0;
      */
-    Socket = 0,
+    Null1 = 0,
     /**
-     * @generated from protobuf enum value: Auth = 1;
+     * @generated from protobuf enum value: Socket = 1;
      */
-    Auth = 1,
+    Socket = 1,
     /**
-     * @generated from protobuf enum value: Users = 2;
+     * @generated from protobuf enum value: Auth = 2;
      */
-    Users = 2,
+    Auth = 2,
     /**
-     * @generated from protobuf enum value: Assist = 3;
+     * @generated from protobuf enum value: Users = 3;
      */
-    Assist = 3
+    Users = 3,
+    /**
+     * @generated from protobuf enum value: Assist = 4;
+     */
+    Assist = 4
 }
 /**
  * @generated from protobuf enum server.SubscribeAction
  */
 export enum SubscribeAction {
     /**
-     * @generated from protobuf enum value: Init = 0;
+     * @generated from protobuf enum value: Null2 = 0;
      */
-    Init = 0,
+    Null2 = 0,
     /**
-     * @generated from protobuf enum value: Create = 1;
+     * @generated from protobuf enum value: Init = 1;
      */
-    Create = 1,
+    Init = 1,
     /**
-     * @generated from protobuf enum value: Update = 2;
+     * @generated from protobuf enum value: Create = 2;
      */
-    Update = 2,
+    Create = 2,
     /**
-     * @generated from protobuf enum value: Delete = 3;
+     * @generated from protobuf enum value: Update = 3;
      */
-    Delete = 3
+    Update = 3,
+    /**
+     * @generated from protobuf enum value: Delete = 4;
+     */
+    Delete = 4
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class Meta$Type extends MessageType$<Meta> {

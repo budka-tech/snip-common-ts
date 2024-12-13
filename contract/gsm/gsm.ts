@@ -39,13 +39,17 @@ export interface FlashCallBackRequest {
  */
 export enum Method {
     /**
-     * @generated from protobuf enum value: FlASH_CALL = 0;
+     * @generated from protobuf enum value: NULL = 0;
      */
-    FlASH_CALL = 0,
+    NULL = 0,
     /**
-     * @generated from protobuf enum value: FlASH_CALL_BACK = 1;
+     * @generated from protobuf enum value: FlASH_CALL = 1;
      */
-    FlASH_CALL_BACK = 1
+    FlASH_CALL = 1,
+    /**
+     * @generated from protobuf enum value: FlASH_CALL_BACK = 2;
+     */
+    FlASH_CALL_BACK = 2
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class FlashCallRequest$Type extends MessageType<FlashCallRequest> {
