@@ -26,7 +26,11 @@ export interface Meta {
      */
     domain: Domain;
     /**
-     * @generated from protobuf field: uint32 id = 3;
+     * @generated from protobuf field: uint32 method = 3;
+     */
+    method: number;
+    /**
+     * @generated from protobuf field: uint32 id = 4;
      */
     id: number;
 }
@@ -142,13 +146,15 @@ class Meta$Type extends MessageType$<Meta> {
         super("server.Meta", [
             { no: 1, name: "type", kind: "enum", T: () => ["server.MessageType", MessageType] },
             { no: 2, name: "domain", kind: "enum", T: () => ["server.Domain", Domain] },
-            { no: 3, name: "id", kind: "scalar", T: 13 /*ScalarType.UINT32*/ }
+            { no: 3, name: "method", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
+            { no: 4, name: "id", kind: "scalar", T: 13 /*ScalarType.UINT32*/ }
         ]);
     }
     create(value?: PartialMessage<Meta>): Meta {
         const message = globalThis.Object.create((this.messagePrototype!));
         message.type = 0;
         message.domain = 0;
+        message.method = 0;
         message.id = 0;
         if (value !== undefined)
             reflectionMergePartial<Meta>(this, message, value);
@@ -165,7 +171,10 @@ class Meta$Type extends MessageType$<Meta> {
                 case /* server.Domain domain */ 2:
                     message.domain = reader.int32();
                     break;
-                case /* uint32 id */ 3:
+                case /* uint32 method */ 3:
+                    message.method = reader.uint32();
+                    break;
+                case /* uint32 id */ 4:
                     message.id = reader.uint32();
                     break;
                 default:
@@ -186,9 +195,12 @@ class Meta$Type extends MessageType$<Meta> {
         /* server.Domain domain = 2; */
         if (message.domain !== 0)
             writer.tag(2, WireType.Varint).int32(message.domain);
-        /* uint32 id = 3; */
+        /* uint32 method = 3; */
+        if (message.method !== 0)
+            writer.tag(3, WireType.Varint).uint32(message.method);
+        /* uint32 id = 4; */
         if (message.id !== 0)
-            writer.tag(3, WireType.Varint).uint32(message.id);
+            writer.tag(4, WireType.Varint).uint32(message.id);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

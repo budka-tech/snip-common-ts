@@ -12,11 +12,6 @@ import { UnknownFieldHandler } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
-// message SendSmsRequest {
-//  string message = 1;
-//  string phone = 2;
-// }
-
 /**
  * @generated from protobuf message gsm.FlashCallRequest
  */
@@ -38,6 +33,19 @@ export interface FlashCallBackRequest {
      * @generated from protobuf field: string phone = 1;
      */
     phone: string;
+}
+/**
+ * @generated from protobuf enum gsm.Method
+ */
+export enum Method {
+    /**
+     * @generated from protobuf enum value: FlASH_CALL = 0;
+     */
+    FlASH_CALL = 0,
+    /**
+     * @generated from protobuf enum value: FlASH_CALL_BACK = 1;
+     */
+    FlASH_CALL_BACK = 1
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class FlashCallRequest$Type extends MessageType<FlashCallRequest> {
