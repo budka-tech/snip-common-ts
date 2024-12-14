@@ -425,6 +425,71 @@ export interface GetMessagesInChatResponse {
      */
     status: number;
 }
+/**
+ * @generated from protobuf enum assist.Method
+ */
+export enum Method {
+    /**
+     * @generated from protobuf enum value: NULL = 0;
+     */
+    NULL = 0,
+    /**
+     * @generated from protobuf enum value: CREATE_CHAT = 1;
+     */
+    CREATE_CHAT = 1,
+    /**
+     * @generated from protobuf enum value: CHANGE_CHAT_FOLDER = 2;
+     */
+    CHANGE_CHAT_FOLDER = 2,
+    /**
+     * @generated from protobuf enum value: CHANGE_CHAT_TITLE = 3;
+     */
+    CHANGE_CHAT_TITLE = 3,
+    /**
+     * @generated from protobuf enum value: DELETE_CHAT = 4;
+     */
+    DELETE_CHAT = 4,
+    /**
+     * @generated from protobuf enum value: GET_CHAT_BY_ID = 5;
+     */
+    GET_CHAT_BY_ID = 5,
+    /**
+     * @generated from protobuf enum value: GET_CHATS_IN_FOLDER = 6;
+     */
+    GET_CHATS_IN_FOLDER = 6,
+    /**
+     * @generated from protobuf enum value: GET_USER_CHATS = 7;
+     */
+    GET_USER_CHATS = 7,
+    /**
+     * @generated from protobuf enum value: CREATE_FOLDER = 8;
+     */
+    CREATE_FOLDER = 8,
+    /**
+     * @generated from protobuf enum value: DELETE_FOLDER = 9;
+     */
+    DELETE_FOLDER = 9,
+    /**
+     * @generated from protobuf enum value: GET_FOLDER_BY_ID = 10;
+     */
+    GET_FOLDER_BY_ID = 10,
+    /**
+     * @generated from protobuf enum value: GET_USER_FOLDERS = 11;
+     */
+    GET_USER_FOLDERS = 11,
+    /**
+     * @generated from protobuf enum value: SEND_MESSAGE = 12;
+     */
+    SEND_MESSAGE = 12,
+    /**
+     * @generated from protobuf enum value: GET_MESSAGE_BY_ID = 13;
+     */
+    GET_MESSAGE_BY_ID = 13,
+    /**
+     * @generated from protobuf enum value: GET_MESSAGES_IN_CHAT = 14;
+     */
+    GET_MESSAGES_IN_CHAT = 14
+}
 // @generated message type with reflection information, may provide speed optimized methods
 class UUID$Type extends MessageType<UUID> {
     constructor() {
