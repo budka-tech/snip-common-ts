@@ -361,13 +361,9 @@ export interface SendMessageRequest {
  */
 export interface SendMessageResponse {
     /**
-     * @generated from protobuf field: assist.Message request_message = 1;
+     * @generated from protobuf field: assist.Message message = 1;
      */
-    requestMessage?: Message;
-    /**
-     * @generated from protobuf field: assist.Message response_message = 3;
-     */
-    responseMessage?: Message;
+    message?: Message;
     /**
      * @generated from protobuf field: uint32 status = 2;
      */
@@ -1879,8 +1875,7 @@ export const SendMessageRequest = new SendMessageRequest$Type();
 class SendMessageResponse$Type extends MessageType<SendMessageResponse> {
     constructor() {
         super("assist.SendMessageResponse", [
-            { no: 1, name: "request_message", kind: "message", T: () => Message },
-            { no: 3, name: "response_message", kind: "message", T: () => Message },
+            { no: 1, name: "message", kind: "message", T: () => Message },
             { no: 2, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ }
         ]);
     }
@@ -1896,11 +1891,8 @@ class SendMessageResponse$Type extends MessageType<SendMessageResponse> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* assist.Message request_message */ 1:
-                    message.requestMessage = Message.internalBinaryRead(reader, reader.uint32(), options, message.requestMessage);
-                    break;
-                case /* assist.Message response_message */ 3:
-                    message.responseMessage = Message.internalBinaryRead(reader, reader.uint32(), options, message.responseMessage);
+                case /* assist.Message message */ 1:
+                    message.message = Message.internalBinaryRead(reader, reader.uint32(), options, message.message);
                     break;
                 case /* uint32 status */ 2:
                     message.status = reader.uint32();
@@ -1917,12 +1909,9 @@ class SendMessageResponse$Type extends MessageType<SendMessageResponse> {
         return message;
     }
     internalBinaryWrite(message: SendMessageResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* assist.Message request_message = 1; */
-        if (message.requestMessage)
-            Message.internalBinaryWrite(message.requestMessage, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* assist.Message response_message = 3; */
-        if (message.responseMessage)
-            Message.internalBinaryWrite(message.responseMessage, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+        /* assist.Message message = 1; */
+        if (message.message)
+            Message.internalBinaryWrite(message.message, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
         /* uint32 status = 2; */
         if (message.status !== 0)
             writer.tag(2, WireType.Varint).uint32(message.status);
