@@ -125,7 +125,11 @@ export enum Domain {
     /**
      * @generated from protobuf enum value: Assist = 4;
      */
-    Assist = 4
+    Assist = 4,
+    /**
+     * @generated from protobuf enum value: Gsm = 5;
+     */
+    Gsm = 5
 }
 /**
  * @generated from protobuf enum server.SubscribeAction
