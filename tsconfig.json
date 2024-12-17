@@ -10,7 +10,7 @@
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
-    "noEmit": true,
+    "noEmit": false,
 
     "strict": true,
     "skipLibCheck": true,
@@ -21,10 +21,15 @@
     "noPropertyAccessFromIndexSignature": false,
 
     "baseUrl": ".",
+    "outDir": ".",
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "paths": {
       "./server": ["./contract/server.ts"],
       "../google/protobuf/empty": ["./contract/google/protobuf/empty.ts"],
       "../google/protobuf/any": ["./contract/google/protobuf/any.ts"]
     }
-  }
+  },
+  "include": ["./**/*.ts", "./**/*.tsx"],
+  "exclude": ["node_modules"]
 }
