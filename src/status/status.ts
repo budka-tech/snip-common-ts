@@ -50,3 +50,27 @@ export const enum Status {
   /** Не реализован */
   NotImplemented,
 }
+
+const m: Record<Status, string> = {
+  [Status.OK]:"Успешно",
+  [Status.Any]:"Любая ошибка",
+  [Status.NotFound]:"Не найдено",
+  [Status.AlreadyExists]:"Уже имеется",
+  [Status.PermissionDenied]:"Недостаточно прав",
+  [Status.TooFrequentRequests]:"Слишком частые запросы",
+  [Status.InternalError]:"Внутренняя ошибка сервера",
+  [Status.ManyConnections]:"Много подключений",
+  [Status.NotEnoughArguments]:"Недостаточно аргументов",
+  [Status.NotAuthorized]:"Не авторизован",
+  [Status.Authorized]:"Уже авторизован",
+  [Status.IncorrectValue]:"Неверное значение",
+  [Status.Inactivity]:"Бездействие",
+  [Status.Timeout]:"Время ожидания истекло",
+  [Status.ResourceUnavailable]:"Ресурс недоступен",
+  [Status.OperationFailed]:"Операция не удалась",
+  [Status.NotImplemented]:"Не реализован",
+}
+
+export function readable(s: Status): string {
+  return m[s] ? m[s] : m[Status.Any]
+}

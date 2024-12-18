@@ -1,21 +1,12 @@
 {
-  "name": "null",
-  "version": "0.0.1",
+  "name": "@budka-tech/snip-common-ts",
+  "version": "0.0.22",
   "private": false,
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "prepublishOnly": "npm run build",
-    "pu": "cd dist && npm pu"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/budka-tech/snip-common-ts.git"
   },
-  "author": "",
+  "author": "Budka Tech",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/budka-tech/snip-common-ts/issues"
@@ -27,11 +18,5 @@
   },
   "dependencies": {
     "@protobuf-ts/runtime-rpc": "^2.9.4"
-  },
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
   }
 }

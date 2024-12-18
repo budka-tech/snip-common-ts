@@ -3,637 +3,100 @@
 // tslint:disable
 import { Response } from "../common/common";
 import { ServiceType } from "@protobuf-ts/runtime-rpc";
-import type { BinaryWriteOptions } from "@protobuf-ts/runtime";
-import type { IBinaryWriter } from "@protobuf-ts/runtime";
 import { WireType } from "@protobuf-ts/runtime";
-import type { BinaryReadOptions } from "@protobuf-ts/runtime";
-import type { IBinaryReader } from "@protobuf-ts/runtime";
 import { UnknownFieldHandler } from "@protobuf-ts/runtime";
-import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
 import { Timestamp } from "../google/protobuf/timestamp";
 /**
- * @generated from protobuf message users.CommonRequest
- */
-export interface CommonRequest {
-    /**
-     * @generated from protobuf field: uint32 accountId = 2;
-     */
-    accountId: number;
-}
-/**
- * @generated from protobuf message users.IdentifyRequest
- */
-export interface IdentifyRequest {
-    /**
-     * @generated from protobuf field: string token = 1;
-     */
-    token: string;
-    /**
-     * @generated from protobuf field: string userAgent = 2;
-     */
-    userAgent: string;
-    /**
-     * @generated from protobuf field: int32 device = 3;
-     */
-    device: number;
-    /**
-     * @generated from protobuf field: string fcm = 5;
-     */
-    fcm: string;
-}
-/**
- * @generated from protobuf message users.IdentifyResponse
- */
-export interface IdentifyResponse {
-    /**
-     * @generated from protobuf field: uint32 status = 1;
-     */
-    status: number;
-    /**
-     * @generated from protobuf field: map<string, string> errors = 2;
-     */
-    errors: {
-        [key: string]: string;
-    };
-    /**
-     * @generated from protobuf field: optional users.Account account = 3;
-     */
-    account?: Account;
-    /**
-     * @generated from protobuf field: optional users.Registration registration = 4;
-     */
-    registration?: Registration;
-}
-/**
- * @generated from protobuf message users.LoginRequest
- */
-export interface LoginRequest {
-    /**
-     * @generated from protobuf field: string phone = 1;
-     */
-    phone: string;
-}
-/**
- * @generated from protobuf message users.LoginResponse
- */
-export interface LoginResponse {
-    /**
-     * @generated from protobuf field: uint32 status = 1;
-     */
-    status: number;
-    /**
-     * @generated from protobuf field: map<string, string> errors = 2;
-     */
-    errors: {
-        [key: string]: string;
-    };
-    /**
-     * @generated from protobuf field: optional users.LoginData data = 3;
-     */
-    data?: LoginData;
-}
-/**
- * @generated from protobuf message users.LoginData
- */
-export interface LoginData {
-    /**
-     * @generated from protobuf field: bool is_new = 1;
-     */
-    isNew: boolean;
-    /**
-     * @generated from protobuf field: uint32 type = 2;
-     */
-    type: number;
-    /**
-     * @generated from protobuf field: string data = 3;
-     */
-    data: string;
-    /**
-     * @generated from protobuf field: google.protobuf.Timestamp expiredAt = 4;
-     */
-    expiredAt?: Timestamp;
-    /**
-     * @generated from protobuf field: repeated uint32 methods = 5;
-     */
-    methods: number[];
-}
-/**
- * @generated from protobuf message users.ConfirmResponse
- */
-export interface ConfirmResponse {
-    /**
-     * @generated from protobuf field: uint32 type = 1;
-     */
-    type: number;
-    /**
-     * @generated from protobuf field: map<string, string> errors = 2;
-     */
-    errors: {
-        [key: string]: string;
-    };
-    /**
-     * @generated from protobuf field: string data = 3;
-     */
-    data: string;
-    /**
-     * @generated from protobuf field: google.protobuf.Timestamp expiredAt = 4;
-     */
-    expiredAt?: Timestamp;
-    /**
-     * @generated from protobuf field: repeated uint32 methods = 5;
-     */
-    methods: number[];
-}
-/**
- * @generated from protobuf message users.LogoutRequest
- */
-export interface LogoutRequest {
-    /**
-     * @generated from protobuf field: string token = 1;
-     */
-    token: string;
-}
-/**
- * @generated from protobuf message users.Account
- */
-export interface Account {
-    /**
-     * @generated from protobuf field: int32 id = 1;
-     */
-    id: number;
-    /**
-     * @generated from protobuf field: string name = 2;
-     */
-    name: string;
-    /**
-     * @generated from protobuf field: string surname = 3;
-     */
-    surname: string;
-    /**
-     * @generated from protobuf field: string patronymic = 4;
-     */
-    patronymic: string;
-    /**
-     * @generated from protobuf field: google.protobuf.Timestamp birthdate = 5;
-     */
-    birthdate?: Timestamp;
-    /**
-     * @generated from protobuf field: int32 country = 6;
-     */
-    country: number;
-    /**
-     * @generated from protobuf field: int32 district = 7;
-     */
-    district: number;
-    /**
-     * @generated from protobuf field: int32 locale = 8;
-     */
-    locale: number;
-    /**
-     * @generated from protobuf field: int32 timezone = 9;
-     */
-    timezone: number;
-    /**
-     * @generated from protobuf field: bytes photo = 10;
-     */
-    photo: Uint8Array;
-    /**
-     * @generated from protobuf field: google.protobuf.Timestamp created_at = 14;
-     */
-    createdAt?: Timestamp;
-    /**
-     * @generated from protobuf field: google.protobuf.Timestamp updated_at = 15;
-     */
-    updatedAt?: Timestamp;
-}
-/**
- * @generated from protobuf message users.Registration
- */
-export interface Registration {
-    /**
-     * @generated from protobuf field: string id = 1;
-     */
-    id: string;
-    /**
-     * @generated from protobuf field: string phone = 2;
-     */
-    phone: string;
-    /**
-     * @generated from protobuf field: int32 type = 3;
-     */
-    type: number;
-    /**
-     * @generated from protobuf field: int32 code = 4;
-     */
-    code: number;
-    /**
-     * @generated from protobuf field: int32 timezone = 5;
-     */
-    timezone: number;
-    /**
-     * @generated from protobuf field: int32 country = 6;
-     */
-    country: number;
-    /**
-     * @generated from protobuf field: google.protobuf.Timestamp created_at = 14;
-     */
-    createdAt?: Timestamp;
-    /**
-     * @generated from protobuf field: google.protobuf.Timestamp expired_at = 15;
-     */
-    expiredAt?: Timestamp;
-}
-/**
- * @generated from protobuf message users.AccountShort
- */
-export interface AccountShort {
-    /**
-     * @generated from protobuf field: string name = 2;
-     */
-    name: string;
-    /**
-     * @generated from protobuf field: string surname = 3;
-     */
-    surname: string;
-    /**
-     * @generated from protobuf field: string patronymic = 4;
-     */
-    patronymic: string;
-}
-/**
- * @generated from protobuf message users.CheckCodeRequest
- */
-export interface CheckCodeRequest {
-    /**
-     * @generated from protobuf field: int32 code = 1;
-     */
-    code: number;
-    /**
-     * @generated from protobuf field: string phone = 2;
-     */
-    phone: string;
-}
-/**
- * @generated from protobuf message users.HasSessionRequest
- */
-export interface HasSessionRequest {
-    /**
-     * @generated from protobuf field: int64 sessionId = 1;
-     */
-    sessionId: bigint;
-    /**
-     * @generated from protobuf field: uint32 accountId = 2;
-     */
-    accountId: number;
-}
-/**
- * @generated from protobuf message users.RegisterRequest
- */
-export interface RegisterRequest {
-    /**
-     * @generated from protobuf field: string phone = 1;
-     */
-    phone: string;
-    /**
-     * @generated from protobuf field: string name = 2;
-     */
-    name: string;
-    /**
-     * @generated from protobuf field: string surname = 3;
-     */
-    surname: string;
-    /**
-     * @generated from protobuf field: int32 country = 10;
-     */
-    country: number;
-    /**
-     * @generated from protobuf field: int32 district = 11;
-     */
-    district: number;
-    /**
-     * @generated from protobuf field: int32 locale = 12;
-     */
-    locale: number;
-    /**
-     * @generated from protobuf field: int32 timezone = 13;
-     */
-    timezone: number;
-}
-// message LoginRequest {
-//  string phone = 1;
-// }
-// 
-// message LoginResponse {
-//  uint32 status = 1;
-//  optional int64 sessionId = 2;
-//  optional Account account = 3;
-// }
-
-/**
- * @generated from protobuf message users.AccountEmail
- */
-export interface AccountEmail {
-    /**
-     * @generated from protobuf field: uint64 id = 1;
-     */
-    id: bigint;
-    /**
-     * @generated from protobuf field: string email = 2;
-     */
-    email: string;
-    /**
-     * @generated from protobuf field: bool is_primary = 3;
-     */
-    isPrimary: boolean;
-    /**
-     * @generated from protobuf field: google.protobuf.Timestamp created_at = 4;
-     */
-    createdAt?: Timestamp;
-    /**
-     * @generated from protobuf field: google.protobuf.Timestamp updated_at = 5;
-     */
-    updatedAt?: Timestamp;
-}
-/**
- * @generated from protobuf message users.AccountPhone
- */
-export interface AccountPhone {
-    /**
-     * @generated from protobuf field: uint64 id = 1;
-     */
-    id: bigint;
-    /**
-     * @generated from protobuf field: string phone = 2;
-     */
-    phone: string;
-    /**
-     * @generated from protobuf field: bool is_primary = 3;
-     */
-    isPrimary: boolean;
-}
-/**
- * @generated from protobuf message users.AccountRole
- */
-export interface AccountRole {
-    /**
-     * @generated from protobuf field: uint64 id = 1;
-     */
-    id: bigint;
-    /**
-     * @generated from protobuf field: uint32 account_id = 2;
-     */
-    accountId: number;
-    /**
-     * @generated from protobuf field: string role = 3;
-     */
-    role: string;
-    /**
-     * @generated from protobuf field: int32 order = 4;
-     */
-    order: number;
-    /**
-     * @generated from protobuf field: google.protobuf.Timestamp created_at = 5;
-     */
-    createdAt?: Timestamp;
-}
-/**
- * @generated from protobuf message users.UpdateAccountDataRequest
- */
-export interface UpdateAccountDataRequest {
-    /**
-     * @generated from protobuf field: string name = 1;
-     */
-    name: string;
-    /**
-     * @generated from protobuf field: string surname = 2;
-     */
-    surname: string;
-    /**
-     * @generated from protobuf field: string patronymic = 3;
-     */
-    patronymic: string;
-    /**
-     * @generated from protobuf field: string birthdate = 4;
-     */
-    birthdate: string;
-    /**
-     * @generated from protobuf field: int32 country = 5;
-     */
-    country: number;
-    /**
-     * @generated from protobuf field: int32 district = 6;
-     */
-    district: number;
-    /**
-     * @generated from protobuf field: int32 locale = 7;
-     */
-    locale: number;
-    /**
-     * @generated from protobuf field: int32 timezone = 8;
-     */
-    timezone: number;
-}
-/**
- * @generated from protobuf message users.PhoneManipulationRequest
- */
-export interface PhoneManipulationRequest {
-    /**
-     * @generated from protobuf field: int32 accountId = 1;
-     */
-    accountId: number;
-    /**
-     * @generated from protobuf field: string phone = 2;
-     */
-    phone: string;
-}
-/**
- * @generated from protobuf message users.EmailManipulationRequest
- */
-export interface EmailManipulationRequest {
-    /**
-     * @generated from protobuf field: int32 accountId = 1;
-     */
-    accountId: number;
-    /**
-     * @generated from protobuf field: string email = 2;
-     */
-    email: string;
-}
-/**
- * @generated from protobuf message users.GetSessionsRequest
- */
-export interface GetSessionsRequest {
-    /**
-     * @generated from protobuf field: int32 accountId = 1;
-     */
-    accountId: number;
-}
-/**
- * @generated from protobuf message users.GetSessionsResponse
- */
-export interface GetSessionsResponse {
-    /**
-     * @generated from protobuf field: uint32 status = 1;
-     */
-    status: number;
-    /**
-     * @generated from protobuf field: repeated users.Session sessions = 2;
-     */
-    sessions: Session[];
-}
-/**
- * @generated from protobuf message users.Session
- */
-export interface Session {
-    /**
-     * @generated from protobuf field: string id = 1;
-     */
-    id: string;
-    /**
-     * @generated from protobuf field: int32 account_id = 2;
-     */
-    accountId: number;
-    /**
-     * @generated from protobuf field: string ip = 3;
-     */
-    ip: string;
-    /**
-     * @generated from protobuf field: string UserAgent = 4 [json_name = "UserAgent"];
-     */
-    userAgent: string;
-    /**
-     * @generated from protobuf field: int32 Device = 5 [json_name = "Device"];
-     */
-    device: number;
-    /**
-     * @generated from protobuf field: string Fcm = 6 [json_name = "Fcm"];
-     */
-    fcm: string;
-    /**
-     * @generated from protobuf field: google.protobuf.Timestamp created_at = 7;
-     */
-    createdAt?: Timestamp;
-    /**
-     * @generated from protobuf field: google.protobuf.Timestamp used_at = 8;
-     */
-    usedAt?: Timestamp;
-}
-/**
- * @generated from protobuf message users.GetEmailsResponse
- */
-export interface GetEmailsResponse {
-    /**
-     * @generated from protobuf field: uint32 status = 1;
-     */
-    status: number;
-    /**
-     * @generated from protobuf field: repeated users.AccountEmail emails = 2;
-     */
-    emails: AccountEmail[];
-}
-/**
- * @generated from protobuf message users.GetPhonesResponse
- */
-export interface GetPhonesResponse {
-    /**
-     * @generated from protobuf field: uint32 status = 1;
-     */
-    status: number;
-    /**
-     * @generated from protobuf field: repeated users.AccountPhone phones = 2;
-     */
-    phones: AccountPhone[];
-}
-/**
  * @generated from protobuf enum users.Method
  */
-export enum Method {
+export var Method;
+(function (Method) {
     /**
      * @generated from protobuf enum value: NULL = 0;
      */
-    NULL = 0,
+    Method[Method["NULL"] = 0] = "NULL";
     /**
      * @generated from protobuf enum value: IDENTIFY = 1;
      */
-    IDENTIFY = 1,
+    Method[Method["IDENTIFY"] = 1] = "IDENTIFY";
     /**
      * @generated from protobuf enum value: LOGIN = 2;
      */
-    LOGIN = 2,
+    Method[Method["LOGIN"] = 2] = "LOGIN";
     /**
      * @generated from protobuf enum value: LOGOUT = 3;
      */
-    LOGOUT = 3,
+    Method[Method["LOGOUT"] = 3] = "LOGOUT";
     /**
      * @generated from protobuf enum value: CHECK_CODE = 4;
      */
-    CHECK_CODE = 4,
+    Method[Method["CHECK_CODE"] = 4] = "CHECK_CODE";
     /**
      * @generated from protobuf enum value: GET_ACCOUNT = 5;
      */
-    GET_ACCOUNT = 5,
+    Method[Method["GET_ACCOUNT"] = 5] = "GET_ACCOUNT";
     /**
      * @generated from protobuf enum value: GET_ACCOUNT_SHORT = 6;
      */
-    GET_ACCOUNT_SHORT = 6,
+    Method[Method["GET_ACCOUNT_SHORT"] = 6] = "GET_ACCOUNT_SHORT";
     /**
      * @generated from protobuf enum value: GET_SESSIONS = 7;
      */
-    GET_SESSIONS = 7,
+    Method[Method["GET_SESSIONS"] = 7] = "GET_SESSIONS";
     /**
      * @generated from protobuf enum value: UPDATE_ACCOUNT_DATA = 8;
      */
-    UPDATE_ACCOUNT_DATA = 8,
+    Method[Method["UPDATE_ACCOUNT_DATA"] = 8] = "UPDATE_ACCOUNT_DATA";
     /**
      * @generated from protobuf enum value: GET_PHONES = 9;
      */
-    GET_PHONES = 9,
+    Method[Method["GET_PHONES"] = 9] = "GET_PHONES";
     /**
      * @generated from protobuf enum value: ATTACH_PHONE = 10;
      */
-    ATTACH_PHONE = 10,
+    Method[Method["ATTACH_PHONE"] = 10] = "ATTACH_PHONE";
     /**
      * @generated from protobuf enum value: DETACH_PHONE = 11;
      */
-    DETACH_PHONE = 11,
+    Method[Method["DETACH_PHONE"] = 11] = "DETACH_PHONE";
     /**
      * @generated from protobuf enum value: SET_PRIMARY_PHONE = 12;
      */
-    SET_PRIMARY_PHONE = 12,
+    Method[Method["SET_PRIMARY_PHONE"] = 12] = "SET_PRIMARY_PHONE";
     /**
      * @generated from protobuf enum value: GET_EMAILS = 13;
      */
-    GET_EMAILS = 13,
+    Method[Method["GET_EMAILS"] = 13] = "GET_EMAILS";
     /**
      * @generated from protobuf enum value: ATTACH_EMAIL = 14;
      */
-    ATTACH_EMAIL = 14,
+    Method[Method["ATTACH_EMAIL"] = 14] = "ATTACH_EMAIL";
     /**
      * @generated from protobuf enum value: DETACH_EMAIL = 15;
      */
-    DETACH_EMAIL = 15,
+    Method[Method["DETACH_EMAIL"] = 15] = "DETACH_EMAIL";
     /**
      * @generated from protobuf enum value: SET_PRIMARY_EMAIL = 16;
      */
-    SET_PRIMARY_EMAIL = 16
-}
+    Method[Method["SET_PRIMARY_EMAIL"] = 16] = "SET_PRIMARY_EMAIL";
+})(Method || (Method = {}));
 // @generated message type with reflection information, may provide speed optimized methods
-class CommonRequest$Type extends MessageType<CommonRequest> {
+class CommonRequest$Type extends MessageType {
     constructor() {
         super("users.CommonRequest", [
             { no: 2, name: "accountId", kind: "scalar", T: 13 /*ScalarType.UINT32*/ }
         ]);
     }
-    create(value?: PartialMessage<CommonRequest>): CommonRequest {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.accountId = 0;
         if (value !== undefined)
-            reflectionMergePartial<CommonRequest>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: CommonRequest): CommonRequest {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -652,7 +115,7 @@ class CommonRequest$Type extends MessageType<CommonRequest> {
         }
         return message;
     }
-    internalBinaryWrite(message: CommonRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* uint32 accountId = 2; */
         if (message.accountId !== 0)
             writer.tag(2, WireType.Varint).uint32(message.accountId);
@@ -667,7 +130,7 @@ class CommonRequest$Type extends MessageType<CommonRequest> {
  */
 export const CommonRequest = new CommonRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class IdentifyRequest$Type extends MessageType<IdentifyRequest> {
+class IdentifyRequest$Type extends MessageType {
     constructor() {
         super("users.IdentifyRequest", [
             { no: 1, name: "token", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
@@ -676,17 +139,17 @@ class IdentifyRequest$Type extends MessageType<IdentifyRequest> {
             { no: 5, name: "fcm", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
-    create(value?: PartialMessage<IdentifyRequest>): IdentifyRequest {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.token = "";
         message.userAgent = "";
         message.device = 0;
         message.fcm = "";
         if (value !== undefined)
-            reflectionMergePartial<IdentifyRequest>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: IdentifyRequest): IdentifyRequest {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -714,7 +177,7 @@ class IdentifyRequest$Type extends MessageType<IdentifyRequest> {
         }
         return message;
     }
-    internalBinaryWrite(message: IdentifyRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* string token = 1; */
         if (message.token !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.token);
@@ -738,7 +201,7 @@ class IdentifyRequest$Type extends MessageType<IdentifyRequest> {
  */
 export const IdentifyRequest = new IdentifyRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class IdentifyResponse$Type extends MessageType<IdentifyResponse> {
+class IdentifyResponse$Type extends MessageType {
     constructor() {
         super("users.IdentifyResponse", [
             { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
@@ -747,15 +210,15 @@ class IdentifyResponse$Type extends MessageType<IdentifyResponse> {
             { no: 4, name: "registration", kind: "message", T: () => Registration }
         ]);
     }
-    create(value?: PartialMessage<IdentifyResponse>): IdentifyResponse {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.status = 0;
         message.errors = {};
         if (value !== undefined)
-            reflectionMergePartial<IdentifyResponse>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: IdentifyResponse): IdentifyResponse {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -783,8 +246,8 @@ class IdentifyResponse$Type extends MessageType<IdentifyResponse> {
         }
         return message;
     }
-    private binaryReadMap2(map: IdentifyResponse["errors"], reader: IBinaryReader, options: BinaryReadOptions): void {
-        let len = reader.uint32(), end = reader.pos + len, key: keyof IdentifyResponse["errors"] | undefined, val: IdentifyResponse["errors"][any] | undefined;
+    binaryReadMap2(map, reader, options) {
+        let len = reader.uint32(), end = reader.pos + len, key, val;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
@@ -799,7 +262,7 @@ class IdentifyResponse$Type extends MessageType<IdentifyResponse> {
         }
         map[key ?? ""] = val ?? "";
     }
-    internalBinaryWrite(message: IdentifyResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* uint32 status = 1; */
         if (message.status !== 0)
             writer.tag(1, WireType.Varint).uint32(message.status);
@@ -823,20 +286,20 @@ class IdentifyResponse$Type extends MessageType<IdentifyResponse> {
  */
 export const IdentifyResponse = new IdentifyResponse$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class LoginRequest$Type extends MessageType<LoginRequest> {
+class LoginRequest$Type extends MessageType {
     constructor() {
         super("users.LoginRequest", [
             { no: 1, name: "phone", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
-    create(value?: PartialMessage<LoginRequest>): LoginRequest {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.phone = "";
         if (value !== undefined)
-            reflectionMergePartial<LoginRequest>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: LoginRequest): LoginRequest {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -855,7 +318,7 @@ class LoginRequest$Type extends MessageType<LoginRequest> {
         }
         return message;
     }
-    internalBinaryWrite(message: LoginRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* string phone = 1; */
         if (message.phone !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.phone);
@@ -870,7 +333,7 @@ class LoginRequest$Type extends MessageType<LoginRequest> {
  */
 export const LoginRequest = new LoginRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class LoginResponse$Type extends MessageType<LoginResponse> {
+class LoginResponse$Type extends MessageType {
     constructor() {
         super("users.LoginResponse", [
             { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
@@ -878,15 +341,15 @@ class LoginResponse$Type extends MessageType<LoginResponse> {
             { no: 3, name: "data", kind: "message", T: () => LoginData }
         ]);
     }
-    create(value?: PartialMessage<LoginResponse>): LoginResponse {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.status = 0;
         message.errors = {};
         if (value !== undefined)
-            reflectionMergePartial<LoginResponse>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: LoginResponse): LoginResponse {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -911,8 +374,8 @@ class LoginResponse$Type extends MessageType<LoginResponse> {
         }
         return message;
     }
-    private binaryReadMap2(map: LoginResponse["errors"], reader: IBinaryReader, options: BinaryReadOptions): void {
-        let len = reader.uint32(), end = reader.pos + len, key: keyof LoginResponse["errors"] | undefined, val: LoginResponse["errors"][any] | undefined;
+    binaryReadMap2(map, reader, options) {
+        let len = reader.uint32(), end = reader.pos + len, key, val;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
@@ -927,7 +390,7 @@ class LoginResponse$Type extends MessageType<LoginResponse> {
         }
         map[key ?? ""] = val ?? "";
     }
-    internalBinaryWrite(message: LoginResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* uint32 status = 1; */
         if (message.status !== 0)
             writer.tag(1, WireType.Varint).uint32(message.status);
@@ -948,7 +411,7 @@ class LoginResponse$Type extends MessageType<LoginResponse> {
  */
 export const LoginResponse = new LoginResponse$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class LoginData$Type extends MessageType<LoginData> {
+class LoginData$Type extends MessageType {
     constructor() {
         super("users.LoginData", [
             { no: 1, name: "is_new", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
@@ -958,17 +421,17 @@ class LoginData$Type extends MessageType<LoginData> {
             { no: 5, name: "methods", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 13 /*ScalarType.UINT32*/ }
         ]);
     }
-    create(value?: PartialMessage<LoginData>): LoginData {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.isNew = false;
         message.type = 0;
         message.data = "";
         message.methods = [];
         if (value !== undefined)
-            reflectionMergePartial<LoginData>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: LoginData): LoginData {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -1003,7 +466,7 @@ class LoginData$Type extends MessageType<LoginData> {
         }
         return message;
     }
-    internalBinaryWrite(message: LoginData, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* bool is_new = 1; */
         if (message.isNew !== false)
             writer.tag(1, WireType.Varint).bool(message.isNew);
@@ -1034,7 +497,7 @@ class LoginData$Type extends MessageType<LoginData> {
  */
 export const LoginData = new LoginData$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class ConfirmResponse$Type extends MessageType<ConfirmResponse> {
+class ConfirmResponse$Type extends MessageType {
     constructor() {
         super("users.ConfirmResponse", [
             { no: 1, name: "type", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
@@ -1044,17 +507,17 @@ class ConfirmResponse$Type extends MessageType<ConfirmResponse> {
             { no: 5, name: "methods", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 13 /*ScalarType.UINT32*/ }
         ]);
     }
-    create(value?: PartialMessage<ConfirmResponse>): ConfirmResponse {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.type = 0;
         message.errors = {};
         message.data = "";
         message.methods = [];
         if (value !== undefined)
-            reflectionMergePartial<ConfirmResponse>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: ConfirmResponse): ConfirmResponse {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -1089,8 +552,8 @@ class ConfirmResponse$Type extends MessageType<ConfirmResponse> {
         }
         return message;
     }
-    private binaryReadMap2(map: ConfirmResponse["errors"], reader: IBinaryReader, options: BinaryReadOptions): void {
-        let len = reader.uint32(), end = reader.pos + len, key: keyof ConfirmResponse["errors"] | undefined, val: ConfirmResponse["errors"][any] | undefined;
+    binaryReadMap2(map, reader, options) {
+        let len = reader.uint32(), end = reader.pos + len, key, val;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
@@ -1105,7 +568,7 @@ class ConfirmResponse$Type extends MessageType<ConfirmResponse> {
         }
         map[key ?? ""] = val ?? "";
     }
-    internalBinaryWrite(message: ConfirmResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* uint32 type = 1; */
         if (message.type !== 0)
             writer.tag(1, WireType.Varint).uint32(message.type);
@@ -1136,20 +599,20 @@ class ConfirmResponse$Type extends MessageType<ConfirmResponse> {
  */
 export const ConfirmResponse = new ConfirmResponse$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class LogoutRequest$Type extends MessageType<LogoutRequest> {
+class LogoutRequest$Type extends MessageType {
     constructor() {
         super("users.LogoutRequest", [
             { no: 1, name: "token", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
-    create(value?: PartialMessage<LogoutRequest>): LogoutRequest {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.token = "";
         if (value !== undefined)
-            reflectionMergePartial<LogoutRequest>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: LogoutRequest): LogoutRequest {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -1168,7 +631,7 @@ class LogoutRequest$Type extends MessageType<LogoutRequest> {
         }
         return message;
     }
-    internalBinaryWrite(message: LogoutRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* string token = 1; */
         if (message.token !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.token);
@@ -1183,7 +646,7 @@ class LogoutRequest$Type extends MessageType<LogoutRequest> {
  */
 export const LogoutRequest = new LogoutRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class Account$Type extends MessageType<Account> {
+class Account$Type extends MessageType {
     constructor() {
         super("users.Account", [
             { no: 1, name: "id", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
@@ -1200,8 +663,8 @@ class Account$Type extends MessageType<Account> {
             { no: 15, name: "updated_at", kind: "message", T: () => Timestamp }
         ]);
     }
-    create(value?: PartialMessage<Account>): Account {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.id = 0;
         message.name = "";
         message.surname = "";
@@ -1212,10 +675,10 @@ class Account$Type extends MessageType<Account> {
         message.timezone = 0;
         message.photo = new Uint8Array(0);
         if (value !== undefined)
-            reflectionMergePartial<Account>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Account): Account {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -1267,7 +730,7 @@ class Account$Type extends MessageType<Account> {
         }
         return message;
     }
-    internalBinaryWrite(message: Account, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* int32 id = 1; */
         if (message.id !== 0)
             writer.tag(1, WireType.Varint).int32(message.id);
@@ -1315,7 +778,7 @@ class Account$Type extends MessageType<Account> {
  */
 export const Account = new Account$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class Registration$Type extends MessageType<Registration> {
+class Registration$Type extends MessageType {
     constructor() {
         super("users.Registration", [
             { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
@@ -1328,8 +791,8 @@ class Registration$Type extends MessageType<Registration> {
             { no: 15, name: "expired_at", kind: "message", T: () => Timestamp }
         ]);
     }
-    create(value?: PartialMessage<Registration>): Registration {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.id = "";
         message.phone = "";
         message.type = 0;
@@ -1337,10 +800,10 @@ class Registration$Type extends MessageType<Registration> {
         message.timezone = 0;
         message.country = 0;
         if (value !== undefined)
-            reflectionMergePartial<Registration>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Registration): Registration {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -1380,7 +843,7 @@ class Registration$Type extends MessageType<Registration> {
         }
         return message;
     }
-    internalBinaryWrite(message: Registration, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* string id = 1; */
         if (message.id !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.id);
@@ -1416,7 +879,7 @@ class Registration$Type extends MessageType<Registration> {
  */
 export const Registration = new Registration$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class AccountShort$Type extends MessageType<AccountShort> {
+class AccountShort$Type extends MessageType {
     constructor() {
         super("users.AccountShort", [
             { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
@@ -1424,16 +887,16 @@ class AccountShort$Type extends MessageType<AccountShort> {
             { no: 4, name: "patronymic", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
-    create(value?: PartialMessage<AccountShort>): AccountShort {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.name = "";
         message.surname = "";
         message.patronymic = "";
         if (value !== undefined)
-            reflectionMergePartial<AccountShort>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: AccountShort): AccountShort {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -1458,7 +921,7 @@ class AccountShort$Type extends MessageType<AccountShort> {
         }
         return message;
     }
-    internalBinaryWrite(message: AccountShort, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* string name = 2; */
         if (message.name !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.name);
@@ -1479,31 +942,26 @@ class AccountShort$Type extends MessageType<AccountShort> {
  */
 export const AccountShort = new AccountShort$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class CheckCodeRequest$Type extends MessageType<CheckCodeRequest> {
+class CheckCodeRequest$Type extends MessageType {
     constructor() {
         super("users.CheckCodeRequest", [
-            { no: 1, name: "code", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 2, name: "phone", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "code", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
         ]);
     }
-    create(value?: PartialMessage<CheckCodeRequest>): CheckCodeRequest {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.code = 0;
-        message.phone = "";
         if (value !== undefined)
-            reflectionMergePartial<CheckCodeRequest>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: CheckCodeRequest): CheckCodeRequest {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
                 case /* int32 code */ 1:
                     message.code = reader.int32();
-                    break;
-                case /* string phone */ 2:
-                    message.phone = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -1516,13 +974,10 @@ class CheckCodeRequest$Type extends MessageType<CheckCodeRequest> {
         }
         return message;
     }
-    internalBinaryWrite(message: CheckCodeRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* int32 code = 1; */
         if (message.code !== 0)
             writer.tag(1, WireType.Varint).int32(message.code);
-        /* string phone = 2; */
-        if (message.phone !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.phone);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -1534,22 +989,22 @@ class CheckCodeRequest$Type extends MessageType<CheckCodeRequest> {
  */
 export const CheckCodeRequest = new CheckCodeRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class HasSessionRequest$Type extends MessageType<HasSessionRequest> {
+class HasSessionRequest$Type extends MessageType {
     constructor() {
         super("users.HasSessionRequest", [
             { no: 1, name: "sessionId", kind: "scalar", T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ },
             { no: 2, name: "accountId", kind: "scalar", T: 13 /*ScalarType.UINT32*/ }
         ]);
     }
-    create(value?: PartialMessage<HasSessionRequest>): HasSessionRequest {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.sessionId = 0n;
         message.accountId = 0;
         if (value !== undefined)
-            reflectionMergePartial<HasSessionRequest>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: HasSessionRequest): HasSessionRequest {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -1571,7 +1026,7 @@ class HasSessionRequest$Type extends MessageType<HasSessionRequest> {
         }
         return message;
     }
-    internalBinaryWrite(message: HasSessionRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* int64 sessionId = 1; */
         if (message.sessionId !== 0n)
             writer.tag(1, WireType.Varint).int64(message.sessionId);
@@ -1589,7 +1044,7 @@ class HasSessionRequest$Type extends MessageType<HasSessionRequest> {
  */
 export const HasSessionRequest = new HasSessionRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class RegisterRequest$Type extends MessageType<RegisterRequest> {
+class RegisterRequest$Type extends MessageType {
     constructor() {
         super("users.RegisterRequest", [
             { no: 1, name: "phone", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
@@ -1601,8 +1056,8 @@ class RegisterRequest$Type extends MessageType<RegisterRequest> {
             { no: 13, name: "timezone", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
         ]);
     }
-    create(value?: PartialMessage<RegisterRequest>): RegisterRequest {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.phone = "";
         message.name = "";
         message.surname = "";
@@ -1611,10 +1066,10 @@ class RegisterRequest$Type extends MessageType<RegisterRequest> {
         message.locale = 0;
         message.timezone = 0;
         if (value !== undefined)
-            reflectionMergePartial<RegisterRequest>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: RegisterRequest): RegisterRequest {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -1651,7 +1106,7 @@ class RegisterRequest$Type extends MessageType<RegisterRequest> {
         }
         return message;
     }
-    internalBinaryWrite(message: RegisterRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* string phone = 1; */
         if (message.phone !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.phone);
@@ -1684,7 +1139,7 @@ class RegisterRequest$Type extends MessageType<RegisterRequest> {
  */
 export const RegisterRequest = new RegisterRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class AccountEmail$Type extends MessageType<AccountEmail> {
+class AccountEmail$Type extends MessageType {
     constructor() {
         super("users.AccountEmail", [
             { no: 1, name: "id", kind: "scalar", T: 4 /*ScalarType.UINT64*/, L: 0 /*LongType.BIGINT*/ },
@@ -1694,16 +1149,16 @@ class AccountEmail$Type extends MessageType<AccountEmail> {
             { no: 5, name: "updated_at", kind: "message", T: () => Timestamp }
         ]);
     }
-    create(value?: PartialMessage<AccountEmail>): AccountEmail {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.id = 0n;
         message.email = "";
         message.isPrimary = false;
         if (value !== undefined)
-            reflectionMergePartial<AccountEmail>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: AccountEmail): AccountEmail {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -1734,7 +1189,7 @@ class AccountEmail$Type extends MessageType<AccountEmail> {
         }
         return message;
     }
-    internalBinaryWrite(message: AccountEmail, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* uint64 id = 1; */
         if (message.id !== 0n)
             writer.tag(1, WireType.Varint).uint64(message.id);
@@ -1761,7 +1216,7 @@ class AccountEmail$Type extends MessageType<AccountEmail> {
  */
 export const AccountEmail = new AccountEmail$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class AccountPhone$Type extends MessageType<AccountPhone> {
+class AccountPhone$Type extends MessageType {
     constructor() {
         super("users.AccountPhone", [
             { no: 1, name: "id", kind: "scalar", T: 4 /*ScalarType.UINT64*/, L: 0 /*LongType.BIGINT*/ },
@@ -1769,16 +1224,16 @@ class AccountPhone$Type extends MessageType<AccountPhone> {
             { no: 3, name: "is_primary", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
-    create(value?: PartialMessage<AccountPhone>): AccountPhone {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.id = 0n;
         message.phone = "";
         message.isPrimary = false;
         if (value !== undefined)
-            reflectionMergePartial<AccountPhone>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: AccountPhone): AccountPhone {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -1803,7 +1258,7 @@ class AccountPhone$Type extends MessageType<AccountPhone> {
         }
         return message;
     }
-    internalBinaryWrite(message: AccountPhone, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* uint64 id = 1; */
         if (message.id !== 0n)
             writer.tag(1, WireType.Varint).uint64(message.id);
@@ -1824,7 +1279,7 @@ class AccountPhone$Type extends MessageType<AccountPhone> {
  */
 export const AccountPhone = new AccountPhone$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class AccountRole$Type extends MessageType<AccountRole> {
+class AccountRole$Type extends MessageType {
     constructor() {
         super("users.AccountRole", [
             { no: 1, name: "id", kind: "scalar", T: 4 /*ScalarType.UINT64*/, L: 0 /*LongType.BIGINT*/ },
@@ -1834,17 +1289,17 @@ class AccountRole$Type extends MessageType<AccountRole> {
             { no: 5, name: "created_at", kind: "message", T: () => Timestamp }
         ]);
     }
-    create(value?: PartialMessage<AccountRole>): AccountRole {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.id = 0n;
         message.accountId = 0;
         message.role = "";
         message.order = 0;
         if (value !== undefined)
-            reflectionMergePartial<AccountRole>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: AccountRole): AccountRole {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -1875,7 +1330,7 @@ class AccountRole$Type extends MessageType<AccountRole> {
         }
         return message;
     }
-    internalBinaryWrite(message: AccountRole, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* uint64 id = 1; */
         if (message.id !== 0n)
             writer.tag(1, WireType.Varint).uint64(message.id);
@@ -1902,7 +1357,7 @@ class AccountRole$Type extends MessageType<AccountRole> {
  */
 export const AccountRole = new AccountRole$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class UpdateAccountDataRequest$Type extends MessageType<UpdateAccountDataRequest> {
+class UpdateAccountDataRequest$Type extends MessageType {
     constructor() {
         super("users.UpdateAccountDataRequest", [
             { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
@@ -1915,8 +1370,8 @@ class UpdateAccountDataRequest$Type extends MessageType<UpdateAccountDataRequest
             { no: 8, name: "timezone", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
         ]);
     }
-    create(value?: PartialMessage<UpdateAccountDataRequest>): UpdateAccountDataRequest {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.name = "";
         message.surname = "";
         message.patronymic = "";
@@ -1926,10 +1381,10 @@ class UpdateAccountDataRequest$Type extends MessageType<UpdateAccountDataRequest
         message.locale = 0;
         message.timezone = 0;
         if (value !== undefined)
-            reflectionMergePartial<UpdateAccountDataRequest>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: UpdateAccountDataRequest): UpdateAccountDataRequest {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -1969,7 +1424,7 @@ class UpdateAccountDataRequest$Type extends MessageType<UpdateAccountDataRequest
         }
         return message;
     }
-    internalBinaryWrite(message: UpdateAccountDataRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* string name = 1; */
         if (message.name !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.name);
@@ -2005,22 +1460,22 @@ class UpdateAccountDataRequest$Type extends MessageType<UpdateAccountDataRequest
  */
 export const UpdateAccountDataRequest = new UpdateAccountDataRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class PhoneManipulationRequest$Type extends MessageType<PhoneManipulationRequest> {
+class PhoneManipulationRequest$Type extends MessageType {
     constructor() {
         super("users.PhoneManipulationRequest", [
             { no: 1, name: "accountId", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
             { no: 2, name: "phone", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
-    create(value?: PartialMessage<PhoneManipulationRequest>): PhoneManipulationRequest {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.accountId = 0;
         message.phone = "";
         if (value !== undefined)
-            reflectionMergePartial<PhoneManipulationRequest>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: PhoneManipulationRequest): PhoneManipulationRequest {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -2042,7 +1497,7 @@ class PhoneManipulationRequest$Type extends MessageType<PhoneManipulationRequest
         }
         return message;
     }
-    internalBinaryWrite(message: PhoneManipulationRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* int32 accountId = 1; */
         if (message.accountId !== 0)
             writer.tag(1, WireType.Varint).int32(message.accountId);
@@ -2060,22 +1515,22 @@ class PhoneManipulationRequest$Type extends MessageType<PhoneManipulationRequest
  */
 export const PhoneManipulationRequest = new PhoneManipulationRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class EmailManipulationRequest$Type extends MessageType<EmailManipulationRequest> {
+class EmailManipulationRequest$Type extends MessageType {
     constructor() {
         super("users.EmailManipulationRequest", [
             { no: 1, name: "accountId", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
             { no: 2, name: "email", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
-    create(value?: PartialMessage<EmailManipulationRequest>): EmailManipulationRequest {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.accountId = 0;
         message.email = "";
         if (value !== undefined)
-            reflectionMergePartial<EmailManipulationRequest>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: EmailManipulationRequest): EmailManipulationRequest {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -2097,7 +1552,7 @@ class EmailManipulationRequest$Type extends MessageType<EmailManipulationRequest
         }
         return message;
     }
-    internalBinaryWrite(message: EmailManipulationRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* int32 accountId = 1; */
         if (message.accountId !== 0)
             writer.tag(1, WireType.Varint).int32(message.accountId);
@@ -2115,20 +1570,20 @@ class EmailManipulationRequest$Type extends MessageType<EmailManipulationRequest
  */
 export const EmailManipulationRequest = new EmailManipulationRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class GetSessionsRequest$Type extends MessageType<GetSessionsRequest> {
+class GetSessionsRequest$Type extends MessageType {
     constructor() {
         super("users.GetSessionsRequest", [
             { no: 1, name: "accountId", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
         ]);
     }
-    create(value?: PartialMessage<GetSessionsRequest>): GetSessionsRequest {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.accountId = 0;
         if (value !== undefined)
-            reflectionMergePartial<GetSessionsRequest>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetSessionsRequest): GetSessionsRequest {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -2147,7 +1602,7 @@ class GetSessionsRequest$Type extends MessageType<GetSessionsRequest> {
         }
         return message;
     }
-    internalBinaryWrite(message: GetSessionsRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* int32 accountId = 1; */
         if (message.accountId !== 0)
             writer.tag(1, WireType.Varint).int32(message.accountId);
@@ -2162,22 +1617,22 @@ class GetSessionsRequest$Type extends MessageType<GetSessionsRequest> {
  */
 export const GetSessionsRequest = new GetSessionsRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class GetSessionsResponse$Type extends MessageType<GetSessionsResponse> {
+class GetSessionsResponse$Type extends MessageType {
     constructor() {
         super("users.GetSessionsResponse", [
             { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
             { no: 2, name: "sessions", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => Session }
         ]);
     }
-    create(value?: PartialMessage<GetSessionsResponse>): GetSessionsResponse {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.status = 0;
         message.sessions = [];
         if (value !== undefined)
-            reflectionMergePartial<GetSessionsResponse>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetSessionsResponse): GetSessionsResponse {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -2199,7 +1654,7 @@ class GetSessionsResponse$Type extends MessageType<GetSessionsResponse> {
         }
         return message;
     }
-    internalBinaryWrite(message: GetSessionsResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* uint32 status = 1; */
         if (message.status !== 0)
             writer.tag(1, WireType.Varint).uint32(message.status);
@@ -2217,7 +1672,7 @@ class GetSessionsResponse$Type extends MessageType<GetSessionsResponse> {
  */
 export const GetSessionsResponse = new GetSessionsResponse$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class Session$Type extends MessageType<Session> {
+class Session$Type extends MessageType {
     constructor() {
         super("users.Session", [
             { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
@@ -2230,8 +1685,8 @@ class Session$Type extends MessageType<Session> {
             { no: 8, name: "used_at", kind: "message", T: () => Timestamp }
         ]);
     }
-    create(value?: PartialMessage<Session>): Session {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.id = "";
         message.accountId = 0;
         message.ip = "";
@@ -2239,10 +1694,10 @@ class Session$Type extends MessageType<Session> {
         message.device = 0;
         message.fcm = "";
         if (value !== undefined)
-            reflectionMergePartial<Session>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Session): Session {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -2282,7 +1737,7 @@ class Session$Type extends MessageType<Session> {
         }
         return message;
     }
-    internalBinaryWrite(message: Session, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* string id = 1; */
         if (message.id !== "")
             writer.tag(1, WireType.LengthDelimited).string(message.id);
@@ -2318,22 +1773,22 @@ class Session$Type extends MessageType<Session> {
  */
 export const Session = new Session$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class GetEmailsResponse$Type extends MessageType<GetEmailsResponse> {
+class GetEmailsResponse$Type extends MessageType {
     constructor() {
         super("users.GetEmailsResponse", [
             { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
             { no: 2, name: "emails", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => AccountEmail }
         ]);
     }
-    create(value?: PartialMessage<GetEmailsResponse>): GetEmailsResponse {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.status = 0;
         message.emails = [];
         if (value !== undefined)
-            reflectionMergePartial<GetEmailsResponse>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetEmailsResponse): GetEmailsResponse {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -2355,7 +1810,7 @@ class GetEmailsResponse$Type extends MessageType<GetEmailsResponse> {
         }
         return message;
     }
-    internalBinaryWrite(message: GetEmailsResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* uint32 status = 1; */
         if (message.status !== 0)
             writer.tag(1, WireType.Varint).uint32(message.status);
@@ -2373,22 +1828,22 @@ class GetEmailsResponse$Type extends MessageType<GetEmailsResponse> {
  */
 export const GetEmailsResponse = new GetEmailsResponse$Type();
 // @generated message type with reflection information, may provide speed optimized methods
-class GetPhonesResponse$Type extends MessageType<GetPhonesResponse> {
+class GetPhonesResponse$Type extends MessageType {
     constructor() {
         super("users.GetPhonesResponse", [
             { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
             { no: 2, name: "phones", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => AccountPhone }
         ]);
     }
-    create(value?: PartialMessage<GetPhonesResponse>): GetPhonesResponse {
-        const message = globalThis.Object.create((this.messagePrototype!));
+    create(value) {
+        const message = globalThis.Object.create((this.messagePrototype));
         message.status = 0;
         message.phones = [];
         if (value !== undefined)
-            reflectionMergePartial<GetPhonesResponse>(this, message, value);
+            reflectionMergePartial(this, message, value);
         return message;
     }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetPhonesResponse): GetPhonesResponse {
+    internalBinaryRead(reader, length, options, target) {
         let message = target ?? this.create(), end = reader.pos + length;
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
@@ -2410,7 +1865,7 @@ class GetPhonesResponse$Type extends MessageType<GetPhonesResponse> {
         }
         return message;
     }
-    internalBinaryWrite(message: GetPhonesResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+    internalBinaryWrite(message, writer, options) {
         /* uint32 status = 1; */
         if (message.status !== 0)
             writer.tag(1, WireType.Varint).uint32(message.status);
