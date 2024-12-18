@@ -267,9 +267,9 @@ export interface AccountShort {
  */
 export interface CheckCodeRequest {
     /**
-     * @generated from protobuf field: int32 code = 1;
+     * @generated from protobuf field: string code = 1;
      */
-    code: number;
+    code: string;
     /**
      * @generated from protobuf field: string phone = 2;
      */
@@ -1482,13 +1482,13 @@ export const AccountShort = new AccountShort$Type();
 class CheckCodeRequest$Type extends MessageType<CheckCodeRequest> {
     constructor() {
         super("users.CheckCodeRequest", [
-            { no: 1, name: "code", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 1, name: "code", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "phone", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<CheckCodeRequest>): CheckCodeRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.code = 0;
+        message.code = "";
         message.phone = "";
         if (value !== undefined)
             reflectionMergePartial<CheckCodeRequest>(this, message, value);
@@ -1499,8 +1499,8 @@ class CheckCodeRequest$Type extends MessageType<CheckCodeRequest> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* int32 code */ 1:
-                    message.code = reader.int32();
+                case /* string code */ 1:
+                    message.code = reader.string();
                     break;
                 case /* string phone */ 2:
                     message.phone = reader.string();
@@ -1517,9 +1517,9 @@ class CheckCodeRequest$Type extends MessageType<CheckCodeRequest> {
         return message;
     }
     internalBinaryWrite(message: CheckCodeRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int32 code = 1; */
-        if (message.code !== 0)
-            writer.tag(1, WireType.Varint).int32(message.code);
+        /* string code = 1; */
+        if (message.code !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.code);
         /* string phone = 2; */
         if (message.phone !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.phone);
