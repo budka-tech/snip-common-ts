@@ -276,6 +276,19 @@ export interface CheckCodeRequest {
     phone: string;
 }
 /**
+ * @generated from protobuf message users.CheckCodeResponse
+ */
+export interface CheckCodeResponse {
+    /**
+     * @generated from protobuf field: uint32 status = 1;
+     */
+    status: number;
+    /**
+     * @generated from protobuf field: optional users.Session session = 2;
+     */
+    session?: Session;
+}
+/**
  * @generated from protobuf message users.HasSessionRequest
  */
 export interface HasSessionRequest {
@@ -1533,6 +1546,60 @@ class CheckCodeRequest$Type extends MessageType<CheckCodeRequest> {
  * @generated MessageType for protobuf message users.CheckCodeRequest
  */
 export const CheckCodeRequest = new CheckCodeRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class CheckCodeResponse$Type extends MessageType<CheckCodeResponse> {
+    constructor() {
+        super("users.CheckCodeResponse", [
+            { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
+            { no: 2, name: "session", kind: "message", T: () => Session }
+        ]);
+    }
+    create(value?: PartialMessage<CheckCodeResponse>): CheckCodeResponse {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.status = 0;
+        if (value !== undefined)
+            reflectionMergePartial<CheckCodeResponse>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: CheckCodeResponse): CheckCodeResponse {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* uint32 status */ 1:
+                    message.status = reader.uint32();
+                    break;
+                case /* optional users.Session session */ 2:
+                    message.session = Session.internalBinaryRead(reader, reader.uint32(), options, message.session);
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: CheckCodeResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* uint32 status = 1; */
+        if (message.status !== 0)
+            writer.tag(1, WireType.Varint).uint32(message.status);
+        /* optional users.Session session = 2; */
+        if (message.session)
+            Session.internalBinaryWrite(message.session, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message users.CheckCodeResponse
+ */
+export const CheckCodeResponse = new CheckCodeResponse$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class HasSessionRequest$Type extends MessageType<HasSessionRequest> {
     constructor() {
