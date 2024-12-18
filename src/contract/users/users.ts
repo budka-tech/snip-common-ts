@@ -284,9 +284,13 @@ export interface CheckCodeResponse {
      */
     status: number;
     /**
-     * @generated from protobuf field: optional string token = 2;
+     * @generated from protobuf field: optional bytes token = 2;
      */
-    token?: string;
+    token?: Uint8Array;
+    /**
+     * @generated from protobuf field: optional users.Account account = 3;
+     */
+    account?: Account;
 }
 /**
  * @generated from protobuf message users.HasSessionRequest
@@ -1551,7 +1555,8 @@ class CheckCodeResponse$Type extends MessageType<CheckCodeResponse> {
     constructor() {
         super("users.CheckCodeResponse", [
             { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
-            { no: 2, name: "token", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ }
+            { no: 2, name: "token", kind: "scalar", opt: true, T: 12 /*ScalarType.BYTES*/ },
+            { no: 3, name: "account", kind: "message", T: () => Account }
         ]);
     }
     create(value?: PartialMessage<CheckCodeResponse>): CheckCodeResponse {
@@ -1569,8 +1574,11 @@ class CheckCodeResponse$Type extends MessageType<CheckCodeResponse> {
                 case /* uint32 status */ 1:
                     message.status = reader.uint32();
                     break;
-                case /* optional string token */ 2:
-                    message.token = reader.string();
+                case /* optional bytes token */ 2:
+                    message.token = reader.bytes();
+                    break;
+                case /* optional users.Account account */ 3:
+                    message.account = Account.internalBinaryRead(reader, reader.uint32(), options, message.account);
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -1587,9 +1595,12 @@ class CheckCodeResponse$Type extends MessageType<CheckCodeResponse> {
         /* uint32 status = 1; */
         if (message.status !== 0)
             writer.tag(1, WireType.Varint).uint32(message.status);
-        /* optional string token = 2; */
+        /* optional bytes token = 2; */
         if (message.token !== undefined)
-            writer.tag(2, WireType.LengthDelimited).string(message.token);
+            writer.tag(2, WireType.LengthDelimited).bytes(message.token);
+        /* optional users.Account account = 3; */
+        if (message.account)
+            Account.internalBinaryWrite(message.account, writer.tag(3, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
