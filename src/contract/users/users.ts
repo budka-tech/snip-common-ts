@@ -284,9 +284,9 @@ export interface CheckCodeResponse {
      */
     status: number;
     /**
-     * @generated from protobuf field: optional users.Session session = 2;
+     * @generated from protobuf field: optional string token = 2;
      */
-    session?: Session;
+    token?: string;
 }
 /**
  * @generated from protobuf message users.HasSessionRequest
@@ -1551,7 +1551,7 @@ class CheckCodeResponse$Type extends MessageType<CheckCodeResponse> {
     constructor() {
         super("users.CheckCodeResponse", [
             { no: 1, name: "status", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
-            { no: 2, name: "session", kind: "message", T: () => Session }
+            { no: 2, name: "token", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<CheckCodeResponse>): CheckCodeResponse {
@@ -1569,8 +1569,8 @@ class CheckCodeResponse$Type extends MessageType<CheckCodeResponse> {
                 case /* uint32 status */ 1:
                     message.status = reader.uint32();
                     break;
-                case /* optional users.Session session */ 2:
-                    message.session = Session.internalBinaryRead(reader, reader.uint32(), options, message.session);
+                case /* optional string token */ 2:
+                    message.token = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -1587,9 +1587,9 @@ class CheckCodeResponse$Type extends MessageType<CheckCodeResponse> {
         /* uint32 status = 1; */
         if (message.status !== 0)
             writer.tag(1, WireType.Varint).uint32(message.status);
-        /* optional users.Session session = 2; */
-        if (message.session)
-            Session.internalBinaryWrite(message.session, writer.tag(2, WireType.LengthDelimited).fork(), options).join();
+        /* optional string token = 2; */
+        if (message.token !== undefined)
+            writer.tag(2, WireType.LengthDelimited).string(message.token);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
